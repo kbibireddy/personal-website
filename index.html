@@ -2,17 +2,21 @@
 <head>
 
 <script type="text/javascript" src="//platform.linkedin.com/in.js">
-	api_key: 78g229cnx4zfje
-	authorize: true
-	onLoad: processRequest
+    api_key: 78g229cnx4zfje
+    authorize: true
+    onLoad: onLinkedInLoad
 </script>
-<script type = "text/javascript">
-	function processRequest(){
-	IN.Event.on(IN,"auth",getProfileData);
-	
-	}
-	function onSuccess(data) {
-        document.write(data);
+
+<script type="text/javascript">
+    
+    // Setup an event listener to make an API call once auth is complete
+    function onLinkedInLoad() {
+        IN.Event.on(IN, "auth", getProfileData);
+    }
+
+    // Handle the successful return from the API call
+    function onSuccess(data) {
+        console.log(data);
     }
 
     // Handle an error response from the API call
@@ -22,8 +26,7 @@
 
     // Use the API call wrapper to request the member's basic profile data
     function getProfileData() {
-		IN.API.Raw().url("https://api.linkedin.com/v1/people/~?format=json").method(GET).result(onSuccess).error(onError);
-        
+        IN.API.Raw("/people/~").result(onSuccess).error(onError);
     }
 
 </script>

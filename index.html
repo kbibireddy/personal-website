@@ -1,4 +1,23 @@
 <html>
+<head>
+
+<script type="text/javascript">
+
+var req= new XMLHttpRequest();
+req.open('GET',"https://api.linkedin.com/v1/people/~?oauth2_access_token=AQUV-HF6oCZX1dfu9ewvCdailgJAtvpQyXMiAcnJfr_rV7XjxNvWlQzQ6ZqyEJT96XrWDGhw1tjFpnR2AMLTug3A80FH9cvpgVd3Am7JAi0F8wk5xxK_6n9mbHUz0YHD5cHXXCUSI9eQrjqNHilGw0oG3jpEdJkdhOvOe6UjhVDIvwUkqWw&format=json HTTP/1.1",true);
+req.send();
+req.onreadystatechange=processRequest;
+
+function processRequest(e){
+	if(req.readyState == 4 && req.status == 200){
+	var response= JSON.parse(req.responseText);
+	alert(response)
+	}
+}
+</script>
+
+</head>
+
 <body>
 Welcome to my website
 </body>

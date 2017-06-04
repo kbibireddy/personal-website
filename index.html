@@ -1,40 +1,810 @@
+<!DOCTYPE HTML>
 <html>
-<head>
+	<head>
+		<title>Strata by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<script src="http://d3js.org/d3.v3.min.js"></script>
+		
+	</head>
+	<body id="top">
+		<!-- Header -->
+			<header id="header">
+				<div class="inner">
+					<a href="https://www.linkedin.com/in/kbibireddy/" class="av2"><img src="images/profile.jpg" alt="" /></a>
+					<h1><strong>KARTHIK BIBIREDDY</strong><br/> 
+					
+					</h1>
+					I am actively looking for full-time opportunities in <strong>DATA SCIENCE.</strong><br />
+				</div>
+			</header>
 
-<script type="text/javascript" src="//platform.linkedin.com/in.js">
-    api_key: 78g229cnx4zfje
-    authorize: true
-    onLoad: onLinkedInLoad
-</script>
+		<!-- Main -->
+			<div id="main">
 
-<script type="text/javascript">
-    
-    // Setup an event listener to make an API call once auth is complete
-    function onLinkedInLoad() {
-        IN.Event.on(IN, "auth", getProfileData);
-    }
+				<!-- One -->
+					<section id="one">
+						<header class="major">
+							<h2>Professional Summary</h2>
+						</header>
+						<p>Knowledgeable & experienced Software Engineer / Data Scientist with hands-on experience in all levels of development including data ingestion, ETL operations, data mining, machine learning, software development, performance, UX, and unit testing. Collaborative and enthusiastic team player dedicated to efficiently resolving project issues. </p>
+					</section>
+					
+					<section id="one">
+						<header class="major">
+							<h2>Skill-Set</h2>
+						</header>
+						<h3>Software Engineering</h3>
+						<section id="skone">
+						<script >
+						var svg = d3.select("#skone")
+							.append("svg")
+							.append("g")
 
-    // Handle the successful return from the API call
-    function onSuccess(data) {
-        console.log(data);
-    }
+						svg.append("g")
+							.attr("class", "slices");
+						svg.append("g")
+							.attr("class", "labels");
+						svg.append("g")
+							.attr("class", "lines");
 
-    // Handle an error response from the API call
-    function onError(error) {
-        console.log(error);
-    }
+						var width = 500,
+							height = 250,
+							radius = Math.min(width, height) / 2;
 
-    // Use the API call wrapper to request the member's basic profile data
-    function getProfileData() {
-        IN.API.Raw("/people/~").result(onSuccess).error(onError);
-    }
+						var pie = d3.layout.pie()
+							.sort(null)
+							.value(function(d) {
+								return d.value;
+							});
 
-</script>
+						var arc = d3.svg.arc()
+							.outerRadius(radius * 0.8)
+							.innerRadius(radius * 0.65);
 
-</head>
+						var outerArc = d3.svg.arc()
+							.innerRadius(radius * 0.9)
+							.outerRadius(radius * 0.9);
 
-<body>
-Welcome to my website2
-</body>
+						svg.attr("transform", "translate(" + width / 1.4 + "," + height / 2 + ")");
 
+						var key = function(d){ return d.data.label; };
+
+						var color = d3.scale.ordinal()
+							.domain(["JAVA", "C#", "SQL SERVER", "POSTGRESQL", "JAVASCRIPT","HTML 5", "CSS 3","MYSQL","ORACLE","UBUNTU"])
+							.range(["#E16C40", "#E17F40", "#E19C40", "#E1BA40", "#E1A640", "#E1D240", "#DDE140", "#E1BF40", "#E1D740", "#E1BF40"]);
+						var v=[0.2, 0.2, 0.2, 0.1, 0.15, 0.05, 0.05, 0.1,  0.07, 0.1]
+						function randomData (){
+							var labels = color.domain();
+							return labels.map(function(label){
+								return { label: label, value: Math.random() }
+							});
+						}
+
+						change(randomData());
+
+						d3.select(".randomize")
+							.on("click", function(){
+								change(randomData());
+							});
+
+
+						function change(data) {
+							for(var i=0; i< data.length; i++){
+							data[i].value=v[i]
+							
+							//document.write(e[1].value);
+							}
+							
+
+							/* ------- PIE SLICES -------*/
+							var slice = svg.select(".slices").selectAll("path.slice")
+								.data(pie(data), key);
+
+							slice.enter()
+								.insert("path")
+								.style("fill", function(d) { return color(d.data.label); })
+								.attr("class", "slice");
+
+							slice		
+								.transition().duration(1000)
+								.attrTween("d", function(d) {
+									this._current = this._current || d;
+									var interpolate = d3.interpolate(this._current, d);
+									this._current = interpolate(0);
+									return function(t) {
+										return arc(interpolate(t));
+									};
+								})
+
+							slice.exit()
+								.remove();
+
+							/* ------- TEXT LABELS -------*/
+
+							var text = svg.select(".labels").selectAll("text")
+								.data(pie(data), key);
+
+							text.enter()
+								.append("text")
+								.attr("dy", ".25em")
+								.text(function(d) {
+									return d.data.label;
+								});
+							
+							function midAngle(d){
+								return d.startAngle + (d.endAngle - d.startAngle)/2;
+							}
+
+							text.transition().duration(1000)
+								.attrTween("transform", function(d) {
+									this._current = this._current || d;
+									var interpolate = d3.interpolate(this._current, d);
+									this._current = interpolate(0);
+									return function(t) {
+										var d2 = interpolate(t);
+										var pos = outerArc.centroid(d2);
+										pos[0] = radius * (midAngle(d2) < Math.PI ? 1 : -1);
+										return "translate("+ pos +")";
+									};
+								})
+								.styleTween("text-anchor", function(d){
+									this._current = this._current || d;
+									var interpolate = d3.interpolate(this._current, d);
+									this._current = interpolate(0);
+									return function(t) {
+										var d2 = interpolate(t);
+										return midAngle(d2) < Math.PI ? "start":"end";
+									};
+								});
+
+							text.exit()
+								.remove();
+
+							/* ------- SLICE TO TEXT POLYLINES -------*/
+
+							var polyline = svg.select(".lines").selectAll("polyline")
+								.data(pie(data), key);
+							
+							polyline.enter()
+								.append("polyline");
+
+							polyline.transition().duration(1000)
+								.attrTween("points", function(d){
+									this._current = this._current || d;
+									var interpolate = d3.interpolate(this._current, d);
+									this._current = interpolate(0);
+									return function(t) {
+										var d2 = interpolate(t);
+										var pos = outerArc.centroid(d2);
+										pos[0] = radius * 0.95 * (midAngle(d2) < Math.PI ? 1 : -1);
+										return [arc.centroid(d2), outerArc.centroid(d2), pos];
+									};			
+								});
+							
+							polyline.exit()
+								.remove();
+						};
+						</script>
+						</section>
+						<h3>Frameworks</h3>
+						<section id="sktwo">
+						<script >
+						var svg = d3.select("#sktwo")
+							.append("svg")
+							.append("g")
+
+						svg.append("g")
+							.attr("class", "slices");
+						svg.append("g")
+							.attr("class", "labels");
+						svg.append("g")
+							.attr("class", "lines");
+
+						var width = 500,
+							height = 250,
+							radius = Math.min(width, height) / 2;
+
+						var pie = d3.layout.pie()
+							.sort(null)
+							.value(function(d) {
+								return d.value;
+							});
+
+						var arc = d3.svg.arc()
+							.outerRadius(radius * 0.8)
+							.innerRadius(radius * 0.65);
+
+						var outerArc = d3.svg.arc()
+							.innerRadius(radius * 0.9)
+							.outerRadius(radius * 0.9);
+
+						svg.attr("transform", "translate(" + width / 1.4 + "," + height / 2 + ")");
+
+						var key = function(d){ return d.data.label; };
+
+						var color = d3.scale.ordinal()
+							.domain(["ASP.NET 4.5", "ADO.NET & JDBC", "ADSI & JDNI", "IIS", "NUNIT & JUNIT","MVC","SPRING","NODE JS", "ANGULAR JS","JQUERY"])
+							.range(["#BFE140", "#D6AB27", "#88D340", "#86B433", "#4BB433", "#06614D", "#48A158", "#74D53C", "#119F22", "#3C9B61"]);
+						var v=[0.1, 0.25, 0.05, 0.1, 0.1, 0.05, 0.05, 0.1,  0.05, 0.05]
+						function randomData (){
+							var labels = color.domain();
+							return labels.map(function(label){
+								return { label: label, value: Math.random() }
+							});
+						}
+
+						change(randomData());
+
+						d3.select(".randomize")
+							.on("click", function(){
+								change(randomData());
+							});
+
+
+						function change(data) {
+							for(var i=0; i< data.length; i++){
+							data[i].value=v[i]
+							
+							//document.write(e[1].value);
+							}
+							
+
+							/* ------- PIE SLICES -------*/
+							var slice = svg.select(".slices").selectAll("path.slice")
+								.data(pie(data), key);
+
+							slice.enter()
+								.insert("path")
+								.style("fill", function(d) { return color(d.data.label); })
+								.attr("class", "slice");
+
+							slice		
+								.transition().duration(1000)
+								.attrTween("d", function(d) {
+									this._current = this._current || d;
+									var interpolate = d3.interpolate(this._current, d);
+									this._current = interpolate(0);
+									return function(t) {
+										return arc(interpolate(t));
+									};
+								})
+
+							slice.exit()
+								.remove();
+
+							/* ------- TEXT LABELS -------*/
+
+							var text = svg.select(".labels").selectAll("text")
+								.data(pie(data), key);
+
+							text.enter()
+								.append("text")
+								.attr("dy", ".25em")
+								.text(function(d) {
+									return d.data.label;
+								});
+							
+							function midAngle(d){
+								return d.startAngle + (d.endAngle - d.startAngle)/2;
+							}
+
+							text.transition().duration(1000)
+								.attrTween("transform", function(d) {
+									this._current = this._current || d;
+									var interpolate = d3.interpolate(this._current, d);
+									this._current = interpolate(0);
+									return function(t) {
+										var d2 = interpolate(t);
+										var pos = outerArc.centroid(d2);
+										pos[0] = radius * (midAngle(d2) < Math.PI ? 1 : -1);
+										return "translate("+ pos +")";
+									};
+								})
+								.styleTween("text-anchor", function(d){
+									this._current = this._current || d;
+									var interpolate = d3.interpolate(this._current, d);
+									this._current = interpolate(0);
+									return function(t) {
+										var d2 = interpolate(t);
+										return midAngle(d2) < Math.PI ? "start":"end";
+									};
+								});
+
+							text.exit()
+								.remove();
+
+							/* ------- SLICE TO TEXT POLYLINES -------*/
+
+							var polyline = svg.select(".lines").selectAll("polyline")
+								.data(pie(data), key);
+							
+							polyline.enter()
+								.append("polyline");
+
+							polyline.transition().duration(1000)
+								.attrTween("points", function(d){
+									this._current = this._current || d;
+									var interpolate = d3.interpolate(this._current, d);
+									this._current = interpolate(0);
+									return function(t) {
+										var d2 = interpolate(t);
+										var pos = outerArc.centroid(d2);
+										pos[0] = radius * 0.95 * (midAngle(d2) < Math.PI ? 1 : -1);
+										return [arc.centroid(d2), outerArc.centroid(d2), pos];
+									};			
+								});
+							
+							polyline.exit()
+								.remove();
+						};
+						</script>
+						</section>
+						<h3>Data Science</h3>
+						<section id="skthree">
+						<script >
+						var svg = d3.select("#skthree")
+							.append("svg")
+							.append("g")
+
+						svg.append("g")
+							.attr("class", "slices");
+						svg.append("g")
+							.attr("class", "labels");
+						svg.append("g")
+							.attr("class", "lines");
+
+						var width = 500,
+							height = 250,
+							radius = Math.min(width, height) / 2;
+
+						var pie = d3.layout.pie()
+							.sort(null)
+							.value(function(d) {
+								return d.value;
+							});
+
+						var arc = d3.svg.arc()
+							.outerRadius(radius * 0.8)
+							.innerRadius(radius * 0.65);
+
+						var outerArc = d3.svg.arc()
+							.innerRadius(radius * 0.9)
+							.outerRadius(radius * 0.9);
+
+						svg.attr("transform", "translate(" + width / 1.4 + "," + height / 2 + ")");
+
+						var key = function(d){ return d.data.label; };
+
+						var color = d3.scale.ordinal()
+							.domain(["PYTHON", "R", "MATLAB", "MONGO DB", "JSON, CSV & XML","HADOOP","HIVE","PIG", "AWS EMR","AWS S3"])
+							.range(["#3C409B", "#3C659B", "#0F468E", "#2A478E", "#3694BB", "#42929C", "#077F8E", "#3196AB", "#2B547D", "#074A8E"]);
+						var v=[0.35, 0.1, 0.1, 0.15, 0.2, 0.05, 0.05, 0.05,  0.15, 0.15]
+						function randomData (){
+							var labels = color.domain();
+							return labels.map(function(label){
+								return { label: label, value: Math.random() }
+							});
+						}
+
+						change(randomData());
+
+						d3.select(".randomize")
+							.on("click", function(){
+								change(randomData());
+							});
+
+
+						function change(data) {
+							for(var i=0; i< data.length; i++){
+							data[i].value=v[i]
+							
+							//document.write(e[1].value);
+							}
+							
+
+							/* ------- PIE SLICES -------*/
+							var slice = svg.select(".slices").selectAll("path.slice")
+								.data(pie(data), key);
+
+							slice.enter()
+								.insert("path")
+								.style("fill", function(d) { return color(d.data.label); })
+								.attr("class", "slice");
+
+							slice		
+								.transition().duration(1000)
+								.attrTween("d", function(d) {
+									this._current = this._current || d;
+									var interpolate = d3.interpolate(this._current, d);
+									this._current = interpolate(0);
+									return function(t) {
+										return arc(interpolate(t));
+									};
+								})
+
+							slice.exit()
+								.remove();
+
+							/* ------- TEXT LABELS -------*/
+
+							var text = svg.select(".labels").selectAll("text")
+								.data(pie(data), key);
+
+							text.enter()
+								.append("text")
+								.attr("dy", ".25em")
+								.text(function(d) {
+									return d.data.label;
+								});
+							
+							function midAngle(d){
+								return d.startAngle + (d.endAngle - d.startAngle)/2;
+							}
+
+							text.transition().duration(1000)
+								.attrTween("transform", function(d) {
+									this._current = this._current || d;
+									var interpolate = d3.interpolate(this._current, d);
+									this._current = interpolate(0);
+									return function(t) {
+										var d2 = interpolate(t);
+										var pos = outerArc.centroid(d2);
+										pos[0] = radius * (midAngle(d2) < Math.PI ? 1 : -1);
+										return "translate("+ pos +")";
+									};
+								})
+								.styleTween("text-anchor", function(d){
+									this._current = this._current || d;
+									var interpolate = d3.interpolate(this._current, d);
+									this._current = interpolate(0);
+									return function(t) {
+										var d2 = interpolate(t);
+										return midAngle(d2) < Math.PI ? "start":"end";
+									};
+								});
+
+							text.exit()
+								.remove();
+
+							/* ------- SLICE TO TEXT POLYLINES -------*/
+
+							var polyline = svg.select(".lines").selectAll("polyline")
+								.data(pie(data), key);
+							
+							polyline.enter()
+								.append("polyline");
+
+							polyline.transition().duration(1000)
+								.attrTween("points", function(d){
+									this._current = this._current || d;
+									var interpolate = d3.interpolate(this._current, d);
+									this._current = interpolate(0);
+									return function(t) {
+										var d2 = interpolate(t);
+										var pos = outerArc.centroid(d2);
+										pos[0] = radius * 0.95 * (midAngle(d2) < Math.PI ? 1 : -1);
+										return [arc.centroid(d2), outerArc.centroid(d2), pos];
+									};			
+								});
+							
+							polyline.exit()
+								.remove();
+						};
+						</script>
+						</section>
+						<h3>Libraries</h3>
+						<section id="skfour">
+						<script >
+						var svg = d3.select("#skfour")
+							.append("svg")
+							.append("g")
+
+						svg.append("g")
+							.attr("class", "slices");
+						svg.append("g")
+							.attr("class", "labels");
+						svg.append("g")
+							.attr("class", "lines");
+
+						var width = 500,
+							height = 250,
+							radius = Math.min(width, height) / 2;
+
+						var pie = d3.layout.pie()
+							.sort(null)
+							.value(function(d) {
+								return d.value;
+							});
+
+						var arc = d3.svg.arc()
+							.outerRadius(radius * 0.8)
+							.innerRadius(radius * 0.65);
+
+						var outerArc = d3.svg.arc()
+							.innerRadius(radius * 0.9)
+							.outerRadius(radius * 0.9);
+
+						svg.attr("transform", "translate(" + width / 1.4 + "," + height / 2 + ")");
+
+						var key = function(d){ return d.data.label; };
+
+						var color = d3.scale.ordinal()
+							.domain(["NUMPY", "PANDAS", "SCIPY", "MATPLOTLIB", "OPENCV","SCRAPY","SCIKIT-LEARN","nnet", "OCTAVE","e1071"])
+							.range(["#4F5EBF", "#624FBF", "#874FBF", "#232CA0", "#373B6D", "#200853", "#713A9C", "#600B6A", "#C48EC1", "#AB31A5"]);
+						var v=[0.15, 0.1, 0.05, 0.1, 0.1, 0.05, 0.05, 0.05,  0.05, 0.05]
+						function randomData (){
+							var labels = color.domain();
+							return labels.map(function(label){
+								return { label: label, value: Math.random() }
+							});
+						}
+
+						change(randomData());
+
+						d3.select(".randomize")
+							.on("click", function(){
+								change(randomData());
+							});
+
+
+						function change(data) {
+							for(var i=0; i< data.length; i++){
+							data[i].value=v[i]
+							
+							//document.write(e[1].value);
+							}
+							
+
+							/* ------- PIE SLICES -------*/
+							var slice = svg.select(".slices").selectAll("path.slice")
+								.data(pie(data), key);
+
+							slice.enter()
+								.insert("path")
+								.style("fill", function(d) { return color(d.data.label); })
+								.attr("class", "slice");
+
+							slice		
+								.transition().duration(1000)
+								.attrTween("d", function(d) {
+									this._current = this._current || d;
+									var interpolate = d3.interpolate(this._current, d);
+									this._current = interpolate(0);
+									return function(t) {
+										return arc(interpolate(t));
+									};
+								})
+
+							slice.exit()
+								.remove();
+
+							/* ------- TEXT LABELS -------*/
+
+							var text = svg.select(".labels").selectAll("text")
+								.data(pie(data), key);
+
+							text.enter()
+								.append("text")
+								.attr("dy", ".25em")
+								.text(function(d) {
+									return d.data.label;
+								});
+							
+							function midAngle(d){
+								return d.startAngle + (d.endAngle - d.startAngle)/2;
+							}
+
+							text.transition().duration(1000)
+								.attrTween("transform", function(d) {
+									this._current = this._current || d;
+									var interpolate = d3.interpolate(this._current, d);
+									this._current = interpolate(0);
+									return function(t) {
+										var d2 = interpolate(t);
+										var pos = outerArc.centroid(d2);
+										pos[0] = radius * (midAngle(d2) < Math.PI ? 1 : -1);
+										return "translate("+ pos +")";
+									};
+								})
+								.styleTween("text-anchor", function(d){
+									this._current = this._current || d;
+									var interpolate = d3.interpolate(this._current, d);
+									this._current = interpolate(0);
+									return function(t) {
+										var d2 = interpolate(t);
+										return midAngle(d2) < Math.PI ? "start":"end";
+									};
+								});
+
+							text.exit()
+								.remove();
+
+							/* ------- SLICE TO TEXT POLYLINES -------*/
+
+							var polyline = svg.select(".lines").selectAll("polyline")
+								.data(pie(data), key);
+							
+							polyline.enter()
+								.append("polyline");
+
+							polyline.transition().duration(1000)
+								.attrTween("points", function(d){
+									this._current = this._current || d;
+									var interpolate = d3.interpolate(this._current, d);
+									this._current = interpolate(0);
+									return function(t) {
+										var d2 = interpolate(t);
+										var pos = outerArc.centroid(d2);
+										pos[0] = radius * 0.95 * (midAngle(d2) < Math.PI ? 1 : -1);
+										return [arc.centroid(d2), outerArc.centroid(d2), pos];
+									};			
+								});
+							
+							polyline.exit()
+								.remove();
+						};
+						</script>
+						</section>
+					</section>
+
+				<!-- Two -->
+					<section id="two">
+						<header class="major">
+							<h2>Work Experience</h2>
+							<br/>
+						</header>
+						<h3>Research Assistant, (11/2015 – 05/2017) (1yr 7mos)</h3>
+						<h3>Data Analysis & Intelligent Systems Lab, University of Houston – Houston</h3>
+						<p>
+						<ul style="list-style-type:disc">
+						  <li>We have designed and implemented the real-time student performance evaluation and feedback system (RSPEF).</li>
+						  <li>Developed the front end of the application such as forms and interfaces using HTML5, CSS3, CSS and AgularJS.</li>
+						  <li>Worked with ER models, Relational Schemas to represent student and course information.</li>
+						  <li>Worked with SQL Server 2008 databases in writing PL-SQL stored procedures, triggers, views, and cursors.</li>
+						  <li>Worked with numpy and pandas libraries in python 3.4 and performed ETL operations to prepare data.</li>
+						  <li>Used Weka, R and Matlab to plot data, analyze and identify correlated features in the data.</li>
+						  <li>Developed API’s for Bayesian, Logistic Regression, Multi-Layer Neural Network and Random Forest Classifiers in JAVA.</li>
+						  <li>Developed a toolkit in JAVA to sequentially conduct and evaluate experiments using Weka and JDBC API.</li>
+						  <li>Built a logistic regression model to predict student grade points and determine poor performing students, early in the course.</li>
+						  <li>Developed responsive dashboards to display predictions and other statistical findings using HTML5, AngularJS, JavaScript and D3.</li>
+						</ul>
+						</p>
+						<br/>
+						<br/>
+						<h3>.NET Application Developer (Research Assistant), (04/2016 – 08/2016) (5mos)</h3>
+						<h3>Undergraduate Student Success Center, University of Houston - Houston</h3>
+						<p>
+						<ul style="list-style-type:disc">
+						  <li>Involved in designing database schema for exam scheduling system and developed the tables with relations.</li>
+						  <li>Worked on stored procedures, triggers for Web API services.</li>
+						  <li>Involved in designing  and developing UI using HTML5, JavaScript and CSS.</li>
+						  <li>Developed user authentication module using ADSI and ADO.NET.</li>
+						  <li>Used TELREK to compile and decompile production code.</li>
+						  <li>Involved in deployment of application using IIS server and fixed the issues that came across while integration.</li>
+						  <li>Participated in code reviews and helped in testing using NUNIT.</li>
+						  <li>Deployed scalable, highly available and modular software products and web applications such as Exam Scheduling System, Billing & Invoice System and maintained associated databases.</li>
+						  <li>Collaborated with developers and performance engineers to enhance supportability and identify performance bottlenecks.</li>
+						</ul>
+						</p>
+						<br/>
+						<br/>
+						<h3>Graduate Teaching Assistant, (09/2016 – 05/2017) (9mos)</h3>
+						<h3>Computer Science Department, University of Houston – Houston</h3>
+						<p>
+						<ul style="list-style-type:disc">
+						  <li>Worked as a graduate teaching assistant for the undergraduate level course, Introduction to Compute Science II, Java programming, and OOP's concepts.</li>
+						  <li>Helped with ongoing development and design of the curriculum in a manner supporting a interactive and scholarly approach to student learning.</li>
+						  <li>Apply departmental process related to peer advising and mentoring and provided support to faculty research projects.</li>
+						  <li>Helping the instructor conduct the course in a smooth manner and proctored 8 exams and 26 medium sized tests for two semesters.</li>
+						  <li>Participate in assessment process using a variety of methods and techniques and provided effective, timely and appropriate feedback to students.</li>
+						</ul>
+						</p>
+						<h4>Total Experience : 2 Years</h4>
+					</section>
+
+				<!-- Four -->
+				
+					<section id="four">
+					<header class="major">
+							<h2>Portfolio</h2>
+						</header>
+						<section>
+							<a href="images/proj1.jpg" ><p><span class="image left"><img src="images/proj1.jpg" alt="" /></span>Designed and implemented the real-time student performance evaluation and feedback system (RSPEF) to improve graduation rates at our university. RSPEF is an interactive, web-based system consisting of a Predictive Analysis System (PAS) that uses machine learning techniques to interpolate past student-performance into future, and the development of an Emergency Warning System (EWS) that identifies poor-performing students in courses. A unified representation of student-background and student-performance data is provided in form of a relational database schema that is suitable to be used to assess student’s performance across multiple courses. The system design includes core machine learning & data analysis engine, a relational database that is reusable across courses and an interactive web-based interface to continuously collect data and render data visualizations on to dashboards for users. This system can predict a student’s grade and identify poor performing students in very early stages of a course.</p></a>
+							<a href="https://github.com/kbibireddy/machine_learning/tree/master/gender_classification_from_blog_text" ><p><span class="image right"><img src="images/proj2.png" alt="" /></span>Determining the gender of the author of a paper, publication, letter or blog text can be very useful in criminal forensics, determining plagiarism, linguistic studies, pattern recognition etc. In this project, we develop a machine learning model trained from blog text examples using WEKA API to predict the gender of the author of a given text with a certain accuracy.In this project we had written code in java and stored datasets in an SQL database.</p></a>
+							<a href="https://github.com/kbibireddy/python/blob/master/Interpotale_time_series_data_python.py" ><p><span class="image left"><img src="images/proj3.jpeg" alt="" /></span>Time series data requires interpolation or has missing values when observations occur at wrong frequencies or noise interferes with data or may be the data is too granular or not.There are a large variety of ways to interpolate time series data, In our project, we fit a polynomial curve on our current data using the polyfit function from numPy library and then calculate the cost function for each instance in the dataset. We are required to learn only one parameter which is the degree or the polynomial.</p></a>
+							<a href="https://github.com/kbibireddy/python/tree/master/machine%20learning/Clustering" ><p><span class="image right"><img src="images/proj4.png" alt="" /></span>In this project we have acquired a sample car data set from UCI Dataset libraries and have built custom K-MEANS and Fuzzy K-MEANS clustering algorithms to cluster similar cars. The Fuzzy K-MEANS is also known as soft K-MEANS algorithm, which may allow clusters to overlap which means a point might belong to both cluster with a certain participation towards each cluster.</p></a>
+							<a href="https://github.com/kbibireddy/python/tree/master/machine%20learning/neural%20network" ><p><span class="image left"><img src="images/proj5.png" alt="" /></span>In this project, we had built a 3-layered neural network which can be easily scaled to N - layers. We have not used any builtin libraries like scikit-learn or WEKA. The code is written in Python 3.4 and numPy is the only library used in developing this NN. The NN uses back propagation to learn weights.</p></a>
+							<a href="https://github.com/kbibireddy/python/tree/master/Restful_app" ><p><span class="image right"><img src="images/proj6.png" alt="" /></span>Registered an application with twitter's REST API, using python with the help of libraries like tweepy and NLTK we connect to the API and request the latest tweets with a certain key word given by the user. The tweets are collected in real time and most common words are counted. A hash map is generated and later converted into JSON format. Using Vincent.js libraries we plot a histogram with frequencies against tending words.</p></a>
+							<a href="https://github.com/kbibireddy/python/tree/master/jobsearch_algorithm" ><p><span class="image left"><img src="images/proj7.jpg" alt="" /></span>Developed a Python toolkit to scrape Indeed.com using user recommended job title and location. Live job posts up to 4 days are scraped. The job description is compared with user's resume using nltk, and a similarity score is generated. Also, skills and experience are identified from the job description and a score is computed. Other scores such as turn-on and turn-off score are computed based on user requirements. A list is prepared in CSV format with all scraped job posts, titles, asking experience, respective scores and a link to apply.</p></a>
+					</section>
+					</section>
+					
+				<!-- Four1 -->
+				
+					<section id="four1">
+					<header class="major">
+							<h2>Education</h2>
+					</header>
+					<h3>Master's Degree in Computer Science (AUG 2015 - MAY 2017)</h3>
+					<h3>University of Houston - Main Campus, Houston TX</h3>
+					<ul style="list-style-type:disc">
+					  <li>3.25 GPA (30 credit hours including 6 research hours).</li>
+					  <li>Coursework in DBMS, Machine Learning, Artificial Intelligence, Computer Vision, Visualization & Cloud Computing.</li>
+					  <li>The game Wanted  developed as a part of coursework in Game Development, Qualified for Microsoft Imagine Cup 2016</li>
+					</ul>	
+					<br/>
+					<br/>
+					<h3>Bachelors's Degree in Computer Science (AUG 2011 - MAY 2015)</h3>
+					<h3>SRM University - Main Campus, Chennai TN INDIA</h3>
+					<ul style="list-style-type:disc">
+					  <li>8.0 CGPA.</li>
+					  <li>Computational Science and Engineering Coursework in Data Structures, Operating Systems, Theory of Computation, Microprocessor, Algorithms, Compiler Design, Computer Networks, Artificial Intelligence, DBMS, Linux, Mobile Computing, Software Engineering, Data Mining & Internet Security.</li>
+					</ul>
+
+					</section>
+
+				<!-- Three -->
+					<section id="three">
+						<h2>Get In Touch</h2>
+						<div class="row">
+							<div class="8u 12u$(small)">
+								<form method="post" action="https://postmail.invotes.com/send" id="email_form">
+									<div class="row uniform 50%">
+										<div class="6u 12u$(xsmall)"><input type="text" name="name" id="name" placeholder="Name" /></div>
+										<div class="6u$ 12u$(xsmall)"><input type="email" name="email" id="email" placeholder="Email" /></div>
+										<div class="12u$"><textarea name="message" id="message" placeholder="Message" rows="4"></textarea></div>
+									</div>
+								</form>
+								<ul class="actions">
+									<li><input type="submit" value="Send Message" /></li>
+								</ul>
+							</div>
+							<div class="4u$ 12u$(small)">
+								<ul class="labeled-icons">
+									<li>
+										<h3 class="icon fa-home"><span class="label">Address</span></h3>
+										2111 Holly Hall St.<br />
+										Houston, TX 77054<br />
+										United States
+									</li>
+									<li>
+										<h3 class="icon fa-envelope-o"><span class="label">Email</span></h3>
+										<a href="#">kbibireddy@uh.edu</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</section>
+
+				
+				
+
+			</div>
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+					<ul class="icons">
+						<li><a href="https://www.linkedin.com/in/kbibireddy/" class="icon fa-linkedin-square" aria-hidden="true"><span class="label">LinkedIn</span></a></li>
+						<li><a href="https://github.com/kbibireddy/" class="icon fa-github"><span class="label">Github</span></a></li>
+						<li><a href="https://www.facebook.com/karthik.bibireddy" class="icon fa-facebook-square"><span class="label">Facebook</span></a></li>
+						<li><a href="mailto:kbibireddy@uh" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; bibireddy (CC:HTML5UP)</li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.poptrox.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
 </html>

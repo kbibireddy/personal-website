@@ -5,7 +5,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="assets/css/main.css" />
-		
+		<!--<script src="http://d3js.org/d3.v3.min.js"></script>-->
 		<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
 		
 	</head>
@@ -69,7 +69,7 @@
 							.outerRadius(radius * 0.9);
 
 
-						svg.attr("transform", "translate(" + width / 1.4 + "," + height / 2 + ")");
+						svg.attr("transform", "translate(" + width / 2.5 + "," + height / 2 + "),scale(0.6)");
 
 						var key = function(d){ return d.data.label; };
 
@@ -222,14 +222,14 @@
 							.innerRadius(radius * 0.9)
 							.outerRadius(radius * 0.9);
 
-						svg.attr("transform", "translate(" + width / 1.4 + "," + height / 2 + ")");
+						svg.attr("transform", "translate(" + width / 2.5 + "," + height / 2 + "),scale(0.6)");
 
 						var key = function(d){ return d.data.label; };
 
 						var color = d3.scale.ordinal()
 							.domain(["ASP.NET 4.5", "ADO.NET & JDBC", "ADSI & JDNI", "IIS", "NUNIT & JUNIT","MVC","SPRING","NODE JS", "ANGULAR JS","JQUERY"])
 							.range(["#BFE140", "#D6AB27", "#88D340", "#86B433", "#4BB433", "#06614D", "#48A158", "#74D53C", "#119F22", "#3C9B61"]);
-						var v=[0.1, 0.25, 0.05, 0.1, 0.1, 0.05, 0.05, 0.1,  0.05, 0.05]
+						var v=[0.2, 0.2, 0.05, 0.15, 0.05, 0.04, 0.03, 0.1,  0.1, 0.1]
 						function randomData (){
 							var labels = color.domain();
 							return labels.map(function(label){
@@ -375,7 +375,7 @@
 							.innerRadius(radius * 0.9)
 							.outerRadius(radius * 0.9);
 
-						svg.attr("transform", "translate(" + width / 1.4 + "," + height / 2 + ")");
+						svg.attr("transform", "translate(" + width / 2.5 + "," + height / 2 + "),scale(0.6)");
 
 						var key = function(d){ return d.data.label; };
 
@@ -528,14 +528,14 @@
 							.innerRadius(radius * 0.9)
 							.outerRadius(radius * 0.9);
 
-						svg.attr("transform", "translate(" + width / 1.4 + "," + height / 2 + ")");
+						svg.attr("transform", "translate(" + width / 2.5 + "," + height / 2 + "),scale(0.6)");
 
 						var key = function(d){ return d.data.label; };
 
 						var color = d3.scale.ordinal()
 							.domain(["NUMPY", "PANDAS", "SCIPY", "MATPLOTLIB", "OPENCV","SCRAPY","SCIKIT-LEARN","nnet", "OCTAVE","e1071"])
 							.range(["#4F5EBF", "#624FBF", "#874FBF", "#232CA0", "#373B6D", "#200853", "#713A9C", "#600B6A", "#C48EC1", "#AB31A5"]);
-						var v=[0.15, 0.1, 0.05, 0.1, 0.1, 0.05, 0.05, 0.05,  0.05, 0.05]
+						var v=[0.15, 0.1, 0.05, 0.1, 0.1, 0.05, 0.05, 0.05,  0.05, 0.1]
 						function randomData (){
 							var labels = color.domain();
 							return labels.map(function(label){

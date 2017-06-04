@@ -5,8 +5,8 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="assets/css/main.css" />
-		
-		<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+		<script src="https://d3js.org/d3.v3.min.js"></script>
+		<!--<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>-->
 		
 	</head>
 	<body id="top">
@@ -40,8 +40,10 @@
 						<section id="skone">
 						<script >
 						var svg = d3.select("#skone")
+							.classed("svg-container", true)
 							.append("svg")
 							.append("g")
+
 
 						svg.append("g")
 							.attr("class", "slices");
@@ -51,7 +53,7 @@
 							.attr("class", "lines");
 
 						var width = 500,
-							height = 250,
+							height = 150,
 							radius = Math.min(width, height) / 2;
 
 						var pie = d3.layout.pie()
@@ -69,7 +71,7 @@
 							.outerRadius(radius * 0.9);
 
 
-						svg.attr("transform", "translate(" + width / 1.4 + "," + height / 2 + ")");
+						svg.attr("transform", "translate(" + width / 3.3 + "," + height / 2 + ") scale(0.9)");
 
 						var key = function(d){ return d.data.label; };
 
@@ -205,7 +207,7 @@
 							.attr("class", "lines");
 
 						var width = 500,
-							height = 250,
+							height = 150,
 							radius = Math.min(width, height) / 2;
 
 						var pie = d3.layout.pie()
@@ -213,7 +215,6 @@
 							.value(function(d) {
 								return d.value;
 							});
-
 						var arc = d3.svg.arc()
 							.outerRadius(radius * 0.8)
 							.innerRadius(radius * 0.65);
@@ -222,14 +223,15 @@
 							.innerRadius(radius * 0.9)
 							.outerRadius(radius * 0.9);
 
-						svg.attr("transform", "translate(" + width / 1.4 + "," + height / 2 + ")");
+
+						svg.attr("transform", "translate(" + width / 3.3 + "," + height / 2 + ") scale(0.9)");
 
 						var key = function(d){ return d.data.label; };
 
 						var color = d3.scale.ordinal()
 							.domain(["ASP.NET 4.5", "ADO.NET & JDBC", "ADSI & JDNI", "IIS", "NUNIT & JUNIT","MVC","SPRING","NODE JS", "ANGULAR JS","JQUERY"])
 							.range(["#BFE140", "#D6AB27", "#88D340", "#86B433", "#4BB433", "#06614D", "#48A158", "#74D53C", "#119F22", "#3C9B61"]);
-						var v=[0.1, 0.25, 0.05, 0.1, 0.1, 0.05, 0.05, 0.1,  0.05, 0.05]
+						var v=[0.1, 0.25, 0.05, 0.1, 0.1, 0.05, 0.05, 0.1,  0.15, 0.05]
 						function randomData (){
 							var labels = color.domain();
 							return labels.map(function(label){
@@ -358,7 +360,7 @@
 							.attr("class", "lines");
 
 						var width = 500,
-							height = 250,
+							height = 150,
 							radius = Math.min(width, height) / 2;
 
 						var pie = d3.layout.pie()
@@ -367,7 +369,7 @@
 								return d.value;
 							});
 
-						var arc = d3.svg.arc()
+					var arc = d3.svg.arc()
 							.outerRadius(radius * 0.8)
 							.innerRadius(radius * 0.65);
 
@@ -375,7 +377,8 @@
 							.innerRadius(radius * 0.9)
 							.outerRadius(radius * 0.9);
 
-						svg.attr("transform", "translate(" + width / 1.4 + "," + height / 2 + ")");
+
+						svg.attr("transform", "translate(" + width / 3.3 + "," + height / 2 + ") scale(0.9)");
 
 						var key = function(d){ return d.data.label; };
 
@@ -511,7 +514,7 @@
 							.attr("class", "lines");
 
 						var width = 500,
-							height = 250,
+							height = 150,
 							radius = Math.min(width, height) / 2;
 
 						var pie = d3.layout.pie()
@@ -528,7 +531,8 @@
 							.innerRadius(radius * 0.9)
 							.outerRadius(radius * 0.9);
 
-						svg.attr("transform", "translate(" + width / 1.4 + "," + height / 2 + ")");
+
+						svg.attr("transform", "translate(" + width / 3.3 + "," + height / 2 + ") scale(0.9)");
 
 						var key = function(d){ return d.data.label; };
 

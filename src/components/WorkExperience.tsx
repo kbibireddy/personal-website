@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { Theme } from '@/types/theme';
 import { getCardBgClass } from '@/utils/theme';
+import { FaBuilding, FaCalendar } from 'react-icons/fa';
 import resumeData from '@/data/resume.json'
 
 interface WorkExperienceProps {
@@ -9,26 +10,35 @@ interface WorkExperienceProps {
 
 export default function WorkExperience({ theme }: WorkExperienceProps) {
   return (
-    <section className="mb-12">
-      <h2 className="text-2xl font-bold mb-4">Work Experience</h2>
-      <div className={`${getCardBgClass(theme)} backdrop-blur-sm rounded-lg p-6`}>
-        {resumeData.workExperience.map((job, index) => (
-          <div key={index} className={`${index !== 0 ? 'mt-8' : ''}`}>
-            <div className="flex justify-between items-start">
-              <div>
-                <h3 className="text-xl font-semibold text-current">{job.company}</h3>
-                <p className="text-current/80">{job.title}</p>
-              </div>
-              <p className="text-current/80">{job.period}</p>
+    <div className="space-y-6">
+      {resumeData.workExperience.map((job, index) => (
+        <motion.div
+          key={index}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: index * 0.1 }}
+          className={`${getCardBgClass(theme)} backdrop-blur-sm rounded-lg p-6`}
+        >
+          <div className="flex justify-between items-start mb-4">
+            <div>
+              <h3 className="text-xl font-semibold text-current flex items-center gap-2">
+                <FaBuilding />
+                {job.company}
+              </h3>
+              <p className="text-current/80">{job.title}</p>
             </div>
-            <ul className="mt-4 list-disc list-inside text-current/90">
-              {job.description.map((desc, i) => (
-                <li key={i} className="mb-2">{desc}</li>
-              ))}
-            </ul>
+            <p className="text-current/80 flex items-center gap-2">
+              <FaCalendar />
+              {job.period}
+            </p>
           </div>
-        ))}
-      </div>
-    </section>
+          <ul className="list-disc list-inside text-current/90 space-y-2">
+            {job.description.map((desc, i) => (
+              <li key={i} className="leading-relaxed">{desc}</li>
+            ))}
+          </ul>
+        </motion.div>
+      ))}
+    </div>
   );
 } 

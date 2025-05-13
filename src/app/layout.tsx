@@ -21,8 +21,8 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Karthik Bibireddy - Data Scientist & Software Engineer',
-  description: 'Personal website of Karthik Bibireddy, showcasing professional experience, projects, and skills in Data Science and Software Engineering.',
+  title: 'Karthik Bibireddy - Senior Software Engineer | Aspiring Quantitative Developer',
+  description: 'Personal website of Karthik Bibireddy, showcasing professional experience, projects, and skills in Software Engineering and Quantitative Development.',
 }
 
 export default function RootLayout({

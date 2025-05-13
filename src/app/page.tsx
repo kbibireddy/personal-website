@@ -1,5 +1,5 @@
 "use client";
-import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa'
+import { FaGithub, FaLinkedin, FaEnvelope, FaMapMarkerAlt, FaBriefcase, FaGraduationCap, FaTools, FaCode, FaDatabase, FaCloud, FaServer, FaBrain, FaChartLine, FaCogs, FaProjectDiagram } from 'react-icons/fa'
 import { motion } from 'framer-motion'
 import { useState } from 'react';
 import WorkExperience from '@/components/WorkExperience'
@@ -115,6 +115,11 @@ export default function Home() {
               I am an <span className={`font-bold bg-gradient-to-r ${getAccentClasses(theme)} text-transparent bg-clip-text`}>{resumeData.headline}</span>
             </p>
 
+            <p className="text-lg mb-4 text-current/80 flex items-center gap-2">
+              <FaMapMarkerAlt className="text-xl" />
+              {resumeData.contact.location}
+            </p>
+
             <div className="flex items-center space-x-6">
               <motion.a
                 href={resumeData.contact.github}
@@ -151,12 +156,19 @@ export default function Home() {
             </p>
           </section>
 
-          <section id="experience">
+          <section id="experience" className="mb-12">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+              <FaBriefcase className="text-2xl" />
+              Work Experience
+            </h2>
             <WorkExperience theme={theme} />
           </section>
 
           <section id="education" className="mb-12">
-            <h2 className="text-2xl font-bold mb-4">Education</h2>
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+              <FaGraduationCap className="text-2xl" />
+              Education
+            </h2>
             <div className={`${getCardBgClass(theme)} backdrop-blur-sm rounded-lg p-6`}>
               {resumeData.education.map((edu, index) => (
                 <div key={index} className={index === 0 ? "mb-6" : ""}>
@@ -170,57 +182,95 @@ export default function Home() {
           </section>
 
           <section id="skills" className="mb-12">
-            <h2 className="text-2xl font-bold mb-4">Skills</h2>
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+              <FaTools className="text-2xl" />
+              Skills
+            </h2>
             <div className={`${getCardBgClass(theme)} backdrop-blur-sm rounded-lg p-6`}>
-              <div className="flex flex-wrap gap-3">
-                {resumeData.skills
-                  .sort((a, b) => b.proficiency - a.proficiency)
-                  .map((skill) => (
-                    <div
-                      key={skill.name}
-                      className="relative group"
-                    >
-                      <div
-                        className={`
-                          absolute -inset-0.5
-                          bg-gradient-to-r ${getAccentClasses(theme)}
-                          rounded-full
-                          opacity-0 group-hover:opacity-100
-                          blur
-                          transition-opacity duration-200
-                        `}
-                        style={{
-                          opacity: skill.proficiency * 0.08
-                        }}
-                      />
-                      <div className={`
-                        relative z-10
-                        px-4 py-2 rounded-full
-                        text-sm font-medium
-                        transition-all duration-200
-                        ${getCardBgClass(theme)}
-                        hover:bg-opacity-80
-                        text-current
-                        flex items-center gap-2
-                      `}>
-                        {skill.name}
-                        <span className={`
-                          inline-flex items-center justify-center
-                          w-5 h-5 rounded-full
-                          text-xs font-bold
-                          bg-gradient-to-r ${getAccentClasses(theme)}
-                          text-white
-                        `}>
-                          {skill.proficiency}
-                        </span>
-                      </div>
+              {Object.entries(
+                resumeData.skills.reduce((acc, skill) => {
+                  if (!acc[skill.category]) {
+                    acc[skill.category] = [];
+                  }
+                  acc[skill.category].push(skill);
+                  return acc;
+                }, {} as Record<string, typeof resumeData.skills>)
+              ).map(([category, skills]) => {
+                const getCategoryIcon = (cat: string) => {
+                  switch (cat) {
+                    case 'Languages': return <FaCode />;
+                    case 'Data': return <FaDatabase />;
+                    case 'Cloud': return <FaCloud />;
+                    case 'Backend': return <FaServer />;
+                    case 'AI/ML': return <FaBrain />;
+                    case 'Finance': return <FaChartLine />;
+                    case 'Architecture': return <FaCogs />;
+                    default: return <FaProjectDiagram />;
+                  }
+                };
+
+                return (
+                  <div key={category} className="mb-6 last:mb-0">
+                    <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
+                      {getCategoryIcon(category)}
+                      {category}
+                    </h3>
+                    <div className="flex flex-wrap gap-3">
+                      {skills
+                        .sort((a, b) => b.proficiency - a.proficiency)
+                        .map((skill) => (
+                          <div
+                            key={skill.name}
+                            className="relative group"
+                          >
+                            <div
+                              className={`
+                                absolute -inset-0.5
+                                bg-gradient-to-r ${getAccentClasses(theme)}
+                                rounded-full
+                                opacity-0 group-hover:opacity-100
+                                blur
+                                transition-opacity duration-200
+                              `}
+                              style={{
+                                opacity: skill.proficiency * 0.08
+                              }}
+                            />
+                            <div className={`
+                              relative z-10
+                              px-4 py-2 rounded-full
+                              text-sm font-medium
+                              transition-all duration-200
+                              ${getCardBgClass(theme)}
+                              hover:bg-opacity-80
+                              text-current
+                              flex items-center gap-2
+                            `}>
+                              {skill.name}
+                              <span className={`
+                                inline-flex items-center justify-center
+                                w-5 h-5 rounded-full
+                                text-xs font-bold
+                                bg-gradient-to-r ${getAccentClasses(theme)}
+                                text-white
+                              `}>
+                                {skill.proficiency}
+                              </span>
+                            </div>
+                          </div>
+                      ))}
                     </div>
-                ))}
-              </div>
+                  </div>
+                )
+              })}
             </div>
           </section>
 
           <section id="portfolio">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+              <FaProjectDiagram className="text-2xl" />
+              Portfolio
+            </h2>
             <Portfolio theme={theme} />
           </section>
         </motion.div>

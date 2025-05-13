@@ -44,7 +44,7 @@ export default function TableOfContents({ theme }: Props) {
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5 }}
-      className="fixed left-4 top-1/2 transform -translate-y-1/2 z-50"
+      className="fixed left-4 top-1/2 transform -translate-y-1/2 z-50 hidden lg:block"
     >
       <ul className="space-y-2">
         {sections.map((section) => (
@@ -54,7 +54,7 @@ export default function TableOfContents({ theme }: Props) {
             className={`
               cursor-pointer rounded-lg px-4 py-2
               transition-all duration-300 ease-in-out
-              backdrop-blur-sm
+              backdrop-blur-sm text-sm
               ${getThemeClasses(theme)}
             `}
             onClick={() => scrollToSection(section.id)}

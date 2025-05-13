@@ -1,0 +1,16 @@
+{
+  "projects": [
+    {
+      "title": "Technical Analysis Platform for Financial Markets (TAPFM)",
+      "period": "2022 – Present",
+      "description": [
+        "Designed and developed a personal project for backtesting and analyzing trading strategies using real-world financial data.",
+        "Implemented event-driven data fetching with AWS Lambda and S3, storing and processing historical market data.",
+        "Built ETL jobs for sentiment scoring, indicator computation, and strategy evaluation.",
+        "Created a dashboard for midterm decision support, along with a strategy development and backtesting toolkit."
+      ],
+      "technologies": ["Python", "AWS Lambda", "S3", "React", "TypeScript"],
+      "link": "https://github.com/kbibireddy/tapfm"
+    }
+  ]
+} 

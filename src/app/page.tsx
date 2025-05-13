@@ -1,5 +1,5 @@
 "use client";
-import { FaGithub, FaLinkedin, FaEnvelope, FaMapMarkerAlt, FaBriefcase, FaGraduationCap, FaTools, FaCode, FaDatabase, FaCloud, FaServer, FaBrain, FaChartLine, FaCogs, FaProjectDiagram } from 'react-icons/fa'
+import { FaGithub, FaLinkedin, FaEnvelope, FaMapMarkerAlt, FaBriefcase, FaGraduationCap, FaTools, FaCode, FaDatabase, FaCloud, FaServer, FaBrain, FaChartLine, FaCogs, FaProjectDiagram, FaDownload, FaFileWord, FaFilePdf } from 'react-icons/fa'
 import { motion } from 'framer-motion'
 import { useState } from 'react';
 import WorkExperience from '@/components/WorkExperience'
@@ -11,6 +11,10 @@ import ElectronicSpark from '@/components/ElectronicSpark'
 import resumeData from '@/data/resume.json'
 import { Theme } from '@/types/theme'
 import { getThemeClasses, getAccentClasses, getCardBgClass } from '@/utils/theme'
+import PDFResume from '@/components/PDFResume'
+import { generatePDF } from '@/utils/pdf'
+import { generateDOCX } from '@/utils/docx'
+import { Resume } from '@/types/resume';
 
 const skillCategories = {
   languages: ['Python', 'Java', 'C++', 'JavaScript'],
@@ -146,6 +150,24 @@ export default function Home() {
               >
                 <FaEnvelope />
               </motion.a>
+              <div className="flex gap-2">
+                <motion.button
+                  onClick={() => generatePDF()}
+                  whileHover={{ scale: 1.1 }}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r ${getAccentClasses(theme)} text-white text-sm font-medium transition-transform`}
+                >
+                  <FaFilePdf />
+                  PDF
+                </motion.button>
+                <motion.button
+                  onClick={() => generateDOCX(resumeData as Resume)}
+                  whileHover={{ scale: 1.1 }}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r ${getAccentClasses(theme)} text-white text-sm font-medium transition-transform`}
+                >
+                  <FaFileWord />
+                  DOCX
+                </motion.button>
+              </div>
             </div>
           </div>
 
@@ -275,6 +297,7 @@ export default function Home() {
           </section>
         </motion.div>
       </div>
+      <PDFResume data={resumeData as Resume} />
     </main>
   )
 } 

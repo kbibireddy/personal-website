@@ -147,4 +147,64 @@
     filter: none !important;
     box-shadow: none !important;
   }
+}
+
+/* Print and PDF styles */
+.print-avoid-break {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.print-friendly {
+  /* Existing print-friendly styles */
+  a {
+    color: black !important;
+    text-decoration: none !important;
+  }
+
+  /* Remove gradients and animations */
+  * {
+    background: none !important;
+    animation: none !important;
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
+    -webkit-text-fill-color: black !important;
+  }
+
+  /* Ensure proper list formatting */
+  ul {
+    padding-left: 1.25em !important;
+    list-style-type: disc !important;
+  }
+
+  li {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    margin-bottom: 0.25em !important;
+  }
+
+  /* Contact info formatting */
+  .contact-info {
+    margin: 0.5em 0 1em !important;
+    display: flex !important;
+    justify-content: center !important;
+    gap: 1em !important;
+    flex-wrap: wrap !important;
+  }
+
+  .contact-info a::after {
+    content: attr(href);
+    font-size: 9pt;
+  }
+
+  /* Remove backdrop blur and other effects */
+  .backdrop-blur-sm,
+  .blur,
+  .shadow-lg,
+  .shadow-md,
+  .shadow-sm {
+    backdrop-filter: none !important;
+    filter: none !important;
+    box-shadow: none !important;
+  }
 } 

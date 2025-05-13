@@ -15,15 +15,20 @@
         "company": "Amazon",
         "period": "Jul 2020 – Present",
         "description": [
-          "Led development of Alexa personalization features, including voice-based user settings on shared devices.",
-          "Built messaging middleware for in-car Alexa integration, improving real-time responsiveness and scalability.",
-          "Designed and implemented APIs serving pricing references for global product detail and search pages (30B+ daily views).",
-          "Developed large-scale ETL pipelines using Scala and Spark to process billions of pricing records daily.",
-          "Created internal tooling to automate configuration/testing workflows, increasing engineering efficiency by 25%.",
-          "Led regional historic pricing feature for Amazon Fresh, improving price transparency and customer trust.",
-          "Implemented runtime safeguards against malicious Lister pricing strategies, reducing compute load by 10%.",
-          "Participated in on-call rotations, sprint planning, and cross-team collaboration within agile frameworks.",
-          "Mentored junior engineers and conducted regular knowledge-sharing sessions."
+          "Led the org-wide initiative to diversify AWS server footprint by migrating cloud resources from the DUB region to ZAZ, reducing DUB usage by 8%.",
+          "Improved system resilience and disaster recovery posture by distributing workloads across geographically diverse AWS regions.",
+
+          "Enhanced quality and reliability of list price validation guardrails by integrating with higher-fidelity data sources.",
+          "Collaborated with data owners to define and enforce robust SLAs, driving operational excellence in price accuracy pipelines.",
+
+          "Identified key pain points in debugging workflows across teams through stakeholder interviews and on-call reviews.",
+          "Coached an intern to design and deliver a developer-focused troubleshooting tool, cutting on-call load by 5%.",
+
+          "Led development of Alexa personalization features that enabled voice-based learning of user preferences on shared devices.",
+          "Enhanced Alexa's in-car prompting capabilities to support more intuitive voice interactions and contextual responses.",
+
+          "At Quattro, led development of a messaging backend for vehicle HUDs to sync contacts and messages when phones are connected.",
+          "Enabled reading and composing SMS/MMS messages directly from the car HUD through voice and touch interaction, integrated with Alexa."
         ]
       },
       {
@@ -100,7 +105,7 @@
     "skills": [
       { "name": "Python", "proficiency": 5, "category": "Languages" },
       { "name": "Java", "proficiency": 5, "category": "Languages" },
-      { "name": "Scala", "proficiency": 4, "category": "Languages" },
+      { "name": "Scala", "proficiency": 5, "category": "Languages" },
       { "name": "C++", "proficiency": 4, "category": "Languages" },
       { "name": "JavaScript", "proficiency": 4, "category": "Languages" },
       { "name": "TypeScript", "proficiency": 4, "category": "Languages" },
@@ -112,8 +117,8 @@
       { "name": "PostgreSQL", "proficiency": 3, "category": "Data" },
       { "name": "MongoDB", "proficiency": 3, "category": "Data" },
       { "name": "Redis", "proficiency": 4, "category": "Data" },
-      { "name": "DynamoDB", "proficiency": 4, "category": "Data" },
-      { "name": "Apache Spark", "proficiency": 4, "category": "Data" },
+      { "name": "DynamoDB", "proficiency": 5, "category": "Data" },
+      { "name": "Apache Spark", "proficiency": 5, "category": "Data" },
       { "name": "Hadoop", "proficiency": 3, "category": "Data" },
       { "name": "ETL Pipelines", "proficiency": 5, "category": "Data" },
       { "name": "CI/CD", "proficiency": 4, "category": "Tools" },
@@ -122,7 +127,7 @@
       { "name": "Microsoft Azure", "proficiency": 2, "category": "Cloud" },
       { "name": "Distributed Systems", "proficiency": 4, "category": "Architecture" },
       { "name": "Microservices", "proficiency": 4, "category": "Architecture" },
-      { "name": "REST APIs", "proficiency": 5, "category": "Backend" },
+      { "name": "REST APIs", "proficiency": 4, "category": "Backend" },
       { "name": "Real-time Systems", "proficiency": 4, "category": "Architecture" },
       { "name": "Machine Learning", "proficiency": 3, "category": "AI/ML" },
       { "name": "Computer Vision", "proficiency": 2, "category": "AI/ML" },
@@ -134,7 +139,8 @@
       { "name": "Algorithmic Trading", "proficiency": 2, "category": "Finance" },
       { "name": "Data Engineering", "proficiency": 3, "category": "Data" },
       { "name": "Agile/Scrum", "proficiency": 4, "category": "Tools" },
-      { "name": "Git", "proficiency": 5, "category": "Tools" }
+      { "name": "Git", "proficiency": 4, "category": "Tools" },
+      { "name": "Docker", "proficiency": 4, "category": "Tools" }
     ]
   }
   

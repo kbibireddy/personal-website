@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --border: 214.3 31.8% 91.4%;
+
+    --gradient-start: 214, 219, 220;
+    --gradient-end: 255, 255, 255;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+
+    --gradient-start: 0, 0, 0;
+    --gradient-end: 0, 0, 0;
+  }
+}
+
+body {
+  @apply bg-background text-foreground;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgb(var(--gradient-end))
+  ) rgb(var(--gradient-start));
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+} 

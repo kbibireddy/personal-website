@@ -1,7 +1,7 @@
 {
     "name": "KARTHIK BIBIREDDY",
     "headline": "Senior Software Engineer | Aspiring Quantitative Developer",
-    "professionalSummary": "Experienced software engineer with 7+ years designing distributed systems, scalable APIs, and data pipelines at Amazon and multiple startups. Strong foundation in computer science, statistics, and mathematics. Built a personal technical analysis platform for trading strategy research. Eager to apply my engineering expertise and passion for finance in a quantitative developer or data-focused finance role.",
+    "professionalSummary": "Experienced software engineer with 8+ years of hands-on expertise building distributed systems, scalable APIs, and data-intensive applications across Amazon and multiple startups. Proven track record of delivering high-performance backend systems, cloud-native architectures, and developer productivity tools. Strong foundation in computer science, systems design, and cloud platforms (AWS/GCP). Passionate about solving complex engineering problems and exploring data-driven technologies, including applications in finance.",
     "contact": {
       "email": "karthikbibireddy@hotmail.com",
       "phone": "+1 (832) 812-3919",
@@ -11,7 +11,7 @@
     },
     "workExperience": [
       {
-        "title": "Software Development Engineer",
+        "title": "Software Development Engineer II",
         "company": "Amazon",
         "period": "Jul 2020 – Present",
         "description": [
@@ -65,16 +65,22 @@
     ],
     "projects": [
       {
-        "title": "Technical Analysis Platform for Financial Markets (TAPFM)",
-        "period": "2022 – Present",
+        "title": "Technical Analysis Platform for Financial Markets",
+        "status": "WIP",
         "description": [
-          "Designed and developed a personal project for backtesting and analyzing trading strategies using real-world financial data.",
-          "Implemented event-driven data fetching with AWS Lambda and S3, storing and processing historical market data.",
-          "Built ETL jobs for sentiment scoring, indicator computation, and strategy evaluation.",
-          "Created a dashboard for midterm decision support, along with a strategy development and backtesting toolkit."
+          "Building a personal platform to backtest and analyze trading strategies using historical financial data, with event-driven AWS Lambda workflows, ETL pipelines for sentiment and technical analysis, and a React-based dashboard for strategy evaluation and performance tracking."
         ],
         "technologies": ["Python", "AWS Lambda", "S3", "React", "TypeScript"],
         "link": "https://github.com/kbibireddy/tapfm"
+      },
+      {
+        "title": "Real Estate Investment Analysis Tool",
+        "status": "Active",
+        "description": [
+          "Developed a web-based tool to evaluate real estate investment opportunities by comparing buying vs renting, incorporating inputs like purchase price, interest rate, taxes, and ownership costs to output projected ROI, breakeven points, and overall investment value in a clean, user-friendly interface."
+        ],
+        "technologies": ["JavaScript", "React", "TypeScript"],
+        "link": "https://main.d3h1lgzt62unld.amplifyapp.com/"
       }
     ],
     "education": [
@@ -98,34 +104,36 @@
       { "name": "C++", "proficiency": 4, "category": "Languages" },
       { "name": "JavaScript", "proficiency": 4, "category": "Languages" },
       { "name": "TypeScript", "proficiency": 4, "category": "Languages" },
-      { "name": "React", "proficiency": 4, "category": "Frontend" },
+      { "name": "React.js", "proficiency": 4, "category": "Frontend" },
+      { "name": "Vue.js", "proficiency": 3, "category": "Frontend" },
+      { "name": "Next.js", "proficiency": 3, "category": "Frontend" },
       { "name": "Node.js", "proficiency": 4, "category": "Backend" },
       { "name": "SQL", "proficiency": 5, "category": "Data" },
-      { "name": "PostgreSQL", "proficiency": 4, "category": "Data" },
-      { "name": "MongoDB", "proficiency": 4, "category": "Data" },
+      { "name": "PostgreSQL", "proficiency": 3, "category": "Data" },
+      { "name": "MongoDB", "proficiency": 3, "category": "Data" },
       { "name": "Redis", "proficiency": 4, "category": "Data" },
       { "name": "DynamoDB", "proficiency": 4, "category": "Data" },
-      { "name": "Apache Spark", "proficiency": 4, "category": "Big Data" },
-      { "name": "Hadoop", "proficiency": 4, "category": "Big Data" },
-      { "name": "ETL Pipelines", "proficiency": 5, "category": "Data Engineering" },
-      { "name": "CI/CD", "proficiency": 4, "category": "DevOps" },
+      { "name": "Apache Spark", "proficiency": 4, "category": "Data" },
+      { "name": "Hadoop", "proficiency": 3, "category": "Data" },
+      { "name": "ETL Pipelines", "proficiency": 5, "category": "Data" },
+      { "name": "CI/CD", "proficiency": 4, "category": "Tools" },
       { "name": "AWS", "proficiency": 5, "category": "Cloud" },
-      { "name": "Google Cloud Platform (GCP)", "proficiency": 4, "category": "Cloud" },
-      { "name": "Microsoft Azure", "proficiency": 4, "category": "Cloud" },
+      { "name": "Google Cloud Platform (GCP)", "proficiency": 2, "category": "Cloud" },
+      { "name": "Microsoft Azure", "proficiency": 2, "category": "Cloud" },
       { "name": "Distributed Systems", "proficiency": 4, "category": "Architecture" },
       { "name": "Microservices", "proficiency": 4, "category": "Architecture" },
       { "name": "REST APIs", "proficiency": 5, "category": "Backend" },
-      { "name": "Real-time Systems", "proficiency": 5, "category": "Architecture" },
-      { "name": "Machine Learning", "proficiency": 5, "category": "AI/ML" },
-      { "name": "Computer Vision", "proficiency": 4, "category": "AI/ML" },
-      { "name": "Natural Language Processing (NLP)", "proficiency": 4, "category": "AI/ML" },
-      { "name": "Quantitative Analysis", "proficiency": 5, "category": "Finance" },
-      { "name": "Statistics", "proficiency": 5, "category": "Mathematics" },
-      { "name": "Backtesting", "proficiency": 5, "category": "Finance" },
-      { "name": "Technical Analysis", "proficiency": 5, "category": "Finance" },
-      { "name": "Algorithmic Trading", "proficiency": 5, "category": "Finance" },
-      { "name": "Data Engineering", "proficiency": 5, "category": "Data" },
-      { "name": "Agile/Scrum", "proficiency": 4, "category": "Methodology" },
+      { "name": "Real-time Systems", "proficiency": 4, "category": "Architecture" },
+      { "name": "Machine Learning", "proficiency": 3, "category": "AI/ML" },
+      { "name": "Computer Vision", "proficiency": 2, "category": "AI/ML" },
+      { "name": "Natural Language Processing (NLP)", "proficiency": 2, "category": "AI/ML" },
+      { "name": "Quantitative Analysis", "proficiency": 3, "category": "Finance" },
+      { "name": "Statistics", "proficiency": 5, "category": "Finance" },
+      { "name": "Backtesting", "proficiency": 2, "category": "Finance" },
+      { "name": "Technical Analysis", "proficiency": 2, "category": "Finance" },
+      { "name": "Algorithmic Trading", "proficiency": 2, "category": "Finance" },
+      { "name": "Data Engineering", "proficiency": 3, "category": "Data" },
+      { "name": "Agile/Scrum", "proficiency": 4, "category": "Tools" },
       { "name": "Git", "proficiency": 5, "category": "Tools" }
     ]
   }

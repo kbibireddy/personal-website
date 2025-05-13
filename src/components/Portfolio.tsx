@@ -1,52 +1,84 @@
 import { motion } from 'framer-motion'
 import { Theme } from '@/types/theme';
-import { getCardBgClass } from '@/utils/theme';
+import { getCardBgClass, getAccentClasses } from '@/utils/theme';
+import { FaExternalLinkAlt } from 'react-icons/fa';
+import resumeData from '@/data/resume.json';
 
 interface PortfolioProps {
   theme: Theme;
 }
 
-interface Project {
-  title: string
-  description: string
-  technologies: string[]
-}
-
-const projects: Project[] = [
-  {
-    title: "Real-time Student Performance Evaluation System",
-    description: "Designed and implemented RSPEF to improve graduation rates using machine learning for early identification of at-risk students. The system includes predictive analysis, emergency warning system, and interactive dashboards.",
-    technologies: ["Machine Learning", "Java", "Python", "SQL", "AngularJS", "D3.js"]
-  },
-  {
-    title: "Author Gender Prediction",
-    description: "Developed a machine learning model to predict author gender from text using WEKA API. Useful for criminal forensics, plagiarism detection, and linguistic studies.",
-    technologies: ["Java", "WEKA", "SQL", "NLP"]
-  },
-  {
-    title: "Time Series Interpolation",
-    description: "Implemented polynomial curve fitting for time series data interpolation using NumPy. The system learns the optimal polynomial degree for accurate predictions.",
-    technologies: ["Python", "NumPy", "Data Analysis"]
-  },
-  {
-    title: "Car Clustering Analysis",
-    description: "Built custom K-Means and Fuzzy K-Means clustering algorithms to group similar cars using UCI Dataset. Implemented both hard and soft clustering approaches.",
-    technologies: ["Python", "Machine Learning", "Data Analysis"]
-  },
-  {
-    title: "Neural Network Implementation",
-    description: "Created a scalable 3-layer neural network from scratch using only NumPy. The network uses backpropagation for learning and can be extended to N layers.",
-    technologies: ["Python", "NumPy", "Deep Learning"]
-  }
-]
-
 export default function Portfolio({ theme }: PortfolioProps) {
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'Active':
+        return 'bg-green-500/20 text-green-500';
+      case 'WIP':
+        return 'bg-yellow-500/20 text-yellow-500';
+      case 'Discontinued':
+        return 'bg-red-500/20 text-red-500';
+      default:
+        return 'bg-gray-500/20 text-gray-500';
+    }
+  };
+
   return (
-    <div>
-      <h2 className="text-2xl font-bold mb-4">Portfolio</h2>
-      <div className={`${getCardBgClass(theme)} backdrop-blur-sm rounded-lg p-6`}>
-        <p className="text-current/80">Portfolio section coming soon...</p>
-      </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {resumeData.projects?.map((project, index) => (
+        <motion.div
+          key={index}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: index * 0.1 }}
+          className={`${getCardBgClass(theme)} backdrop-blur-sm rounded-lg p-6`}
+        >
+          <div className="flex justify-between items-start mb-2">
+            <h3 className="text-xl font-semibold">{project.title}</h3>
+            <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(project.status)}`}>
+              {project.status}
+            </span>
+          </div>
+          <div className="mb-4">
+            {project.description.map((desc, i) => (
+              <p key={i} className="text-current/90 mb-2">{desc}</p>
+            ))}
+          </div>
+          <div className="flex flex-wrap gap-2 mb-4">
+            {project.technologies.map((tech, i) => (
+              <span
+                key={i}
+                className={`${getCardBgClass(theme)} px-3 py-1 rounded-full text-sm text-current/80`}
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+          {project.link && project.status === 'Active' && (
+            <motion.a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r ${getAccentClasses(theme)} text-white text-sm font-medium transition-transform`}
+            >
+              Try it out
+              <FaExternalLinkAlt />
+            </motion.a>
+          )}
+          {project.link && project.status !== 'Active' && (
+            <motion.a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-500/20 text-gray-500 text-sm font-medium cursor-not-allowed"
+            >
+              Try it out
+              <FaExternalLinkAlt />
+            </motion.a>
+          )}
+        </motion.div>
+      ))}
     </div>
   );
 } 

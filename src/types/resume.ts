@@ -28,7 +28,7 @@ export interface Skill {
 
 export interface Project {
   title: string;
-  period: string;
+  status: 'Active' | 'WIP' | 'Discontinued';
   description: string[];
   technologies: string[];
   link: string;

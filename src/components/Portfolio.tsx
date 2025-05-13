@@ -1,23 +1,10 @@
 import { motion } from 'framer-motion'
-
-type Theme = 'netflix' | 'meta' | 'discord';
+import { Theme } from '@/types/theme';
+import { getCardBgClass } from '@/utils/theme';
 
 interface PortfolioProps {
   theme: Theme;
 }
-
-const getCardBgClass = (theme: Theme) => {
-  switch (theme) {
-    case 'netflix':
-      return 'bg-white/10';
-    case 'meta':
-      return 'bg-black/5';
-    case 'discord':
-      return 'bg-[#5865F2]/10';
-    default:
-      return 'bg-white/10';
-  }
-};
 
 interface Project {
   title: string
@@ -55,36 +42,11 @@ const projects: Project[] = [
 
 export default function Portfolio({ theme }: PortfolioProps) {
   return (
-    <section className="mb-12">
-      <h2 className="text-2xl font-bold mb-6">Portfolio</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {projects.map((project, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            className={`${getCardBgClass(theme)} backdrop-blur-sm rounded-lg p-6 shadow-lg hover:bg-white/10 transition-all`}
-          >
-            <h3 className="text-xl font-semibold mb-3 text-current">
-              {project.title}
-            </h3>
-            <p className="text-current/90 mb-4">
-              {project.description}
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {project.technologies.map((tech, idx) => (
-                <span
-                  key={idx}
-                  className={`${getCardBgClass(theme)} px-3 py-1 rounded-full text-sm text-current/80`}
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </motion.div>
-        ))}
+    <div>
+      <h2 className="text-2xl font-bold mb-4">Portfolio</h2>
+      <div className={`${getCardBgClass(theme)} backdrop-blur-sm rounded-lg p-6`}>
+        <p className="text-current/80">Portfolio section coming soon...</p>
       </div>
-    </section>
-  )
+    </div>
+  );
 } 

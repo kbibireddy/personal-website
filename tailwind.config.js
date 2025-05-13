@@ -1,7 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './src/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   darkMode: 'media',
   theme: {
@@ -26,13 +28,18 @@ module.exports = {
           text: '#1C2B33',
           accent: '#5AA7FF'
         },
-        // Databricks theme
-        databricks: {
-          primary: '#FF3621',
-          background: '#1B1B1B',
+        // Discord theme
+        discord: {
+          primary: '#5865F2',
+          background: '#313338',
           text: '#FFFFFF',
-          accent: '#3E4042'
+          accent: '#4752C4'
         }
+      },
+      fontFamily: {
+        'space-grotesk': ['var(--font-space-grotesk)', 'sans-serif'],
+        'roboto-mono': ['var(--font-roboto-mono)', 'monospace'],
+        'inter': ['var(--font-inter)', 'sans-serif'],
       },
       animation: {
         'gradient': 'gradient 8s linear infinite',
@@ -41,14 +48,26 @@ module.exports = {
         gradient: {
           '0%, 100%': {
             'background-size': '200% 200%',
-            'background-position': 'left center',
+            'background-position': 'left center'
           },
           '50%': {
             'background-size': '200% 200%',
-            'background-position': 'right center',
+            'background-position': 'right center'
           },
         },
       },
+      zIndex: {
+        '-1': '-1',
+        '0': '0',
+        '10': '10',
+        '20': '20',
+        '30': '30',
+        '40': '40',
+        '50': '50',
+      },
+      backdropBlur: {
+        'xs': '2px',
+      }
     },
   },
   plugins: [],

@@ -4,8 +4,8 @@ const nextConfig = {
   images: {
     unoptimized: true // Required for static export
   },
-  basePath: '/personal-website', // Required for GitHub Pages
-  assetPrefix: '/personal-website/',
+  basePath: process.env.NODE_ENV === 'production' ? '/personal-website' : '', // Only in production
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/personal-website/' : '', // Only in production
 }
 
 module.exports = nextConfig 

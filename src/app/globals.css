@@ -7,7 +7,6 @@
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --border: 214.3 31.8% 91.4%;
-
     --gradient-start: 214, 219, 220;
     --gradient-end: 255, 255, 255;
   }
@@ -16,26 +15,136 @@
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
     --border: 217.2 32.6% 17.5%;
-
     --gradient-start: 0, 0, 0;
     --gradient-end: 0, 0, 0;
   }
-}
 
-body {
-  @apply bg-background text-foreground;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    rgb(var(--gradient-end))
-  ) rgb(var(--gradient-start));
-}
-
-@layer base {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--gradient-end))
+    ) rgb(var(--gradient-start));
+  }
+}
+
+/* Print styles */
+@media print {
+  /* Reset page margins and set paper size */
+  @page {
+    size: letter;
+    margin: 0.5in;
+  }
+
+  /* Hide decorative elements */
+  .no-print {
+    display: none !important;
+  }
+
+  /* Hide theme switcher, animations, and navigation */
+  nav,
+  .theme-switcher,
+  .animation-container {
+    display: none !important;
+  }
+
+  /* Reset background and text colors for printing */
+  body {
+    background: white !important;
+    color: black !important;
+    font-family: 'Inter', -apple-system, sans-serif !important;
+  }
+
+  /* Format the main content for print */
+  .print-friendly {
+    padding: 0 !important;
+    margin: 0 !important;
+    background: none !important;
+  }
+
+  /* Style headings for print */
+  .print-friendly h1 {
+    font-size: 24pt !important;
+    color: black !important;
+    margin-bottom: 0.5em !important;
+    background: none !important;
+    -webkit-text-fill-color: black !important;
+  }
+
+  .print-friendly h2 {
+    font-size: 16pt !important;
+    color: black !important;
+    border-bottom: 1px solid #000 !important;
+    margin: 1em 0 0.5em !important;
+    page-break-after: avoid !important;
+  }
+
+  /* Style sections for print */
+  .print-friendly section {
+    margin-bottom: 1em !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Style links for print */
+  .print-friendly a {
+    color: black !important;
+    text-decoration: none !important;
+  }
+
+  /* Remove gradients and animations */
+  .print-friendly * {
+    background: none !important;
+    animation: none !important;
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
+    -webkit-text-fill-color: black !important;
+  }
+
+  /* Ensure proper list formatting */
+  .print-friendly ul {
+    padding-left: 1.25em !important;
+    list-style-type: disc !important;
+  }
+
+  .print-friendly li {
+    page-break-inside: avoid !important;
+    margin-bottom: 0.25em !important;
+  }
+
+  /* Contact info formatting */
+  .contact-info {
+    margin: 0.5em 0 1em !important;
+    display: flex !important;
+    justify-content: center !important;
+    gap: 1em !important;
+    flex-wrap: wrap !important;
+  }
+
+  .contact-info a::after {
+    content: attr(href);
+    font-size: 9pt;
+  }
+
+  /* Skills section formatting */
+  .skills-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5em !important;
+  }
+
+  /* Remove backdrop blur and other effects */
+  .backdrop-blur-sm,
+  .blur,
+  .shadow-lg,
+  .shadow-md,
+  .shadow-sm {
+    backdrop-filter: none !important;
+    filter: none !important;
+    box-shadow: none !important;
   }
 } 

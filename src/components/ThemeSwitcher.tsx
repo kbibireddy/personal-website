@@ -1,51 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-
-type Theme = 'netflix' | 'meta' | 'discord';
-
-interface ThemeColors {
-  primary: string;
-  secondary: string;
-  background: string;
-  text: string;
-  accent: string;
-  cardBg: string;
-  muted: string;
-  highlight: string;
-}
-
-const themeConfigs: Record<Theme, ThemeColors> = {
-  netflix: {
-    primary: '#E50914',
-    secondary: '#B20710',
-    background: '#141414',
-    text: '#FFFFFF',
-    accent: '#E50914',
-    cardBg: 'rgba(255, 255, 255, 0.1)',
-    muted: '#6D6D6E',
-    highlight: '#DC2626'
-  },
-  meta: {
-    primary: '#0866FF',
-    secondary: '#0064E0',
-    background: '#FFFFFF',
-    text: '#050505',
-    accent: '#0866FF',
-    cardBg: 'rgba(0, 0, 0, 0.05)',
-    muted: '#65676B',
-    highlight: '#1D9BF0'
-  },
-  discord: {
-    primary: '#5865F2',
-    secondary: '#4752C4',
-    background: '#313338',
-    text: '#FFFFFF',
-    accent: '#5865F2',
-    cardBg: 'rgba(88, 101, 242, 0.1)',
-    muted: '#949BA4',
-    highlight: '#5865F2'
-  }
-};
+import { Theme } from '@/types/theme';
+import { themeConfigs } from '@/utils/theme';
 
 interface ThemeSwitcherProps {
   onThemeChange: (theme: Theme) => void;

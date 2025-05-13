@@ -1,686 +1,727 @@
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<title>KARTHIK BIBIREDDY</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<!--<script src="http://d3js.org/d3.v3.min.js"></script>-->
-		<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
-		
-	</head>
-	<body id="top">
-		<!-- Header -->
-			<header id="header">
-				<div class="inner">
-					<a href="https://www.linkedin.com/in/kbibireddy/" class="av2"><img src="images/profile.jpg" alt="" /></a>
-					<h1><strong>KARTHIK BIBIREDDY</strong><br/> 
-					
-					</h1>
-					I am actively looking for full-time opportunities in <strong>DATA SCIENCE.</strong><br />
-				</div>
-			</header>
-
-		<!-- Main -->
-			<div id="main">
-
-				<!-- One -->
-					<section id="one">
-						<header class="major">
-							<h2>Professional Summary</h2>
-						</header>
-						<p>Knowledgeable & experienced Software Engineer / Data Scientist with hands-on experience in all levels of development including data ingestion, ETL operations, data mining, machine learning, software development, performance, UX, and unit testing. Collaborative and enthusiastic team player dedicated to efficiently resolving project issues. </p>
-					</section>
-					
-					<section id="one">
-						<header class="major">
-							<h2>Skill-Set</h2>
-						</header>
-						<h3>Software Engineering</h3>
-						<section id="skone">
-						<script >
-						var svg = d3.select("#skone")
-							.append("svg")
-							.append("g")
-
-						svg.append("g")
-							.attr("class", "slices");
-						svg.append("g")
-							.attr("class", "labels");
-						svg.append("g")
-							.attr("class", "lines");
-
-						var width = 500,
-							height = 250,
-							radius = Math.min(width, height) / 2;
-
-						var pie = d3.layout.pie()
-							.sort(null)
-							.value(function(d) {
-								return d.value;
-							});
-
-						var arc = d3.svg.arc()
-							.outerRadius(radius * 0.8)
-							.innerRadius(radius * 0.65);
-
-						var outerArc = d3.svg.arc()
-							.innerRadius(radius * 0.9)
-							.outerRadius(radius * 0.9);
-
-
-						svg.attr("transform", "translate(" + width / 2.5 + "," + height / 2 + "),scale(0.6)");
-
-						var key = function(d){ return d.data.label; };
-
-						var color = d3.scale.ordinal()
-							.domain(["JAVA", "C#", "SQL SERVER", "POSTGRESQL", "JAVASCRIPT","HTML 5", "CSS 3","MYSQL","ORACLE","UBUNTU"])
-							.range(["#E16C40", "#E17F40", "#E19C40", "#E1BA40", "#E1A640", "#E1D240", "#DDE140", "#E1BF40", "#E1D740", "#E1BF40"]);
-						var v=[0.2, 0.2, 0.2, 0.1, 0.15, 0.05, 0.05, 0.1,  0.07, 0.1]
-						function randomData (){
-							var labels = color.domain();
-							return labels.map(function(label){
-								return { label: label, value: Math.random() }
-							});
-						}
-
-						change(randomData());
-
-						d3.select(".randomize")
-							.on("click", function(){
-								change(randomData());
-							});
-
-
-						function change(data) {
-							for(var i=0; i< data.length; i++){
-							data[i].value=v[i]
-							
-							//document.write(e[1].value);
-							}
-							
-
-							/* ------- PIE SLICES -------*/
-							var slice = svg.select(".slices").selectAll("path.slice")
-								.data(pie(data), key);
-
-							slice.enter()
-								.insert("path")
-								.style("fill", function(d) { return color(d.data.label); })
-								.attr("class", "slice");
-
-							slice		
-								.transition().duration(1000)
-								.attrTween("d", function(d) {
-									this._current = this._current || d;
-									var interpolate = d3.interpolate(this._current, d);
-									this._current = interpolate(0);
-									return function(t) {
-										return arc(interpolate(t));
-									};
-								})
-
-							slice.exit()
-								.remove();
-
-							/* ------- TEXT LABELS -------*/
-
-							var text = svg.select(".labels").selectAll("text")
-								.data(pie(data), key);
-
-							text.enter()
-								.append("text")
-								.attr("dy", ".25em")
-								.text(function(d) {
-									return d.data.label;
-								});
-							
-							function midAngle(d){
-								return d.startAngle + (d.endAngle - d.startAngle)/2;
-							}
-
-							text.transition().duration(1000)
-								.attrTween("transform", function(d) {
-									this._current = this._current || d;
-									var interpolate = d3.interpolate(this._current, d);
-									this._current = interpolate(0);
-									return function(t) {
-										var d2 = interpolate(t);
-										var pos = outerArc.centroid(d2);
-										pos[0] = radius * (midAngle(d2) < Math.PI ? 1 : -1);
-										return "translate("+ pos +")";
-									};
-								})
-								.styleTween("text-anchor", function(d){
-									this._current = this._current || d;
-									var interpolate = d3.interpolate(this._current, d);
-									this._current = interpolate(0);
-									return function(t) {
-										var d2 = interpolate(t);
-										return midAngle(d2) < Math.PI ? "start":"end";
-									};
-								});
-
-							text.exit()
-								.remove();
-
-							/* ------- SLICE TO TEXT POLYLINES -------*/
-
-							var polyline = svg.select(".lines").selectAll("polyline")
-								.data(pie(data), key);
-							
-							polyline.enter()
-								.append("polyline");
-
-							polyline.transition().duration(1000)
-								.attrTween("points", function(d){
-									this._current = this._current || d;
-									var interpolate = d3.interpolate(this._current, d);
-									this._current = interpolate(0);
-									return function(t) {
-										var d2 = interpolate(t);
-										var pos = outerArc.centroid(d2);
-										pos[0] = radius * 0.95 * (midAngle(d2) < Math.PI ? 1 : -1);
-										return [arc.centroid(d2), outerArc.centroid(d2), pos];
-									};			
-								});
-							
-							polyline.exit()
-								.remove();
-						};
-						</script>
-						</section>
-						<h3>Data Science</h3>
-						<section id="skthree">
-						<script >
-						var svg = d3.select("#skthree")
-							.append("svg")
-							.append("g")
-
-						svg.append("g")
-							.attr("class", "slices");
-						svg.append("g")
-							.attr("class", "labels");
-						svg.append("g")
-							.attr("class", "lines");
-
-						var width = 500,
-							height = 250,
-							radius = Math.min(width, height) / 2;
-
-						var pie = d3.layout.pie()
-							.sort(null)
-							.value(function(d) {
-								return d.value;
-							});
-
-						var arc = d3.svg.arc()
-							.outerRadius(radius * 0.8)
-							.innerRadius(radius * 0.65);
-
-						var outerArc = d3.svg.arc()
-							.innerRadius(radius * 0.9)
-							.outerRadius(radius * 0.9);
-
-						svg.attr("transform", "translate(" + width / 2.5 + "," + height / 2 + "),scale(0.6)");
-
-						var key = function(d){ return d.data.label; };
-
-						var color = d3.scale.ordinal()
-							.domain(["PYTHON", "R", "MATLAB", "MONGO DB", "JSON, CSV & XML","HADOOP","HIVE","PIG", "AWS EMR","AWS S3"])
-							.range(["#3C409B", "#3C659B", "#0F468E", "#2A478E", "#3694BB", "#42929C", "#077F8E", "#3196AB", "#2B547D", "#074A8E"]);
-						var v=[0.35, 0.1, 0.1, 0.15, 0.2, 0.05, 0.05, 0.05,  0.15, 0.15]
-						function randomData (){
-							var labels = color.domain();
-							return labels.map(function(label){
-								return { label: label, value: Math.random() }
-							});
-						}
-
-						change(randomData());
-
-						d3.select(".randomize")
-							.on("click", function(){
-								change(randomData());
-							});
-
-
-						function change(data) {
-							for(var i=0; i< data.length; i++){
-							data[i].value=v[i]
-							
-							//document.write(e[1].value);
-							}
-							
-
-							/* ------- PIE SLICES -------*/
-							var slice = svg.select(".slices").selectAll("path.slice")
-								.data(pie(data), key);
-
-							slice.enter()
-								.insert("path")
-								.style("fill", function(d) { return color(d.data.label); })
-								.attr("class", "slice");
-
-							slice		
-								.transition().duration(1000)
-								.attrTween("d", function(d) {
-									this._current = this._current || d;
-									var interpolate = d3.interpolate(this._current, d);
-									this._current = interpolate(0);
-									return function(t) {
-										return arc(interpolate(t));
-									};
-								})
-
-							slice.exit()
-								.remove();
-
-							/* ------- TEXT LABELS -------*/
-
-							var text = svg.select(".labels").selectAll("text")
-								.data(pie(data), key);
-
-							text.enter()
-								.append("text")
-								.attr("dy", ".25em")
-								.text(function(d) {
-									return d.data.label;
-								});
-							
-							function midAngle(d){
-								return d.startAngle + (d.endAngle - d.startAngle)/2;
-							}
-
-							text.transition().duration(1000)
-								.attrTween("transform", function(d) {
-									this._current = this._current || d;
-									var interpolate = d3.interpolate(this._current, d);
-									this._current = interpolate(0);
-									return function(t) {
-										var d2 = interpolate(t);
-										var pos = outerArc.centroid(d2);
-										pos[0] = radius * (midAngle(d2) < Math.PI ? 1 : -1);
-										return "translate("+ pos +")";
-									};
-								})
-								.styleTween("text-anchor", function(d){
-									this._current = this._current || d;
-									var interpolate = d3.interpolate(this._current, d);
-									this._current = interpolate(0);
-									return function(t) {
-										var d2 = interpolate(t);
-										return midAngle(d2) < Math.PI ? "start":"end";
-									};
-								});
-
-							text.exit()
-								.remove();
-
-							/* ------- SLICE TO TEXT POLYLINES -------*/
-
-							var polyline = svg.select(".lines").selectAll("polyline")
-								.data(pie(data), key);
-							
-							polyline.enter()
-								.append("polyline");
-
-							polyline.transition().duration(1000)
-								.attrTween("points", function(d){
-									this._current = this._current || d;
-									var interpolate = d3.interpolate(this._current, d);
-									this._current = interpolate(0);
-									return function(t) {
-										var d2 = interpolate(t);
-										var pos = outerArc.centroid(d2);
-										pos[0] = radius * 0.95 * (midAngle(d2) < Math.PI ? 1 : -1);
-										return [arc.centroid(d2), outerArc.centroid(d2), pos];
-									};			
-								});
-							
-							polyline.exit()
-								.remove();
-						};
-						</script>
-						</section>
-						<h3>Libraries</h3>
-						<section id="skfour">
-						<script >
-						var svg = d3.select("#skfour")
-							.append("svg")
-							.append("g")
-
-						svg.append("g")
-							.attr("class", "slices");
-						svg.append("g")
-							.attr("class", "labels");
-						svg.append("g")
-							.attr("class", "lines");
-
-						var width = 500,
-							height = 250,
-							radius = Math.min(width, height) / 2;
-
-						var pie = d3.layout.pie()
-							.sort(null)
-							.value(function(d) {
-								return d.value;
-							});
-
-						var arc = d3.svg.arc()
-							.outerRadius(radius * 0.8)
-							.innerRadius(radius * 0.65);
-
-						var outerArc = d3.svg.arc()
-							.innerRadius(radius * 0.9)
-							.outerRadius(radius * 0.9);
-
-						svg.attr("transform", "translate(" + width / 2.5 + "," + height / 2 + "),scale(0.6)");
-
-						var key = function(d){ return d.data.label; };
-
-						var color = d3.scale.ordinal()
-							.domain(["NUMPY", "PANDAS", "SCIPY", "MATPLOTLIB", "OPENCV","SCRAPY","SCIKIT-LEARN","nnet", "OCTAVE","e1071"])
-							.range(["#4F5EBF", "#624FBF", "#874FBF", "#232CA0", "#373B6D", "#200853", "#713A9C", "#600B6A", "#C48EC1", "#AB31A5"]);
-						var v=[0.15, 0.1, 0.05, 0.1, 0.1, 0.05, 0.05, 0.05,  0.05, 0.1]
-						function randomData (){
-							var labels = color.domain();
-							return labels.map(function(label){
-								return { label: label, value: Math.random() }
-							});
-						}
-
-						change(randomData());
-
-						d3.select(".randomize")
-							.on("click", function(){
-								change(randomData());
-							});
-
-
-						function change(data) {
-							for(var i=0; i< data.length; i++){
-							data[i].value=v[i]
-							
-							//document.write(e[1].value);
-							}
-							
-
-							/* ------- PIE SLICES -------*/
-							var slice = svg.select(".slices").selectAll("path.slice")
-								.data(pie(data), key);
-
-							slice.enter()
-								.insert("path")
-								.style("fill", function(d) { return color(d.data.label); })
-								.attr("class", "slice");
-
-							slice		
-								.transition().duration(1000)
-								.attrTween("d", function(d) {
-									this._current = this._current || d;
-									var interpolate = d3.interpolate(this._current, d);
-									this._current = interpolate(0);
-									return function(t) {
-										return arc(interpolate(t));
-									};
-								})
-
-							slice.exit()
-								.remove();
-
-							/* ------- TEXT LABELS -------*/
-
-							var text = svg.select(".labels").selectAll("text")
-								.data(pie(data), key);
-
-							text.enter()
-								.append("text")
-								.attr("dy", ".25em")
-								.text(function(d) {
-									return d.data.label;
-								});
-							
-							function midAngle(d){
-								return d.startAngle + (d.endAngle - d.startAngle)/2;
-							}
-
-							text.transition().duration(1000)
-								.attrTween("transform", function(d) {
-									this._current = this._current || d;
-									var interpolate = d3.interpolate(this._current, d);
-									this._current = interpolate(0);
-									return function(t) {
-										var d2 = interpolate(t);
-										var pos = outerArc.centroid(d2);
-										pos[0] = radius * (midAngle(d2) < Math.PI ? 1 : -1);
-										return "translate("+ pos +")";
-									};
-								})
-								.styleTween("text-anchor", function(d){
-									this._current = this._current || d;
-									var interpolate = d3.interpolate(this._current, d);
-									this._current = interpolate(0);
-									return function(t) {
-										var d2 = interpolate(t);
-										return midAngle(d2) < Math.PI ? "start":"end";
-									};
-								});
-
-							text.exit()
-								.remove();
-
-							/* ------- SLICE TO TEXT POLYLINES -------*/
-
-							var polyline = svg.select(".lines").selectAll("polyline")
-								.data(pie(data), key);
-							
-							polyline.enter()
-								.append("polyline");
-
-							polyline.transition().duration(1000)
-								.attrTween("points", function(d){
-									this._current = this._current || d;
-									var interpolate = d3.interpolate(this._current, d);
-									this._current = interpolate(0);
-									return function(t) {
-										var d2 = interpolate(t);
-										var pos = outerArc.centroid(d2);
-										pos[0] = radius * 0.95 * (midAngle(d2) < Math.PI ? 1 : -1);
-										return [arc.centroid(d2), outerArc.centroid(d2), pos];
-									};			
-								});
-							
-							polyline.exit()
-								.remove();
-						};
-						</script>
-						</section>
-					</section>
-
-				<!-- Two -->
-					<section id="two">
-						<header class="major">
-							<h2>Work Experience</h2>
-							<br/>
-						</header>
-						<h3>Research Assistant, (11/2015 – 05/2017) (1yr 7mos)</h3>
-						<h3>Data Analysis & Intelligent Systems Lab, University of Houston – Houston</h3>
-						<p>
-						<ul style="list-style-type:disc">
-						  <li>We have designed and implemented the real-time student performance evaluation and feedback system (RSPEF).</li>
-						  <li>Developed the front end of the application such as forms and interfaces using HTML5, CSS3, CSS and AgularJS.</li>
-						  <li>Worked with ER models, Relational Schemas to represent student and course information.</li>
-						  <li>Worked with SQL Server 2008 databases in writing PL-SQL stored procedures, triggers, views, and cursors.</li>
-						  <li>Worked with numpy and pandas libraries in python 3.4 and performed ETL operations to prepare data.</li>
-						  <li>Used Weka, R and Matlab to plot data, analyze and identify correlated features in the data.</li>
-						  <li>Developed API’s for Bayesian, Logistic Regression, Multi-Layer Neural Network and Random Forest Classifiers in JAVA.</li>
-						  <li>Developed a toolkit in JAVA to sequentially conduct and evaluate experiments using Weka and JDBC API.</li>
-						  <li>Built a logistic regression model to predict student grade points and determine poor performing students, early in the course.</li>
-						  <li>Developed responsive dashboards to display predictions and other statistical findings using HTML5, AngularJS, JavaScript and D3.</li>
-						</ul>
-						</p>
-						<br/>
-						<br/>
-						<h3>.NET Application Developer (Research Assistant), (04/2016 – 08/2016) (5mos)</h3>
-						<h3>Undergraduate Student Success Center, University of Houston - Houston</h3>
-						<p>
-						<ul style="list-style-type:disc">
-						  <li>Involved in designing database schema for exam scheduling system and developed the tables with relations.</li>
-						  <li>Worked on stored procedures, triggers for Web API services.</li>
-						  <li>Involved in designing  and developing UI using HTML5, JavaScript and CSS.</li>
-						  <li>Developed user authentication module using ADSI and ADO.NET.</li>
-						  <li>Used TELREK to compile and decompile production code.</li>
-						  <li>Involved in deployment of application using IIS server and fixed the issues that came across while integration.</li>
-						  <li>Participated in code reviews and helped in testing using NUNIT.</li>
-						  <li>Deployed scalable, highly available and modular software products and web applications such as Exam Scheduling System, Billing & Invoice System and maintained associated databases.</li>
-						  <li>Collaborated with developers and performance engineers to enhance supportability and identify performance bottlenecks.</li>
-						</ul>
-						</p>
-						<br/>
-						<br/>
-						<h3>Graduate Teaching Assistant, (09/2016 – 05/2017) (9mos)</h3>
-						<h3>Computer Science Department, University of Houston – Houston</h3>
-						<p>
-						<ul style="list-style-type:disc">
-						  <li>Worked as a graduate teaching assistant for the undergraduate level course, Introduction to Compute Science II, Java programming, and OOP's concepts.</li>
-						  <li>Helped with ongoing development and design of the curriculum in a manner supporting a interactive and scholarly approach to student learning.</li>
-						  <li>Apply departmental process related to peer advising and mentoring and provided support to faculty research projects.</li>
-						  <li>Helping the instructor conduct the course in a smooth manner and proctored 8 exams and 26 medium sized tests for two semesters.</li>
-						  <li>Participate in assessment process using a variety of methods and techniques and provided effective, timely and appropriate feedback to students.</li>
-						</ul>
-						</p>
-						<h4>Total Experience : 2 Years</h4>
-					</section>
-
-				<!-- Four -->
-				
-					<section id="four">
-					<header class="major">
-							<h2>Portfolio</h2>
-						</header>
-						<section>
-							<a href="images/proj1.jpg" ><p><span class="image left"><img src="images/proj1.jpg" alt="" /></span>Designed and implemented the <u>real-time student performance evaluation and feedback system (RSPEF)</u> to improve graduation rates at our university. RSPEF is an interactive, web-based system consisting of a Predictive Analysis System (PAS) that uses machine learning techniques to interpolate past student-performance into future, and the development of an Emergency Warning System (EWS) that identifies poor-performing students in courses. A unified representation of student-background and student-performance data is provided in form of a relational database schema that is suitable to be used to assess student’s performance across multiple courses. The system design includes core machine learning & data analysis engine, a relational database that is reusable across courses and an interactive web-based interface to continuously collect data and render data visualizations on to dashboards for users. This system can predict a student’s grade and identify poor performing students in very early stages of a course.</p></a>
-							<br/>
-							<a href="https://github.com/kbibireddy/machine_learning/tree/master/gender_classification_from_blog_text" ><p><span class="image right"><img src="images/proj2.png" alt="" /></span><u>Determining the gender of the author of a paper, publication, letter or blog text</u>  can be very useful in criminal forensics, determining plagiarism, linguistic studies, pattern recognition etc. In this project, we develop a machine learning model trained from blog text examples using WEKA API to predict the gender of the author of a given text with a certain accuracy.In this project we had written code in java and stored datasets in an SQL database.</p></a>
-							<br/>
-							<a href="https://github.com/kbibireddy/python/blob/master/Interpotale_time_series_data_python.py" ><p><span class="image left"><img src="images/proj3.jpeg" alt="" /></span><u>Time series data</u>  requires <u>interpolation</u>  or has missing values when observations occur at wrong frequencies or noise interferes with data or may be the data is too granular or not.There are a large variety of ways to interpolate time series data, In our project, we fit a polynomial curve on our current data using the polyfit function from numPy library and then calculate the cost function for each instance in the dataset. We are required to learn only one parameter which is the degree or the polynomial.</p></a>
-							<br/>
-							<a href="https://github.com/kbibireddy/python/tree/master/machine%20learning/Clustering" ><p><span class="image right"><img src="images/proj4.png" alt="" /></span>In this project we have acquired a sample car data set from UCI Dataset libraries and have built custom K-MEANS and Fuzzy <u>K-MEANS clustering </u> algorithms to cluster similar cars. The Fuzzy K-MEANS is also known as soft K-MEANS algorithm, which may allow clusters to overlap which means a point might belong to both cluster with a certain participation towards each cluster.</p></a>
-							<br/>
-							<a href="https://github.com/kbibireddy/python/tree/master/machine%20learning/neural%20network" ><p><span class="image left"><img src="images/proj5.png" alt="" /></span>In this project, we had built a<u>3-layered neural network </u> which can be easily scaled to N - layers. We have not used any builtin libraries like scikit-learn or WEKA. The code is written in Python 3.4 and numPy is the only library used in developing this NN. The NN uses back propagation to learn weights.</p></a>
-							<br/>
-							<a href="https://github.com/kbibireddy/python/tree/master/Restful_app" ><p><span class="image right"><img src="images/proj6.png" alt="" /></span>Registered an application with <u>twitter's REST API</u> , using python with the help of libraries like tweepy and NLTK we connect to the API and request the latest tweets with a certain key word given by the user. The tweets are collected in real time and most common words are counted. A hash map is generated and later converted into JSON format. Using Vincent.js libraries we plot a histogram with frequencies against tending words.</p></a>
-							<br/>
-							<a href="https://github.com/kbibireddy/python/tree/master/jobsearch_algorithm" ><p><span class="image left"><img src="images/proj7.png" alt="" /></span>Developed a Python toolkit to <u>scrape Indeed.com using user recommended job title and location</u> . Live job posts up to 4 days are scraped. The job description is compared with user's resume using nltk, and a similarity score is generated. Also, skills and experience are identified from the job description and a score is computed. Other scores such as turn-on and turn-off score are computed based on user requirements. A list is prepared in CSV format with all scraped job posts, titles, asking experience, respective scores and a link to apply.</p></a>
-							<br/>
-							<a href="https://github.com/kbibireddy/python/tree/master/predictive%20maintainance" ><p><span class="image right"><img src="images/proj8.jpg" alt="" /></span><u>Predictive maintenance</u>  techniques are designed to help determine the condition of in-service equipment in order to predict when maintenance should be performed. This approach promises cost savings over routine or time-based preventive maintenance, because tasks are performed only when warranted.Here we take an example of a business that uses many machines to build their final products. As the supply chain is stopped every-time a machine break, the manager asked a consulting firm to build a predictive model that finds which machine is going to break next </p></a>
-					</section>
-					</section>
-					
-				<!-- Four1 -->
-				
-					<section id="four1">
-					<header class="major">
-							<h2>Education</h2>
-					</header>
-					<h3>Master's Degree in Computer Science (AUG 2015 - MAY 2017)</h3>
-					<h3>University of Houston - Main Campus, Houston TX</h3>
-					<ul style="list-style-type:disc">
-					  <li>3.25 GPA (30 credit hours including 6 research hours).</li>
-					  <li>Coursework in DBMS, Machine Learning, Artificial Intelligence, Computer Vision, Visualization & Cloud Computing.</li>
-					  <li>The game Wanted  developed as a part of coursework in Game Development, Qualified for Microsoft Imagine Cup 2016</li>
-					</ul>	
-					<br/>
-					<br/>
-					<h3>Bachelors's Degree in Computer Science (AUG 2011 - MAY 2015)</h3>
-					<h3>SRM University - Main Campus, Chennai TN INDIA</h3>
-					<ul style="list-style-type:disc">
-					  <li>8.0 CGPA.</li>
-					  <li>Computational Science and Engineering Coursework in Data Structures, Operating Systems, Theory of Computation, Microprocessor, Algorithms, Compiler Design, Computer Networks, Artificial Intelligence, DBMS, Linux, Mobile Computing, Software Engineering, Data Mining & Internet Security.</li>
-					</ul>
-
-					</section>
-
-				<!-- Three -->
-					<section id="three">
-						<h2>Get In Touch</h2>
-						<div class="row">
-							<div class="8u 12u$(small)">
-							
-								<?=$thankYou ?>
-								
-								<!--<form method="post" action="https://formspree.io/kbibiredy@uh.edu" id="email_form">-->
-								<form action="https://www.enformed.io/s6srlas2" >
-									<div class="row uniform 50%">
-										<div class="6u 12u$(xsmall)"><input type="text" name="name" id="name" placeholder="Name" /></div>
-										<div class="6u$ 12u$(xsmall)"><input type="email" name="email" id="email" placeholder="Email" /></div>
-										<div class="12u$"><textarea name="message" id="message" placeholder="Message" rows="4"></textarea></div>
-									</div>
-									<ul class="actions">
-									<br/>
-									<li><input type="submit" value="Send Message" /></li>
-								</ul>
-								</form>
-								
-							</div>
-							<div class="4u$ 12u$(small)">
-								<ul class="labeled-icons">
-									<li>
-										<h3 class="icon fa-home"><span class="label">Address</span></h3>
-										2111 Holly Hall St.<br />
-										Houston, TX 77054<br />
-										United States
-									</li>
-									<li>
-										<h3 class="icon fa-envelope-o"><span class="label">Email</span></h3>
-										<a href="#">kbibireddy@uh.edu</a>
-									</li>
-									<li>
-									<!-- Start of SimpleHitCounter Code -->
-									<b>HIT COUNTER</b>
-									<img src="https://counter3.fcs.ovh/private/freecounterstat.php?c=gu42x9h1a4sbwzt5wtp75kzztux2jk7h" border="0" title="website hit counter" alt="website hit counter">
-
-									</li>
-								</ul>
-							</div>
-						</div>
-					</section>
-
-				
-				
-
-			</div>
-
-		<!-- Footer -->
-			<footer id="footer">
-				<div class="inner">
-					<ul class="icons">
-						<li><a href="https://www.linkedin.com/in/kbibireddy/" class="icon fa-linkedin-square" aria-hidden="true"><span class="label">LinkedIn</span></a></li>
-						<li><a href="https://github.com/kbibireddy/" class="icon fa-github"><span class="label">Github</span></a></li>
-						<li><a href="https://www.facebook.com/karthik.bibireddy" class="icon fa-facebook-square"><span class="label">Facebook</span></a></li>
-						<li><a href="mailto:kbibireddy@uh.edu" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
-					</ul>
-					<ul class="copyright">
-						<li>&copy; bibireddy (CC:HTML5UP)</li>
-					</ul>
-				</div>
-			</footer>
-
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.poptrox.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="assets/js/main.js"></script>
-
-	</body>
-</html>
-
-<body>
-
-</body>
-
-</html>
-
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="preload" href="/personal-website/_next/static/media/a34f9d1faa5f3315-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="stylesheet" href="/personal-website/_next/static/css/325de670a1220ca8.css" crossorigin="" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/personal-website/_next/static/chunks/webpack-f714fd7a4444a147.js" crossorigin=""/><script src="/personal-website/_next/static/chunks/fd9d1056-6110ffd77e8dcc12.js" async="" crossorigin=""></script><script src="/personal-website/_next/static/chunks/69-b27296bd8405ee1e.js" async="" crossorigin=""></script><script src="/personal-website/_next/static/chunks/main-app-1ed316873897a53f.js" async="" crossorigin=""></script><script src="/personal-website/_next/static/chunks/8e1d74a4-d807fc2e98bba4c9.js" async=""></script><script src="/personal-website/_next/static/chunks/244-7c0f65aabfd5c3b2.js" async=""></script><script src="/personal-website/_next/static/chunks/app/page-5aa1dddb12843801.js" async=""></script><title>Karthik Bibireddy - Data Scientist &amp; Software Engineer</title><meta name="description" content="Personal website of Karthik Bibireddy, showcasing professional experience, projects, and skills in Data Science and Software Engineering."/><meta name="next-size-adjust"/><script src="/personal-website/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js" crossorigin="" noModule=""></script></head><body class="__className_524ad8 bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100"><main class="min-h-screen p-8 md:p-24 transition-colors duration-300 bg-[#141414] text-white"><div class="fixed top-4 left-4 z-50"><div class="flex items-center space-x-4"><span class="text-sm font-medium">Theme:</span><div class="flex space-x-2"><button class="w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-200 ring-2 ring-offset-2 ring-offset-background ring-white/50" tabindex="0" style="background-color:#E50914"><span class="sr-only">netflix<!-- --> theme</span><span class="text-white text-xs font-bold">N</span></button><button class="w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-200 " tabindex="0" style="background-color:#0866FF"><span class="sr-only">meta<!-- --> theme</span><span class="text-white text-xs font-bold">M</span></button><button class="w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-200 " tabindex="0" style="background-color:#5865F2"><span class="sr-only">discord<!-- --> theme</span><span class="text-white text-xs font-bold">D</span></button></div></div></div><div class="max-w-4xl mx-auto" style="opacity:0;transform:translateY(20px)"><div class="flex items-center justify-between mb-8"><div><h1 class="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-[#E50914] to-[#B20710] text-transparent bg-clip-text animate-gradient">KARTHIK BIBIREDDY</h1><p class="text-xl md:text-2xl">I am an <span class="font-bold bg-gradient-to-r from-[#E50914] to-[#B20710] text-transparent bg-clip-text">Senior Software Engineer | Aspiring Quantitative Developer</span></p></div><div class="flex items-center space-x-6"><a href="https://github.com/kbibireddy" target="_blank" rel="noopener noreferrer" class="text-3xl text-current hover:text-[#E50914] dark:hover:text-[#E50914] transition-colors duration-200"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg></a><a href="https://linkedin.com/in/kbibireddy" target="_blank" rel="noopener noreferrer" class="text-3xl text-current hover:text-[#0866FF] dark:hover:text-[#0866FF] transition-colors duration-200"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a><a href="mailto:karthikbibireddy@hotmail.com" class="text-3xl text-current hover:text-[#5865F2] dark:hover:text-[#5865F2] transition-colors duration-200"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"></path></svg></a></div></div><section class="mb-12"><h2 class="text-2xl font-bold mb-4">Professional Summary</h2><p class="text-lg bg-[#141414] text-white text-current/90 bg-white/10 p-6 rounded-lg">Experienced software engineer with 7+ years designing distributed systems, scalable APIs, and data pipelines at Amazon and multiple startups. Strong foundation in computer science, statistics, and mathematics. Built a personal technical analysis platform for trading strategy research. Eager to apply my engineering expertise and passion for finance in a quantitative developer or data-focused finance role.</p></section><section class="mb-12"><h2 class="text-2xl font-bold mb-6">Work Experience</h2><div class="space-y-8"><div class="bg-white/10 backdrop-blur-sm rounded-lg p-8 shadow-lg hover:bg-white/10 transition-all max-w-4xl" style="opacity:0;transform:translateY(20px)"><h3 class="text-xl font-semibold text-current">Software Development Engineer</h3><p class="text-current/80 mb-2">Amazon</p><p class="text-current/70 mb-4">Jul 2020 – Present</p><ul class="list-disc list-inside space-y-2"><li class="text-current/90">Led development of Alexa personalization features, including voice-based user settings on shared devices.</li><li class="text-current/90">Built messaging middleware for in-car Alexa integration, improving real-time responsiveness and scalability.</li><li class="text-current/90">Designed and implemented APIs serving pricing references for global product detail and search pages (30B+ daily views).</li><li class="text-current/90">Developed large-scale ETL pipelines using Scala and Spark to process billions of pricing records daily.</li><li class="text-current/90">Created internal tooling to automate configuration/testing workflows, increasing engineering efficiency by 25%.</li><li class="text-current/90">Led regional historic pricing feature for Amazon Fresh, improving price transparency and customer trust.</li><li class="text-current/90">Implemented runtime safeguards against malicious Lister pricing strategies, reducing compute load by 10%.</li><li class="text-current/90">Participated in on-call rotations, sprint planning, and cross-team collaboration within agile frameworks.</li><li class="text-current/90">Mentored junior engineers and conducted regular knowledge-sharing sessions.</li></ul></div><div class="bg-white/10 backdrop-blur-sm rounded-lg p-8 shadow-lg hover:bg-white/10 transition-all max-w-4xl" style="opacity:0;transform:translateY(20px)"><h3 class="text-xl font-semibold text-current">Software Engineer</h3><p class="text-current/80 mb-2">Algoface</p><p class="text-current/70 mb-4">Mar 2019 – Jun 2020</p><ul class="list-disc list-inside space-y-2"><li class="text-current/90">Integrated computer vision models into secure and performant front-end web and desktop apps.</li><li class="text-current/90">Designed microservices and REST APIs using AWS Lambda, API Gateway, CloudFormation, and DynamoDB.</li><li class="text-current/90">Managed model inference infrastructure on EC2, ensuring performance optimization and secure deployment.</li><li class="text-current/90">Enhanced system modularity and fault tolerance across distributed ML services.</li><li class="text-current/90">Delivered reliable, customer-facing applications across various industries.</li></ul></div><div class="bg-white/10 backdrop-blur-sm rounded-lg p-8 shadow-lg hover:bg-white/10 transition-all max-w-4xl" style="opacity:0;transform:translateY(20px)"><h3 class="text-xl font-semibold text-current">Software Engineer</h3><p class="text-current/80 mb-2">Windhoverlabs</p><p class="text-current/70 mb-4">Sep 2017 – Feb 2019</p><ul class="list-disc list-inside space-y-2"><li class="text-current/90">Led end-to-end development of aerospace software solutions, from requirements to deployment.</li><li class="text-current/90">Designed geolocation 3D mapping and ASDB-based aircraft tracking for ground control stations.</li><li class="text-current/90">Built real-time Primary Flight Display (PFD) systems enabling in-flight monitoring and decision-making.</li><li class="text-current/90">Developed internal APIs and tools to manage and scale the open-source avionics project, Airliner.</li><li class="text-current/90">Transformed ground station UI into a modular multi-window system, enhancing multi-user workflows.</li><li class="text-current/90">Ensured high-quality releases via code reviews, on-site acceptance testing, and outdoor flight trials.</li></ul></div><div class="bg-white/10 backdrop-blur-sm rounded-lg p-8 shadow-lg hover:bg-white/10 transition-all max-w-4xl" style="opacity:0;transform:translateY(20px)"><h3 class="text-xl font-semibold text-current">Software Developer Intern</h3><p class="text-current/80 mb-2">Zdaly</p><p class="text-current/70 mb-4">Jun 2017 – Aug 2017</p><ul class="list-disc list-inside space-y-2"><li class="text-current/90">Developed customer-facing web apps and machine learning services for energy and finance sectors.</li><li class="text-current/90">Collaborated with content managers and UI designers to resolve cross-browser and UX issues.</li><li class="text-current/90">Prototyped NLP tools for data extraction and aggregation pipelines, improving automation efficiency.</li><li class="text-current/90">Deployed ML-backed APIs to AWS infrastructure and participated in QA and integration testing cycles.</li></ul></div></div></section><section class="mb-12"><h2 class="text-2xl font-bold mb-4">Education</h2><div class="bg-white/10 backdrop-blur-sm rounded-lg p-6"><div class="mb-6"><h3 class="text-xl font-semibold text-current">Master&#x27;s Degree in Computer Science</h3><p class="text-current/80">University of Houston - Main Campus</p><p class="text-current/80">AUG 2015 - MAY 2017</p><p class="text-current/90">GPA: <!-- -->3.25</p></div><div class=""><h3 class="text-xl font-semibold text-current">Bachelor&#x27;s Degree in Computer Science</h3><p class="text-current/80">SRM University - Main Campus</p><p class="text-current/80">AUG 2011 - MAY 2015</p><p class="text-current/90">GPA: <!-- -->8.0</p></div></div></section><section class="mb-12"><h2 class="text-2xl font-bold mb-4">Skills</h2><div class="bg-white/10 backdrop-blur-sm rounded-lg p-6"><div class="flex flex-wrap gap-3"><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.4"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">Python<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">5</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.4"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">DynamoDB<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">5</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.4"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">REST APIs<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">5</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.4"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">Git<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">5</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.32"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">Java<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">4</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.32"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">Scala<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">4</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.32"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">C++<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">4</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.32"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">JavaScript<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">4</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.32"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">Node.js<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">4</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.32"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">SQL<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">4</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.32"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">PostgreSQL<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">4</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.32"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">Redis<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">4</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.32"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">Apache Spark<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">4</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.32"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">CI/CD<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">4</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.32"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">AWS<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">4</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.32"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">Microservices<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">4</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.32"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">Real-time Systems<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">4</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.32"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">Statistics<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">4</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.32"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">Data Engineering<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">4</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.24"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">TypeScript<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">3</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.24"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">React<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">3</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.24"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">MongoDB<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">3</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.24"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">Microsoft Azure<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">3</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.24"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">Distributed Systems<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">3</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.24"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">Machine Learning<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">3</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.24"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">Quantitative Analysis<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">3</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.24"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">Backtesting<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">3</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.24"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">Agile/Scrum<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">3</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.16"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">Google Cloud Platform (GCP)<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">2</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.16"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">Computer Vision<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">2</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.16"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">Natural Language Processing (NLP)<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">2</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.16"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">Technical Analysis<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">2</span></div></div><div class="relative group"><div class="
+                        absolute -inset-0.5
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        blur
+                        transition-opacity duration-200
+                      " style="opacity:0.16"></div><div class="
+                      relative z-10
+                      px-4 py-2 rounded-full
+                      text-sm font-medium
+                      transition-all duration-200
+                      bg-white/10
+                      hover:bg-opacity-80
+                      text-current
+                      flex items-center gap-2
+                    ">Algorithmic Trading<span class="
+                        inline-flex items-center justify-center
+                        w-5 h-5 rounded-full
+                        text-xs font-bold
+                        bg-gradient-to-r from-[#E50914] to-[#B20710]
+                        text-white
+                      ">2</span></div></div></div></div></section><section class="mb-12"><h2 class="text-2xl font-bold mb-6">Portfolio</h2><div class="grid grid-cols-1 md:grid-cols-2 gap-6"><div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 shadow-lg hover:bg-white/10 transition-all" style="opacity:0;transform:scale(0.9)"><h3 class="text-xl font-semibold mb-3 text-current">Real-time Student Performance Evaluation System</h3><p class="text-current/90 mb-4">Designed and implemented RSPEF to improve graduation rates using machine learning for early identification of at-risk students. The system includes predictive analysis, emergency warning system, and interactive dashboards.</p><div class="flex flex-wrap gap-2"><span class="bg-white/10 px-3 py-1 rounded-full text-sm text-current/80">Machine Learning</span><span class="bg-white/10 px-3 py-1 rounded-full text-sm text-current/80">Java</span><span class="bg-white/10 px-3 py-1 rounded-full text-sm text-current/80">Python</span><span class="bg-white/10 px-3 py-1 rounded-full text-sm text-current/80">SQL</span><span class="bg-white/10 px-3 py-1 rounded-full text-sm text-current/80">AngularJS</span><span class="bg-white/10 px-3 py-1 rounded-full text-sm text-current/80">D3.js</span></div></div><div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 shadow-lg hover:bg-white/10 transition-all" style="opacity:0;transform:scale(0.9)"><h3 class="text-xl font-semibold mb-3 text-current">Author Gender Prediction</h3><p class="text-current/90 mb-4">Developed a machine learning model to predict author gender from text using WEKA API. Useful for criminal forensics, plagiarism detection, and linguistic studies.</p><div class="flex flex-wrap gap-2"><span class="bg-white/10 px-3 py-1 rounded-full text-sm text-current/80">Java</span><span class="bg-white/10 px-3 py-1 rounded-full text-sm text-current/80">WEKA</span><span class="bg-white/10 px-3 py-1 rounded-full text-sm text-current/80">SQL</span><span class="bg-white/10 px-3 py-1 rounded-full text-sm text-current/80">NLP</span></div></div><div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 shadow-lg hover:bg-white/10 transition-all" style="opacity:0;transform:scale(0.9)"><h3 class="text-xl font-semibold mb-3 text-current">Time Series Interpolation</h3><p class="text-current/90 mb-4">Implemented polynomial curve fitting for time series data interpolation using NumPy. The system learns the optimal polynomial degree for accurate predictions.</p><div class="flex flex-wrap gap-2"><span class="bg-white/10 px-3 py-1 rounded-full text-sm text-current/80">Python</span><span class="bg-white/10 px-3 py-1 rounded-full text-sm text-current/80">NumPy</span><span class="bg-white/10 px-3 py-1 rounded-full text-sm text-current/80">Data Analysis</span></div></div><div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 shadow-lg hover:bg-white/10 transition-all" style="opacity:0;transform:scale(0.9)"><h3 class="text-xl font-semibold mb-3 text-current">Car Clustering Analysis</h3><p class="text-current/90 mb-4">Built custom K-Means and Fuzzy K-Means clustering algorithms to group similar cars using UCI Dataset. Implemented both hard and soft clustering approaches.</p><div class="flex flex-wrap gap-2"><span class="bg-white/10 px-3 py-1 rounded-full text-sm text-current/80">Python</span><span class="bg-white/10 px-3 py-1 rounded-full text-sm text-current/80">Machine Learning</span><span class="bg-white/10 px-3 py-1 rounded-full text-sm text-current/80">Data Analysis</span></div></div><div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 shadow-lg hover:bg-white/10 transition-all" style="opacity:0;transform:scale(0.9)"><h3 class="text-xl font-semibold mb-3 text-current">Neural Network Implementation</h3><p class="text-current/90 mb-4">Created a scalable 3-layer neural network from scratch using only NumPy. The network uses backpropagation for learning and can be extended to N layers.</p><div class="flex flex-wrap gap-2"><span class="bg-white/10 px-3 py-1 rounded-full text-sm text-current/80">Python</span><span class="bg-white/10 px-3 py-1 rounded-full text-sm text-current/80">NumPy</span><span class="bg-white/10 px-3 py-1 rounded-full text-sm text-current/80">Deep Learning</span></div></div></div></section></div></main><script src="/personal-website/_next/static/chunks/webpack-f714fd7a4444a147.js" crossorigin="" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0]);self.__next_f.push([2,null])</script><script>self.__next_f.push([1,"1:HL[\"/personal-website/_next/static/media/a34f9d1faa5f3315-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n2:HL[\"/personal-website/_next/static/css/325de670a1220ca8.css\",\"style\",{\"crossOrigin\":\"\"}]\n0:\"$L3\"\n"])</script><script>self.__next_f.push([1,"4:I[7690,[],\"\"]\n6:I[7831,[],\"\"]\n7:I[1263,[\"699\",\"static/chunks/8e1d74a4-d807fc2e98bba4c9.js\",\"244\",\"static/chunks/244-7c0f65aabfd5c3b2.js\",\"931\",\"static/chunks/app/page-5aa1dddb12843801.js\"],\"\"]\n8:I[5613,[],\"\"]\n9:I[1778,[],\"\"]\nb:I[8955,[],\"\"]\nc:[]\n"])</script><script>self.__next_f.push([1,"3:[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/personal-website/_next/static/css/325de670a1220ca8.css\",\"precedence\":\"next\",\"crossOrigin\":\"\"}]],[\"$\",\"$L4\",null,{\"buildId\":\"7LyOhOB6NaMg7_jTxG-wb\",\"assetPrefix\":\"/personal-website\",\"initialCanonicalUrl\":\"/\",\"initialTree\":[\"\",{\"children\":[\"__PAGE__\",{}]},\"$undefined\",\"$undefined\",true],\"initialSeedData\":[\"\",{\"children\":[\"__PAGE__\",{},[\"$L5\",[\"$\",\"$L6\",null,{\"propsForComponent\":{\"params\":{}},\"Component\":\"$7\",\"isStaticGeneration\":true}],null]]},[null,[\"$\",\"html\",null,{\"lang\":\"en\",\"children\":[\"$\",\"body\",null,{\"className\":\"__className_524ad8 bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100\",\"children\":[\"$\",\"$L8\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\"],\"loading\":\"$undefined\",\"loadingStyles\":\"$undefined\",\"loadingScripts\":\"$undefined\",\"hasLoading\":false,\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L9\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":\"404\"}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],\"notFoundStyles\":[],\"styles\":null}]}]}],null]],\"initialHead\":[false,\"$La\"],\"globalErrorComponent\":\"$b\",\"missingSlots\":\"$Wc\"}]]\n"])</script><script>self.__next_f.push([1,"a:[[\"$\",\"meta\",\"0\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}],[\"$\",\"meta\",\"1\",{\"charSet\":\"utf-8\"}],[\"$\",\"title\",\"2\",{\"children\":\"Karthik Bibireddy - Data Scientist \u0026 Software Engineer\"}],[\"$\",\"meta\",\"3\",{\"name\":\"description\",\"content\":\"Personal website of Karthik Bibireddy, showcasing professional experience, projects, and skills in Data Science and Software Engineering.\"}],[\"$\",\"meta\",\"4\",{\"name\":\"next-size-adjust\"}]]\n5:null\n"])</script><script>self.__next_f.push([1,""])</script></body></html>

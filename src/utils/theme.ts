@@ -19,7 +19,7 @@ export const themeConfigs: Record<Theme, ThemeConfig> = {
     background: '#141414',
     text: '#FFFFFF',
     accent: '#E50914',
-    cardBg: 'bg-white/10',
+    cardBg: 'bg-[#141414]',
     muted: '#6D6D6E',
     highlight: '#DC2626',
     font: 'font-space-grotesk'
@@ -30,7 +30,7 @@ export const themeConfigs: Record<Theme, ThemeConfig> = {
     background: '#FFFFFF',
     text: '#050505',
     accent: '#0866FF',
-    cardBg: 'bg-black/5',
+    cardBg: 'bg-[#18191A]',
     muted: '#65676B',
     highlight: '#1D9BF0',
     font: 'font-inter'
@@ -41,7 +41,7 @@ export const themeConfigs: Record<Theme, ThemeConfig> = {
     background: '#313338',
     text: '#FFFFFF',
     accent: '#5865F2',
-    cardBg: 'bg-[#5865F2]/10',
+    cardBg: 'bg-[#313338]',
     muted: '#949BA4',
     highlight: '#5865F2',
     font: 'font-roboto-mono'

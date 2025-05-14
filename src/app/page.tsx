@@ -1,29 +1,48 @@
 "use client";
-import { FaGithub, FaLinkedin, FaEnvelope, FaMapMarkerAlt, FaGraduationCap, FaTools, FaCode, FaDatabase, FaCloud, FaServer, FaBrain, FaChartLine, FaCogs, FaProjectDiagram, FaFileWord, FaFilePdf } from 'react-icons/fa'
-import { MdWorkOutline } from "react-icons/md";
-import { GiSoapExperiment } from "react-icons/gi";
-import { MdOutlineCloudQueue } from "react-icons/md";
-import { motion } from 'framer-motion'
+
+// React and core imports
 import { useState } from 'react';
-import WorkExperience from '@/components/WorkExperience'
-import Portfolio from '@/components/Portfolio'
-import ThemeSwitcher from '@/components/ThemeSwitcher'
-import TableOfContents from '@/components/TableOfContents'
-import SpaceTimeAnimation from '@/components/SpaceTimeAnimation'
-import ElectronicSpark from '@/components/ElectronicSpark'
-import SkillBadge from '@/components/SkillBadge'
-import resumeData from '@/data/resume.json'
-import { Theme } from '@/types/theme'
-import PDFResume from '@/components/PDFResume'
-import { generatePDF } from '@/utils/pdf'
-import { generateDOCX } from '@/utils/docx'
-import { Resume } from '@/types/resume'
-import { themeConfigs } from '@/utils/theme'
+import { motion } from 'framer-motion';
+
+// Components
+import WorkExperience from '@/components/WorkExperience';
+import Portfolio from '@/components/Portfolio';
+import ThemeSwitcher from '@/components/ThemeSwitcher';
+import TableOfContents from '@/components/TableOfContents';
+import SpaceTimeAnimation from '@/components/SpaceTimeAnimation';
+import ElectronicSpark from '@/components/ElectronicSpark';
+import SkillBadge from '@/components/SkillBadge';
+import PDFResume from '@/components/PDFResume';
+
+// Data and types
+import resumeData from '@/data/resume.json';
+import { Theme } from '@/types/theme';
+import { Resume } from '@/types/resume';
+import { themeConfigs } from '@/utils/theme';
+
+// Icons
+import { 
+  FaGithub, 
+  FaLinkedin, 
+  FaEnvelope, 
+  FaMapMarkerAlt,
+  FaGraduationCap,
+  FaTools,
+  FaProjectDiagram,
+  FaFilePdf,
+  FaFileWord
+} from 'react-icons/fa';
+import { MdWorkOutline, MdOutlineCloudQueue } from "react-icons/md";
+import { GiSoapExperiment } from "react-icons/gi";
 import { PiCode } from 'react-icons/pi';
 import { TbDatabase } from 'react-icons/tb';
 import { BsGraphUpArrow } from 'react-icons/bs';
 import { PiBrainThin } from 'react-icons/pi';
 import { LiaCogSolid } from 'react-icons/lia';
+
+// Utils
+import { generatePDF } from '@/utils/pdf';
+import { generateDOCX } from '@/utils/docx';
 
 const skillCategories = {
   languages: ['Python', 'Java', 'C++', 'JavaScript'],

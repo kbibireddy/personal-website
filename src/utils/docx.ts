@@ -13,49 +13,34 @@ const FONT_SIZES = {
   SMALL: 18,         // 9pt
 };
 
-const bulletOptions = {
-  level: 0
-};
-
-const spacing = {
-  before: 100,
-  after: 200
-};
-
-const sectionSpacing = {
-  before: 210,
-  after: 200
-};
-
-const itemSpacing = {
-  before: 0,
-  after: 90
-};
-
-const sectionOptions = {
-  properties: {
-    page: {
-      margin: {
-        top: 1000,
-        right: 1000,
-        bottom: 1000,
-        left: 1000,
-      }
-    }
+// Document configuration
+const CONFIG = {
+  bullet: { level: 0 },
+  spacing: {
+    section: { before: 210, after: 200 },
+    item: { before: 0, after: 90 },
+    header: 200,
+    summary: 400
   },
-  children: [] as any[]
+  margin: {
+    top: 1000,
+    right: 1000,
+    bottom: 1000,
+    left: 1000,
+  }
 };
 
 export async function generateDOCX(data: Resume): Promise<void> {
-  // Create document
   const doc = new Document({
     sections: [{
-      properties: sectionOptions.properties,
+      properties: {
+        page: { margin: CONFIG.margin }
+      },
       children: [
         // Header
         new Paragraph({
           alignment: AlignmentType.CENTER,
-          spacing: { after: 200 },
+          spacing: { after: CONFIG.spacing.header },
           children: [
             new TextRun({
               text: data.name,
@@ -67,7 +52,7 @@ export async function generateDOCX(data: Resume): Promise<void> {
         }),
         new Paragraph({
           alignment: AlignmentType.CENTER,
-          spacing: { after: 200 },
+          spacing: { after: CONFIG.spacing.header },
           children: [
             new TextRun({
               text: resumeOverrides.title,
@@ -78,7 +63,7 @@ export async function generateDOCX(data: Resume): Promise<void> {
         }),
         new Paragraph({
           alignment: AlignmentType.CENTER,
-          spacing: { after: 200 },
+          spacing: { after: CONFIG.spacing.header },
           children: [
             new TextRun({ text: data.contact.email, size: FONT_SIZES.SMALL, font: "Arial" }),
             new TextRun({ text: " • ", size: FONT_SIZES.SMALL, font: "Arial" }),
@@ -89,7 +74,7 @@ export async function generateDOCX(data: Resume): Promise<void> {
         }),
         new Paragraph({
           alignment: AlignmentType.CENTER,
-          spacing: { after: 400 },
+          spacing: { after: CONFIG.spacing.summary },
           children: [
             new TextRun({ text: data.contact.linkedin, size: FONT_SIZES.SMALL, font: "Arial" }),
             new TextRun({ text: " • ", size: FONT_SIZES.SMALL, font: "Arial" }),
@@ -100,7 +85,7 @@ export async function generateDOCX(data: Resume): Promise<void> {
         // Professional Summary
         new Paragraph({
           heading: HeadingLevel.HEADING_1,
-          spacing: sectionSpacing,
+          spacing: CONFIG.spacing.section,
           children: [new TextRun({ 
             text: "Professional Summary", 
             bold: true,
@@ -109,7 +94,7 @@ export async function generateDOCX(data: Resume): Promise<void> {
           })]
         }),
         new Paragraph({
-          spacing: { after: 400 },
+          spacing: { after: CONFIG.spacing.summary },
           children: [
             new TextRun({
               text: resumeOverrides.summary,
@@ -122,7 +107,7 @@ export async function generateDOCX(data: Resume): Promise<void> {
         // Work Experience
         new Paragraph({
           heading: HeadingLevel.HEADING_1,
-          spacing: sectionSpacing,
+          spacing: CONFIG.spacing.section,
           children: [new TextRun({ 
             text: "Work Experience", 
             bold: true,
@@ -132,7 +117,7 @@ export async function generateDOCX(data: Resume): Promise<void> {
         }),
         ...data.workExperience.slice(0, -1).map((job, index) => [
           new Paragraph({
-            spacing: itemSpacing,
+            spacing: CONFIG.spacing.item,
             children: [
               new TextRun({ 
                 text: job.company + " - " + job.title, 
@@ -152,7 +137,7 @@ export async function generateDOCX(data: Resume): Promise<void> {
           ...job.description.slice(0, index === 0 ? 6 : 5).map(
             desc => new Paragraph({
               spacing: { before: 0, after: 60 },
-              bullet: bulletOptions,
+              bullet: CONFIG.bullet,
               children: [new TextRun({ 
                 text: desc,
                 size: FONT_SIZES.NORMAL,
@@ -165,7 +150,7 @@ export async function generateDOCX(data: Resume): Promise<void> {
         // Technical Skills
         new Paragraph({
           heading: HeadingLevel.HEADING_1,
-          spacing: sectionSpacing,
+          spacing: CONFIG.spacing.section,
           children: [new TextRun({ 
             text: "Technical Skills", 
             bold: true,
@@ -174,7 +159,7 @@ export async function generateDOCX(data: Resume): Promise<void> {
           })]
         }),
         new Paragraph({
-          spacing: { after: 400 },
+          spacing: { after: CONFIG.spacing.summary },
           children: [
             new TextRun({
               text: data.skills
@@ -191,7 +176,7 @@ export async function generateDOCX(data: Resume): Promise<void> {
         // Education
         new Paragraph({
           heading: HeadingLevel.HEADING_1,
-          spacing: sectionSpacing,
+          spacing: CONFIG.spacing.section,
           children: [new TextRun({ 
             text: "Education", 
             bold: true,

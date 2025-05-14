@@ -7,6 +7,11 @@ export interface CanvasSetup {
   height: number;
 }
 
+export interface CanvasElementProps {
+  ref: RefObject<HTMLCanvasElement>;
+  className?: string;
+}
+
 export function useCanvas(
   canvasRef: RefObject<HTMLCanvasElement>,
   animate: (setup: CanvasSetup) => (() => void) | void
@@ -41,11 +46,6 @@ export function useCanvas(
       if (cleanup) cleanup();
     };
   }, [canvasRef, animate]);
-}
-
-interface CanvasElementProps {
-  ref: RefObject<HTMLCanvasElement>;
-  className?: string;
 }
 
 export const CanvasElement = React.forwardRef<HTMLCanvasElement, Omit<CanvasElementProps, 'ref'>>((props, ref) => {

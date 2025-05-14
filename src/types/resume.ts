@@ -6,24 +6,24 @@ export interface Contact {
   github: string;
 }
 
-export interface WorkExperience {
-  title: string;
-  company: string;
+export interface Education {
+  school: string;
+  degree: string;
+  gpa: string;
   period: string;
-  description: string[];
 }
 
-export interface Education {
-  degree: string;
-  school: string;
+export interface WorkExperience {
+  company: string;
+  title: string;
   period: string;
-  gpa: string;
+  description: string[];
 }
 
 export interface Skill {
   name: string;
   proficiency: number;
-  category: string;
+  category?: string;
 }
 
 export interface Project {
@@ -39,8 +39,8 @@ export interface Resume {
   headline: string;
   professionalSummary: string;
   contact: Contact;
-  workExperience: WorkExperience[];
   education: Education[];
+  workExperience: WorkExperience[];
   skills: Skill[];
   projects: Project[];
 } 

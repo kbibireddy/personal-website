@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from 'framer-motion'
 import { Theme } from '@/types/theme';
 import { getCardBgClass } from '@/utils/theme';

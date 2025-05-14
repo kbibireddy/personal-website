@@ -23,6 +23,24 @@
     @apply border-border;
   }
 
+  html, body {
+    @apply overflow-x-hidden;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  html {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
   body {
     @apply bg-background text-foreground;
     background: linear-gradient(
@@ -135,6 +153,40 @@
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 0.5em !important;
+  }
+
+  /* Remove gradients and animations */
+  .print-friendly * {
+    background: none !important;
+    animation: none !important;
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
+    -webkit-text-fill-color: black !important;
+  }
+
+  /* Ensure proper list formatting */
+  .print-friendly ul {
+    padding-left: 1.25em !important;
+    list-style-type: disc !important;
+  }
+
+  .print-friendly li {
+    page-break-inside: avoid !important;
+    margin-bottom: 0.25em !important;
+  }
+
+  /* Contact info formatting */
+  .contact-info {
+    margin: 0.5em 0 1em !important;
+    display: flex !important;
+    justify-content: center !important;
+    gap: 1em !important;
+    flex-wrap: wrap !important;
+  }
+
+  .contact-info a::after {
+    content: attr(href);
+    font-size: 9pt;
   }
 
   /* Remove backdrop blur and other effects */

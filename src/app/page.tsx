@@ -1,7 +1,7 @@
 "use client";
 
 // React and core imports
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 // Components
@@ -18,7 +18,7 @@ import PDFResume from '@/components/PDFResume';
 import resumeData from '@/data/resume.json';
 import { Theme } from '@/types/theme';
 import { Resume } from '@/types/resume';
-import { themeConfigs } from '@/utils/theme';
+import { themeConfigs, getCardBgClass, getAccentClasses } from '@/utils/theme';
 
 // Icons
 import { 
@@ -53,6 +53,15 @@ const skillCategories = {
 
 export default function Home() {
   const [theme, setTheme] = useState<Theme>('netflix');
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   const getThemeClasses = (theme: Theme) => {
     switch (theme) {
@@ -122,7 +131,7 @@ export default function Home() {
   };
 
   return (
-    <main className={`min-h-screen p-8 md:p-24 transition-colors duration-300 relative overflow-hidden ${getThemeClasses(theme)}`}>
+    <main className={`min-h-screen w-screen overflow-x-hidden p-8 md:p-24 transition-colors duration-300 relative ${getThemeClasses(theme)}`}>
       <div className="absolute inset-0 z-0">
         {theme === 'netflix' && <SpaceTimeAnimation />}
         {theme === 'discord' && <ElectronicSpark />}

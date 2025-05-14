@@ -2,6 +2,9 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { Theme } from '@/types/theme';
 import { themeConfigs } from '@/utils/theme';
+import { SiNetflix } from 'react-icons/si';
+import { FaMeta } from 'react-icons/fa6';
+import { RxDiscordLogo } from 'react-icons/rx';
 
 interface ThemeSwitcherProps {
   onThemeChange: (theme: Theme) => void;
@@ -15,11 +18,11 @@ export default function ThemeSwitcher({ onThemeChange }: ThemeSwitcherProps) {
     onThemeChange(theme);
   };
 
-  const getThemeLetter = (theme: Theme) => {
+  const getThemeIcon = (theme: Theme) => {
     switch (theme) {
-      case 'netflix': return 'N';
-      case 'meta': return 'M';
-      case 'discord': return 'D';
+      case 'netflix': return <SiNetflix className="w-4 h-4" />;
+      case 'meta': return <FaMeta className="w-4 h-4" />;
+      case 'discord': return <RxDiscordLogo className="w-4 h-4" />;
     }
   };
 
@@ -44,9 +47,7 @@ export default function ThemeSwitcher({ onThemeChange }: ThemeSwitcherProps) {
               }}
             >
               <span className="sr-only">{theme} theme</span>
-              <span className="text-white text-xs font-bold">
-                {getThemeLetter(theme as Theme)}
-              </span>
+              {getThemeIcon(theme as Theme)}
             </motion.button>
           ))}
         </div>

@@ -1,5 +1,8 @@
 "use client";
-import { FaGithub, FaLinkedin, FaEnvelope, FaMapMarkerAlt, FaBriefcase, FaGraduationCap, FaTools, FaCode, FaDatabase, FaCloud, FaServer, FaBrain, FaChartLine, FaCogs, FaProjectDiagram, FaDownload, FaFileWord, FaFilePdf } from 'react-icons/fa'
+import { FaGithub, FaLinkedin, FaEnvelope, FaMapMarkerAlt, FaGraduationCap, FaTools, FaCode, FaDatabase, FaCloud, FaServer, FaBrain, FaChartLine, FaCogs, FaProjectDiagram, FaFileWord, FaFilePdf } from 'react-icons/fa'
+import { MdWorkOutline } from "react-icons/md";
+import { GiSoapExperiment } from "react-icons/gi";
+import { MdOutlineCloudQueue } from "react-icons/md";
 import { motion } from 'framer-motion'
 import { useState } from 'react';
 import WorkExperience from '@/components/WorkExperience'
@@ -8,13 +11,19 @@ import ThemeSwitcher from '@/components/ThemeSwitcher'
 import TableOfContents from '@/components/TableOfContents'
 import SpaceTimeAnimation from '@/components/SpaceTimeAnimation'
 import ElectronicSpark from '@/components/ElectronicSpark'
+import SkillBadge from '@/components/SkillBadge'
 import resumeData from '@/data/resume.json'
 import { Theme } from '@/types/theme'
-import { getThemeClasses, getAccentClasses, getCardBgClass } from '@/utils/theme'
 import PDFResume from '@/components/PDFResume'
 import { generatePDF } from '@/utils/pdf'
 import { generateDOCX } from '@/utils/docx'
-import { Resume } from '@/types/resume';
+import { Resume } from '@/types/resume'
+import { themeConfigs } from '@/utils/theme'
+import { PiCode } from 'react-icons/pi';
+import { TbDatabase } from 'react-icons/tb';
+import { BsGraphUpArrow } from 'react-icons/bs';
+import { PiBrainThin } from 'react-icons/pi';
+import { LiaCogSolid } from 'react-icons/lia';
 
 const skillCategories = {
   languages: ['Python', 'Java', 'C++', 'JavaScript'],
@@ -180,7 +189,7 @@ export default function Home() {
 
           <section id="experience" className="mb-12">
             <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-              <FaBriefcase className="text-2xl" />
+              <MdWorkOutline className="text-2xl" />
               Work Experience
             </h2>
             <WorkExperience theme={theme} />
@@ -220,13 +229,13 @@ export default function Home() {
               ).map(([category, skills]) => {
                 const getCategoryIcon = (cat: string) => {
                   switch (cat) {
-                    case 'Languages': return <FaCode />;
-                    case 'Data': return <FaDatabase />;
-                    case 'Cloud': return <FaCloud />;
-                    case 'Backend': return <FaServer />;
-                    case 'AI/ML': return <FaBrain />;
-                    case 'Finance': return <FaChartLine />;
-                    case 'Architecture': return <FaCogs />;
+                    case 'Languages': return <PiCode />;
+                    case 'Data': return <TbDatabase />;
+                    case 'Cloud': return <MdOutlineCloudQueue />;
+                    case 'Backend': return <BsGraphUpArrow />;
+                    case 'AI/ML': return <PiBrainThin />;
+                    case 'Finance': return <BsGraphUpArrow />;
+                    case 'Architecture': return <LiaCogSolid />;
                     default: return <FaProjectDiagram />;
                   }
                 };
@@ -241,46 +250,13 @@ export default function Home() {
                       {skills
                         .sort((a, b) => b.proficiency - a.proficiency)
                         .map((skill) => (
-                          <div
+                          <SkillBadge
                             key={skill.name}
-                            className="relative group"
-                          >
-                            <div
-                              className={`
-                                absolute -inset-0.5
-                                bg-gradient-to-r ${getAccentClasses(theme)}
-                                rounded-full
-                                opacity-0 group-hover:opacity-100
-                                blur
-                                transition-opacity duration-200
-                              `}
-                              style={{
-                                opacity: skill.proficiency * 0.08
-                              }}
-                            />
-                            <div className={`
-                              relative z-10
-                              px-4 py-2 rounded-full
-                              text-sm font-medium
-                              transition-all duration-200
-                              ${getCardBgClass(theme)}
-                              hover:bg-opacity-80
-                              text-current
-                              flex items-center gap-2
-                            `}>
-                              {skill.name}
-                              <span className={`
-                                inline-flex items-center justify-center
-                                w-5 h-5 rounded-full
-                                text-xs font-bold
-                                bg-gradient-to-r ${getAccentClasses(theme)}
-                                text-white
-                              `}>
-                                {skill.proficiency}
-                              </span>
-                            </div>
-                          </div>
-                      ))}
+                            name={skill.name}
+                            proficiency={skill.proficiency}
+                            theme={theme}
+                          />
+                        ))}
                     </div>
                   </div>
                 )
@@ -290,7 +266,7 @@ export default function Home() {
 
           <section id="portfolio">
             <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-              <FaProjectDiagram className="text-2xl" />
+              <GiSoapExperiment className="text-2xl" />
               Portfolio
             </h2>
             <Portfolio theme={theme} />

@@ -130,7 +130,7 @@ export async function generateDOCX(data: Resume): Promise<void> {
             font: "Arial"
           })]
         }),
-        ...data.workExperience.map((job, index) => [
+        ...data.workExperience.slice(0, -1).map((job, index) => [
           new Paragraph({
             spacing: itemSpacing,
             children: [

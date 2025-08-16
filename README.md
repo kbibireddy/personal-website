@@ -26,7 +26,7 @@ npm run build
 
 ## Deployment
 
-The website is automatically deployed to GitHub Pages using GitHub Actions when changes are pushed to the main branch. The live site can be accessed at: https://kbibireddy.github.io/personal-website
+The website is automatically deployed to GitHub Pages using GitHub Actions when changes are pushed to the main branch. The live site can be accessed at: https://kbibireddy.github.io/resume
 
 ### Manual Deployment
 

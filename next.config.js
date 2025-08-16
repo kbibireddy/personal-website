@@ -6,7 +6,7 @@ const nextConfig = {
   },
   reactStrictMode: true,
   swcMinify: true,
-  basePath: '/resume',
+  basePath: '/personal-website',
 }
 
 module.exports = nextConfig 

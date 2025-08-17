@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { Theme } from '@/types/theme';
 import { getCardBgClass, getAccentClasses } from '@/utils/theme';
 import { FaExternalLinkAlt } from 'react-icons/fa';
-import resumeData from '@/data/resume.json';
+import resumeData from '@/data/resume_swe.json';
 
 interface PortfolioProps {
   theme: Theme;

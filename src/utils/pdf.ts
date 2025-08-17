@@ -3,7 +3,7 @@
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 
-export async function generatePDF(): Promise<void> {
+export async function generatePDF(type?: string): Promise<void> {
   const content = document.getElementById('pdf-content');
   if (!content) return;
 

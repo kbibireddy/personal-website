@@ -2,7 +2,8 @@
 
 import { Document, Paragraph, TextRun, HeadingLevel, AlignmentType, Packer } from 'docx';
 import { Resume } from '@/types/resume';
-import resumeOverrides from '@/data/resume_overrides.json';
+import resumeOverrides from '@/data/resume_swe_overrides.json';
+import { getResume } from './resumeProvider';
 
 // Font sizes in half-points (1/2 pt)
 const FONT_SIZES = {
@@ -30,7 +31,8 @@ const CONFIG = {
   }
 };
 
-export async function generateDOCX(data: Resume): Promise<void> {
+export async function generateDOCX(type?: string): Promise<void> {
+  const data = await getResume(type);
   const doc = new Document({
     sections: [{
       properties: {

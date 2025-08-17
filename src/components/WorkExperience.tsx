@@ -6,7 +6,7 @@ import { getCardBgClass } from '@/utils/theme';
 import { PiBuildingOfficeDuotone } from "react-icons/pi";
 import { BsCalendarDate } from "react-icons/bs";
 
-import resumeData from '@/data/resume.json'
+import resumeData from '@/data/resume_swe.json'
 
 interface WorkExperienceProps {
   theme: Theme;

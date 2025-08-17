@@ -15,10 +15,9 @@ import SkillBadge from '@/components/SkillBadge';
 import PDFResume from '@/components/PDFResume';
 
 // Data and types
-import resumeData from '@/data/resume.json';
 import { Theme } from '@/types/theme';
-import { Resume } from '@/types/resume';
-import { themeConfigs, getCardBgClass, getAccentClasses } from '@/utils/theme';
+import { getCardBgClass, getAccentClasses } from '@/utils/theme';
+import { useResume } from '@/utils/useResume';
 
 // Icons
 import { 
@@ -28,39 +27,47 @@ import {
   FaMapMarkerAlt,
   FaGraduationCap,
   FaTools,
-  FaProjectDiagram,
   FaFilePdf,
   FaFileWord
 } from 'react-icons/fa';
-import { MdWorkOutline, MdOutlineCloudQueue } from "react-icons/md";
+import { MdWorkOutline, MdMoney } from "react-icons/md";
 import { GiSoapExperiment } from "react-icons/gi";
-import { PiCode } from 'react-icons/pi';
-import { TbDatabase } from 'react-icons/tb';
+import { PiCode, PiBrainThin, PiNetworkXDuotone, PiToolboxDuotone } from 'react-icons/pi';
+import { TbDatabase, TbApps, TbMathIntegrals } from 'react-icons/tb';
 import { BsGraphUpArrow } from 'react-icons/bs';
-import { PiBrainThin } from 'react-icons/pi';
-import { LiaCogSolid } from 'react-icons/lia';
+import { SiDwavesystems } from 'react-icons/si';
+import { AiTwotoneApi } from 'react-icons/ai';
+import { RiStockFill } from 'react-icons/ri';
 
 // Utils
 import { generatePDF } from '@/utils/pdf';
 import { generateDOCX } from '@/utils/docx';
 
-const skillCategories = {
-  languages: ['Python', 'Java', 'C++', 'JavaScript'],
-  frameworks: ['React', 'Node.js'],
-  data: ['SQL', 'Machine Learning', 'Quantitative Analysis'],
-  cloud: ['AWS']
-};
+
 
 export default function Home() {
   const [theme, setTheme] = useState<Theme>('netflix');
   const [mounted, setMounted] = useState(false);
+  const [showGPA, setShowGPA] = useState<{ [key: number]: boolean }>({});
+  const { resume: resumeData, resumeType, loading } = useResume();
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  if (!mounted) {
-    return null;
+  const toggleGPA = (index: number) => {
+    setShowGPA(prev => ({
+      ...prev,
+      [index]: !prev[index]
+    }));
+  };
+
+  if (!mounted || loading || !resumeData) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900 dark:border-white"></div>
+      </div>
+    );
   }
 
   const getThemeClasses = (theme: Theme) => {
@@ -189,7 +196,7 @@ export default function Home() {
               </motion.a>
               <div className="flex gap-2">
                 <motion.button
-                  onClick={() => generatePDF()}
+                  onClick={() => generatePDF(resumeType)}
                   whileHover={{ scale: 1.1 }}
                   className={`flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r ${getAccentClasses(theme)} text-white text-sm font-medium transition-transform`}
                 >
@@ -197,7 +204,7 @@ export default function Home() {
                   PDF
                 </motion.button>
                 <motion.button
-                  onClick={() => generateDOCX(resumeData as Resume)}
+                  onClick={() => generateDOCX(resumeType)}
                   whileHover={{ scale: 1.1 }}
                   className={`flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r ${getAccentClasses(theme)} text-white text-sm font-medium transition-transform`}
                 >
@@ -234,7 +241,23 @@ export default function Home() {
                   <h3 className="text-xl font-semibold text-current">{edu.degree}</h3>
                   <p className="text-current/80">{edu.school}</p>
                   <p className="text-current/80">{edu.period}</p>
-                  <p className="text-current/90">GPA: {edu.gpa}</p>
+                  <div className="flex items-center gap-2 mt-1">
+                    {showGPA[index] ? (
+                      <p className="text-current/90">GPA: {edu.gpa}</p>
+                    ) : (
+                      <button
+                        onClick={() => toggleGPA(index)}
+                        className={`text-sm text-current/70 hover:text-current transition-colors duration-200 underline underline-offset-2 ${
+                          theme === 'netflix' ? 'hover:text-[#E50914]' :
+                          theme === 'meta' ? 'hover:text-[#0866FF]' :
+                          theme === 'discord' ? 'hover:text-[#5865F2]' :
+                          'hover:text-[#E50914]'
+                        }`}
+                      >
+                        see more
+                      </button>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
@@ -246,12 +269,13 @@ export default function Home() {
               Skills
             </h2>
             <div className={`${getCardBgClass(theme)} backdrop-blur-sm rounded-lg p-6`}>
-              {Object.entries(
+              {              Object.entries(
                 resumeData.skills.reduce((acc, skill) => {
-                  if (!acc[skill.category]) {
-                    acc[skill.category] = [];
+                  const category = skill.category || 'Other';
+                  if (!acc[category]) {
+                    acc[category] = [];
                   }
-                  acc[skill.category].push(skill);
+                  acc[category].push(skill);
                   return acc;
                 }, {} as Record<string, typeof resumeData.skills>)
               ).map(([category, skills]) => {
@@ -259,12 +283,17 @@ export default function Home() {
                   switch (cat) {
                     case 'Languages': return <PiCode />;
                     case 'Data': return <TbDatabase />;
-                    case 'Cloud': return <MdOutlineCloudQueue />;
+                    case 'Cloud': return <SiDwavesystems />;
                     case 'Backend': return <BsGraphUpArrow />;
                     case 'AI/ML': return <PiBrainThin />;
-                    case 'Finance': return <BsGraphUpArrow />;
-                    case 'Architecture': return <LiaCogSolid />;
-                    default: return <FaProjectDiagram />;
+                    case 'Finance': return <MdMoney />;
+                    case 'Architecture': return <PiNetworkXDuotone />;
+                    case 'APIs': return <AiTwotoneApi />;
+                    case 'DevOps & Tooling': return <PiToolboxDuotone />;
+                    case 'Frontend': return <TbApps />;
+                    case 'Statistics & Math': return <TbMathIntegrals />;
+                    case 'Trading': return <RiStockFill />;
+                    default: return <FaTools />;
                   }
                 };
 
@@ -301,7 +330,7 @@ export default function Home() {
           </section>
         </motion.div>
       </div>
-      <PDFResume data={resumeData as Resume} />
+      <PDFResume resumeType={resumeType} />
     </main>
   )
 } 

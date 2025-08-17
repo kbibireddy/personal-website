@@ -1,16 +1,58 @@
 "use client";
 
-import React from 'react';
-import { Resume } from '@/types/resume';
+import React, { useState, useEffect } from 'react';
 import { generateDOCX } from '@/utils/docx';
-import resumeOverrides from '@/data/resume_overrides.json';
+import { useResume } from '@/utils/useResume';
 
 interface PDFResumeProps {
-  data: Resume;
+  resumeType?: string;
   onDownload?: (format: 'pdf' | 'docx') => void;
 }
 
-export default function PDFResume({ data, onDownload }: PDFResumeProps) {
+export default function PDFResume({ resumeType, onDownload }: PDFResumeProps) {
+  const { resume: data } = useResume();
+  const [overrides, setOverrides] = useState<any>(null);
+  
+  // Load appropriate overrides file
+  useEffect(() => {
+    const loadOverrides = async () => {
+      try {
+        let overridesData;
+        if (resumeType && resumeType !== 'swe') {
+          try {
+            const specificOverrides = await import(`@/data/resume_${resumeType}_overrides.json`);
+            overridesData = specificOverrides.default;
+          } catch {
+            // Fallback to general overrides
+            const generalOverrides = await import('@/data/resume_swe_overrides.json');
+            overridesData = generalOverrides.default;
+          }
+        } else {
+          // Load swe overrides
+          const sdeOverrides = await import('@/data/resume_swe_overrides.json');
+          overridesData = sdeOverrides.default;
+        }
+        setOverrides(overridesData);
+      } catch (error) {
+        console.error('Failed to load overrides:', error);
+        // Fallback to general overrides
+        try {
+          const generalOverrides = await import('@/data/resume_swe_overrides.json');
+          setOverrides(generalOverrides.default);
+        } catch {
+          // Use default values if all else fails
+          setOverrides({
+            title: "Professional Resume",
+            website: "https://karthikbibireddy.com",
+            summary: "Experienced professional with diverse skills and expertise."
+          });
+        }
+      }
+    };
+
+    loadOverrides();
+  }, [resumeType]);
+  
   // Function to get number of bullets based on job index
   const getBulletCount = (index: number): number => {
     switch(index) {
@@ -21,10 +63,14 @@ export default function PDFResume({ data, onDownload }: PDFResumeProps) {
 
   const handleDownloadClick = async (format: 'pdf' | 'docx') => {
     if (format === 'docx') {
-      await generateDOCX(data);
+      await generateDOCX(resumeType);
     }
     onDownload?.(format);
   };
+
+  if (!data || !overrides) {
+    return null;
+  }
 
   return (
     <div id="pdf-content" className="hidden">
@@ -32,19 +78,19 @@ export default function PDFResume({ data, onDownload }: PDFResumeProps) {
         {/* Header */}
         <div className="text-center mb-3 print-avoid-break">
           <h1 className="text-2xl font-bold mb-1 text-black">{data.name}</h1>
-          <p className="text-sm mb-0.5 text-black">{resumeOverrides.title}</p>
-          <div className="text-sm text-black">
-            {data.contact.email} • {data.contact.phone} • {data.contact.location}
-          </div>
-          <div className="text-sm text-black">
-            {data.contact.linkedin} • {resumeOverrides.website}
-          </div>
+          <p className="text-sm mb-0.5 text-black">{overrides.title}</p>
+                      <div className="text-sm text-black">
+              {data.contact.email} • {data.contact.phone} • {data.contact.location}
+            </div>
+            <div className="text-sm text-black">
+              {data.contact.linkedin} • {overrides.website}
+            </div>
         </div>
 
         {/* Professional Summary */}
         <div className="mb-3 print-avoid-break">
           <h2 className="text-lg font-bold mb-1 text-black">Professional Summary</h2>
-          <p className="text-sm text-black leading-5">{resumeOverrides.summary}</p>
+          <p className="text-sm text-black leading-5">{overrides.summary}</p>
         </div>
 
         {/* Work Experience */}

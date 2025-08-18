@@ -9,6 +9,7 @@ import WorkExperience from '@/components/WorkExperience';
 import Portfolio from '@/components/Portfolio';
 import ThemeSwitcher from '@/components/ThemeSwitcher';
 import TableOfContents from '@/components/TableOfContents';
+import ResumeTypeToggle from '@/components/ResumeTypeToggle';
 import SpaceTimeAnimation from '@/components/SpaceTimeAnimation';
 import ElectronicSpark from '@/components/ElectronicSpark';
 import SkillBadge from '@/components/SkillBadge';

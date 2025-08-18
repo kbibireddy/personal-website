@@ -67,7 +67,7 @@ export default function ThemeSwitcher({ onThemeChange }: ThemeSwitcherProps) {
   return (
     <div className="fixed top-4 left-4 z-50">
       <div className="flex items-center space-x-4">
-        <span className="text-sm font-medium">Theme:</span>
+        <span className="text-sm font-medium">Themes:</span>
         <div className="flex space-x-2">
           {Object.keys(themeConfigs).map((theme) => (
             <motion.button

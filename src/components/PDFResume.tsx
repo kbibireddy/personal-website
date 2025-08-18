@@ -23,14 +23,19 @@ export default function PDFResume({ resumeType, onDownload }: PDFResumeProps) {
       normal: 13,         // Normal text
       small: 11           // Small text
     },
-    // Job display configuration
-    jobs: {
-      maxJobs: 3,         // Maximum number of jobs to show
-      maxBullets: {
-        first: 6,         // Bullets for most recent job
-        others: 4         // Bullets for other jobs
-      }
-    },
+      // Job display configuration
+  jobs: {
+    maxJobs: 3,         // Maximum number of jobs to show
+    maxBullets: {
+      // Specify exact number of bullet points for each job by index
+      // Index 0 = most recent job, Index 1 = second most recent, etc.
+      0: 6,             // Most recent job: 6 bullets
+      1: 4,             // Second job: 4 bullets
+      2: 3,             // Third job: 3 bullets
+      // Add more job indices as needed
+      default: 2        // Default bullets for any job not specifically configured
+    }
+  },
     // Skills configuration
     skills: {
       maxSkills: 25,      // Maximum number of skills to show
@@ -59,7 +64,7 @@ export default function PDFResume({ resumeType, onDownload }: PDFResumeProps) {
   
   // Function to get number of bullets based on job index
   const getBulletCount = (index: number): number => {
-    return index === 0 ? PDF_CONFIG.jobs.maxBullets.first : PDF_CONFIG.jobs.maxBullets.others;
+    return PDF_CONFIG.jobs.maxBullets[index as keyof typeof PDF_CONFIG.jobs.maxBullets] || PDF_CONFIG.jobs.maxBullets.default;
   };
 
   const handleDownloadClick = async (format: 'pdf' | 'docx') => {

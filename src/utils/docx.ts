@@ -33,8 +33,13 @@ const DOCX_CONFIG = {
   jobs: {
     maxJobs: 3,         // Maximum number of jobs to show
     maxBullets: {
-      first: 6,         // Bullets for most recent job
-      others: 4         // Bullets for other jobs
+      // Specify exact number of bullet points for each job by index
+      // Index 0 = most recent job, Index 1 = second most recent, etc.
+      0: 6,             // Most recent job: 6 bullets
+      1: 4,             // Second job: 4 bullets
+      2: 3,             // Third job: 3 bullets
+      // Add more job indices as needed
+      default: 2        // Default bullets for any job not specifically configured
     }
   },
   // Skills configuration
@@ -44,7 +49,7 @@ const DOCX_CONFIG = {
   },
   // Education configuration
   education: {
-    showGPA: true,      // Whether to show GPA in DOCX
+    showGPA: false,      // Whether to show GPA in DOCX
     maxEducation: 2     // Maximum number of education entries
   }
 };
@@ -155,7 +160,7 @@ export async function generateDOCX(type?: string): Promise<void> {
               })
             ]
           }),
-          ...job.description.slice(0, index === 0 ? DOCX_CONFIG.jobs.maxBullets.first : DOCX_CONFIG.jobs.maxBullets.others).map(
+          ...job.description.slice(0, DOCX_CONFIG.jobs.maxBullets[index as keyof typeof DOCX_CONFIG.jobs.maxBullets] || DOCX_CONFIG.jobs.maxBullets.default).map(
             desc => new Paragraph({
               spacing: { before: 0, after: 60 },
               bullet: DOCX_CONFIG.layout.bullet,

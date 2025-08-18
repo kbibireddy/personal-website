@@ -3,17 +3,14 @@
 import { Document, Paragraph, TextRun, HeadingLevel, AlignmentType, Packer } from 'docx';
 import { getResumeWithOverrides } from './resumeProvider';
 
-// DOCX Generation Configuration
 const DOCX_CONFIG = {
-  // Font sizes in half-points (1/2 pt)
   fonts: {
-    NAME: 28,          // 14pt
-    TITLE: 24,         // 12pt
-    HEADING: 24,       // 12pt
-    NORMAL: 20,        // 10pt
-    SMALL: 18,         // 9pt
+    NAME: 28,
+    TITLE: 24,
+    HEADING: 24,
+    NORMAL: 20,
+    SMALL: 18,
   },
-  // Document layout configuration
   layout: {
     bullet: { level: 0 },
     spacing: {
@@ -29,28 +26,22 @@ const DOCX_CONFIG = {
       left: 1000,
     }
   },
-  // Job display configuration
   jobs: {
-    maxJobs: 3,         // Maximum number of jobs to show
+    maxJobs: 3,
     maxBullets: {
-      // Specify exact number of bullet points for each job by index
-      // Index 0 = most recent job, Index 1 = second most recent, etc.
-      0: 6,             // Most recent job: 6 bullets
-      1: 4,             // Second job: 4 bullets
-      2: 3,             // Third job: 3 bullets
-      // Add more job indices as needed
-      default: 2        // Default bullets for any job not specifically configured
+      0: 6,
+      1: 4,
+      2: 3,
+      default: 2
     }
   },
-  // Skills configuration
   skills: {
-    maxSkills: 20,      // Maximum number of skills to show
-    sortByProficiency: true  // Sort skills by proficiency
+    maxSkills: 20,
+    sortByProficiency: true
   },
-  // Education configuration
   education: {
-    showGPA: false,      // Whether to show GPA in DOCX
-    maxEducation: 2     // Maximum number of education entries
+    showGPA: false,
+    maxEducation: 2
   }
 };
 

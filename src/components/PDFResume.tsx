@@ -13,42 +13,33 @@ interface PDFResumeProps {
 export default function PDFResume({ resumeType, onDownload }: PDFResumeProps) {
   const [data, setData] = React.useState<Resume | null>(null);
   
-  // PDF Generation Configuration
   const PDF_CONFIG = {
-    // Font sizes in pixels
     fonts: {
-      name: 24,           // Name size
-      headline: 14,       // Headline size
-      section: 18,        // Section headers
-      normal: 13,         // Normal text
-      small: 11           // Small text
+      name: 24,
+      headline: 14,
+      section: 18,
+      normal: 13,
+      small: 11
     },
-      // Job display configuration
-  jobs: {
-    maxJobs: 3,         // Maximum number of jobs to show
-    maxBullets: {
-      // Specify exact number of bullet points for each job by index
-      // Index 0 = most recent job, Index 1 = second most recent, etc.
-      0: 6,             // Most recent job: 6 bullets
-      1: 4,             // Second job: 4 bullets
-      2: 3,             // Third job: 3 bullets
-      // Add more job indices as needed
-      default: 2        // Default bullets for any job not specifically configured
-    }
-  },
-    // Skills configuration
+    jobs: {
+      maxJobs: 3,
+      maxBullets: {
+        0: 6,
+        1: 4,
+        2: 3,
+        default: 2
+      }
+    },
     skills: {
-      maxSkills: 25,      // Maximum number of skills to show
-      sortByProficiency: true  // Sort skills by proficiency
+      maxSkills: 25,
+      sortByProficiency: true
     },
-    // Education configuration
     education: {
-      showGPA: false,      // Whether to show GPA in PDF
-      maxEducation: 2     // Maximum number of education entries
+      showGPA: false,
+      maxEducation: 2
     }
   };
   
-  // Load resume data with overrides applied
   React.useEffect(() => {
     const loadResume = async () => {
       try {
@@ -62,7 +53,6 @@ export default function PDFResume({ resumeType, onDownload }: PDFResumeProps) {
     loadResume();
   }, [resumeType]);
   
-  // Function to get number of bullets based on job index
   const getBulletCount = (index: number): number => {
     return PDF_CONFIG.jobs.maxBullets[index as keyof typeof PDF_CONFIG.jobs.maxBullets] || PDF_CONFIG.jobs.maxBullets.default;
   };

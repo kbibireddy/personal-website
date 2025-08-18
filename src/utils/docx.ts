@@ -29,19 +29,19 @@ const DOCX_CONFIG = {
   jobs: {
     maxJobs: 3,
     maxBullets: {
-      0: 6,
+      0: 5,
       1: 4,
       2: 3,
       default: 2
     }
   },
   skills: {
-    maxSkills: 30,
+    maxSkills: 55,
     sortByProficiency: true
   },
   education: {
     showGPA: false,
-    maxEducation: 2
+    maxEducation: 1
   }
 };
 

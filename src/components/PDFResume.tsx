@@ -31,7 +31,7 @@ export default function PDFResume({ resumeType, onDownload }: PDFResumeProps) {
       }
     },
     skills: {
-      maxSkills: 30,
+      maxSkills: 55,
       sortByProficiency: true
     },
     education: {

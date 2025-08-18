@@ -147,6 +147,7 @@ export default function Home() {
       
       <div className="relative z-10">
         <ThemeSwitcher onThemeChange={setTheme} />
+        <ResumeTypeToggle theme={theme} />
         <TableOfContents theme={theme} />
         
         <motion.div

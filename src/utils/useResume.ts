@@ -29,10 +29,17 @@ export function useResume(): UseResumeReturn {
         // Get resume type from URL query parameter
         const urlParams = new URLSearchParams(window.location.search);
         const typeFromUrl = urlParams.get('type');
-        const type = typeFromUrl || 'swe'; // Default to 'swe' if no type specified
         
-        setResumeType(type);
-        const resumeData = await getResume(type);
+        // Set resumeType for display purposes (empty string for SWE, actual type for others)
+        if (typeFromUrl === 'swe' || !typeFromUrl) {
+          setResumeType(undefined); // SWE is default, no type parameter
+        } else {
+          setResumeType(typeFromUrl);
+        }
+        
+        // For data loading, treat 'swe' and no type the same
+        const typeForData = typeFromUrl === 'swe' ? undefined : (typeFromUrl || undefined);
+        const resumeData = await getResume(typeForData);
         setResume(resumeData);
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : 'Failed to load resume';
@@ -43,7 +50,28 @@ export function useResume(): UseResumeReturn {
       }
     };
 
+    // Load resume on mount
     loadResume();
+
+    // Listen for URL changes (browser back/forward buttons)
+    const handlePopState = () => {
+      loadResume();
+    };
+
+    window.addEventListener('popstate', handlePopState);
+
+    // Listen for URL changes from other components
+    const handleUrlChange = () => {
+      loadResume();
+    };
+
+    // Custom event listener for URL changes
+    window.addEventListener('resumeTypeChanged', handleUrlChange);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener('resumeTypeChanged', handleUrlChange);
+    };
   }, []);
 
   const changeResumeType = async (type: string | undefined) => {
@@ -51,8 +79,16 @@ export function useResume(): UseResumeReturn {
       setLoading(true);
       setError(null);
       
-      setResumeType(type);
-      const resumeData = await getResume(type);
+      // Set resumeType for display (undefined for SWE, actual type for others)
+      if (type === 'swe' || !type) {
+        setResumeType(undefined);
+      } else {
+        setResumeType(type);
+      }
+      
+      // For data loading, treat 'swe' and undefined the same
+      const typeForData = (type === 'swe' || !type) ? undefined : type;
+      const resumeData = await getResume(typeForData);
       setResume(resumeData);
       
       // Update URL without page reload
@@ -63,6 +99,9 @@ export function useResume(): UseResumeReturn {
         url.searchParams.delete('type');
       }
       window.history.pushState({}, '', url.toString());
+      
+      // Dispatch custom event to notify other components
+      window.dispatchEvent(new CustomEvent('resumeTypeChanged'));
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to change resume type';
       setError(errorMessage);

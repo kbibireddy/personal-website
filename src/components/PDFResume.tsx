@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { generateDOCX } from '@/utils/docx';
-import { useResume } from '@/utils/useResume';
+import { getResumeWithOverrides } from '@/utils/resumeProvider';
+import { Resume } from '@/types/resume';
 
 interface PDFResumeProps {
   resumeType?: string;
@@ -10,55 +11,55 @@ interface PDFResumeProps {
 }
 
 export default function PDFResume({ resumeType, onDownload }: PDFResumeProps) {
-  const { resume: data } = useResume();
-  const [overrides, setOverrides] = useState<any>(null);
+  const [data, setData] = React.useState<Resume | null>(null);
   
-  // Load appropriate overrides file
-  useEffect(() => {
-    const loadOverrides = async () => {
+  // PDF Generation Configuration
+  const PDF_CONFIG = {
+    // Font sizes in pixels
+    fonts: {
+      name: 24,           // Name size
+      headline: 14,       // Headline size
+      section: 18,        // Section headers
+      normal: 13,         // Normal text
+      small: 11           // Small text
+    },
+    // Job display configuration
+    jobs: {
+      maxJobs: 3,         // Maximum number of jobs to show
+      maxBullets: {
+        first: 6,         // Bullets for most recent job
+        others: 4         // Bullets for other jobs
+      }
+    },
+    // Skills configuration
+    skills: {
+      maxSkills: 25,      // Maximum number of skills to show
+      sortByProficiency: true  // Sort skills by proficiency
+    },
+    // Education configuration
+    education: {
+      showGPA: false,      // Whether to show GPA in PDF
+      maxEducation: 2     // Maximum number of education entries
+    }
+  };
+  
+  // Load resume data with overrides applied
+  React.useEffect(() => {
+    const loadResume = async () => {
       try {
-        let overridesData;
-        if (resumeType && resumeType !== 'swe') {
-          try {
-            const specificOverrides = await import(`@/data/resume_${resumeType}_overrides.json`);
-            overridesData = specificOverrides.default;
-          } catch {
-            // Fallback to general overrides
-            const generalOverrides = await import('@/data/resume_swe_overrides.json');
-            overridesData = generalOverrides.default;
-          }
-        } else {
-          // Load swe overrides
-          const sdeOverrides = await import('@/data/resume_swe_overrides.json');
-          overridesData = sdeOverrides.default;
-        }
-        setOverrides(overridesData);
+        const resumeData = await getResumeWithOverrides(resumeType);
+        setData(resumeData);
       } catch (error) {
-        console.error('Failed to load overrides:', error);
-        // Fallback to general overrides
-        try {
-          const generalOverrides = await import('@/data/resume_swe_overrides.json');
-          setOverrides(generalOverrides.default);
-        } catch {
-          // Use default values if all else fails
-          setOverrides({
-            title: "Professional Resume",
-            website: "https://karthikbibireddy.com",
-            summary: "Experienced professional with diverse skills and expertise."
-          });
-        }
+        console.error('Failed to load resume:', error);
       }
     };
 
-    loadOverrides();
+    loadResume();
   }, [resumeType]);
   
   // Function to get number of bullets based on job index
   const getBulletCount = (index: number): number => {
-    switch(index) {
-      case 0: return 8; // Most recent job: 8 bullets
-      default: return 6; // Older jobs: 6 bullets
-    }
+    return index === 0 ? PDF_CONFIG.jobs.maxBullets.first : PDF_CONFIG.jobs.maxBullets.others;
   };
 
   const handleDownloadClick = async (format: 'pdf' | 'docx') => {
@@ -68,7 +69,7 @@ export default function PDFResume({ resumeType, onDownload }: PDFResumeProps) {
     onDownload?.(format);
   };
 
-  if (!data || !overrides) {
+  if (!data) {
     return null;
   }
 
@@ -78,25 +79,25 @@ export default function PDFResume({ resumeType, onDownload }: PDFResumeProps) {
         {/* Header */}
         <div className="text-center mb-3 print-avoid-break">
           <h1 className="text-2xl font-bold mb-1 text-black">{data.name}</h1>
-          <p className="text-sm mb-0.5 text-black">{overrides.title}</p>
+          <p className="text-sm mb-0.5 text-black">{data.headline}</p>
                       <div className="text-sm text-black">
               {data.contact.email} • {data.contact.phone} • {data.contact.location}
             </div>
             <div className="text-sm text-black">
-              {data.contact.linkedin} • {overrides.website}
+              {data.contact.linkedin} • {data.website || "https://karthikbibireddy.com"}
             </div>
         </div>
 
         {/* Professional Summary */}
         <div className="mb-3 print-avoid-break">
           <h2 className="text-lg font-bold mb-1 text-black">Professional Summary</h2>
-          <p className="text-sm text-black leading-5">{overrides.summary}</p>
+          <p className="text-sm text-black leading-5">{data.professionalSummary}</p>
         </div>
 
         {/* Work Experience */}
         <div className="mb-3">
           <h2 className="text-lg font-bold mb-1 text-black">Work Experience</h2>
-          {data.workExperience.slice(0, -1).map((job, index) => (
+          {data.workExperience.slice(0, PDF_CONFIG.jobs.maxJobs).map((job, index) => (
             <div key={index} className="mb-2.5 print-avoid-break">
               <div className="flex justify-between text-sm mb-1">
                 <div className="text-black">
@@ -121,8 +122,8 @@ export default function PDFResume({ resumeType, onDownload }: PDFResumeProps) {
           <h2 className="text-lg font-bold mb-1 text-black">Technical Skills</h2>
           <p className="text-sm text-black leading-5">
             {data.skills
-              .sort((a, b) => b.proficiency - a.proficiency)
-              .slice(0, 35)
+              .sort((a, b) => PDF_CONFIG.skills.sortByProficiency ? b.proficiency - a.proficiency : 0)
+              .slice(0, PDF_CONFIG.skills.maxSkills)
               .map(skill => skill.name)
               .join(' • ')}
           </p>
@@ -132,9 +133,11 @@ export default function PDFResume({ resumeType, onDownload }: PDFResumeProps) {
         <div className="print-avoid-break">
           <h2 className="text-lg font-bold mb-1 text-black">Education</h2>
           <div className="grid grid-cols-2 gap-2">
-            {data.education.map((edu, index) => (
+            {data.education.slice(0, PDF_CONFIG.education.maxEducation).map((edu, index) => (
               <div key={index} className="text-sm">
-                <div className="text-black font-bold">{edu.degree} (GPA: {edu.gpa})</div>
+                <div className="text-black font-bold">
+                  {edu.degree} {PDF_CONFIG.education.showGPA && `(GPA: ${edu.gpa})`}
+                </div>
                 <div className="text-black text-[13px] leading-5">{edu.school}</div>
                 <div className="text-black text-[13px] leading-5">{edu.period}</div>
               </div>

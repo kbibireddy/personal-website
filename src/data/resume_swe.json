@@ -1,10 +1,12 @@
 {
     "name": "KARTHIK BIBIREDDY",
-    "headline": "Sr. Software Engineer | Distributed Systems & Scalable Infrastructure | Technical Leader",
+    "headline": "Sr. Software Engineer | Distributed Systems & Data Infrastructure | Technical Leader",
     "professionalSummary": "Experienced software engineer with 8+ years of building and scaling distributed systems, high-throughput APIs, and data-intensive applications across Amazon and multiple startups. Recognized for driving cross-team technical initiatives, influencing system architectures, and mentoring engineers to deliver resilient and scalable solutions. Passionate about solving complex systems challenges, leading org-wide improvements, and aligning engineering execution with long-term business strategy.",
+    "website": "https://kbibireddy.github.io/personal-website",
     "contact": {
       "email": "karthikbibireddy@hotmail.com",
       "location": "Seattle, WA",
+      "phone": "+1 (832) 812-3919",
       "linkedin": "https://linkedin.com/in/kbibireddy",
       "github": "https://github.com/kbibireddy"
     },
@@ -14,9 +16,9 @@
         "company": "Amazon",
         "period": "Jul 2020 – Present",
         "description": [
-          "Influenced leadership to adopt generative AI on AWS Bedrock by delivering an event-driven investigation assistant. Designed and led multi-agent, DAG-orchestrated workflows that query reverse-indexed knowledge bases and auto-update tickets via SOP-driven actions, boosting on-call efficiency by 50% and enabling org-wide extensibility.",
+          "Drove adoption of generative AI on AWS Bedrock by delivering an event-driven investigation assistant with multi-agent, DAG-orchestrated workflows that query reverse-indexed knowledge bases and auto-update tickets via SOP actions, improving on-call efficiency 50% and enabling org-wide extensibility.",
           "Led migration of Amazon’s reference pricing platform across AWS regions (DUB → ZAZ), eliminating single-region dependency and achieving 40% of org-wide infrastructure cost reduction goals.",
-          "Increased global pricing accuracy by excluding 600K+ daily targetedpromotional orders from computations, improving reference prices for 400K+ product listings across the retail catalog.",
+          "Increased global pricing accuracy by excluding 600K+ daily targeted promotional orders from computations, improving reference prices for 400K+ product listings across the retail catalog.",
           "Revamped external pricing signal ingestion by defining SLAs and onboarding higher-quality sources, increasing adoption by 320 bps across multiple pricing teams.",
           "Mentored and directed an intern to build a self-service debugging tool for reference pricing; adopted org-wide, reducing on-call and support workload by 25%.",
           "Drove a structured tech debt reduction program that decreased backlog by 20%, introducing new grooming and sprint planning practices aligned across stakeholders.",

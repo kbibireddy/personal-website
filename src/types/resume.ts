@@ -38,6 +38,7 @@ export interface Resume {
   name: string;
   headline: string;
   professionalSummary: string;
+  website: string;
   contact: Contact;
   education: Education[];
   workExperience: WorkExperience[];

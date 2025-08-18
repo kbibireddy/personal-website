@@ -1,25 +1,28 @@
 {
   "name": "KARTHIK BIBIREDDY",
-  "headline": "Quantitative Engineer | Distributed Systems & Data-Driven Strategy",
-  "professionalSummary": "Quantitative engineer with 8+ years of experience building distributed systems, high-performance APIs, and large-scale data pipelines. Strong foundation in probability, statistics, and algorithmic optimization, with applied expertise in financial data modeling, backtesting strategies, and real-time systems. Experienced in C++/Python for low-latency systems, cloud-scale data engineering (AWS, Spark, DynamoDB), and quantitative analysis. Passionate about solving complex stochastic problems, extracting alpha from noisy datasets, and bridging large-scale systems design with quantitative finance applications.",
+  "headline": "Sr. Software Engineer | Distributed & Low-Latency Systems | Data Infrastructure | Quantitative Engineering",
+  "professionalSummary": "Sr. software engineer with 8+ years of experience designing and scaling distributed systems, real-time data pipelines, and high-throughput APIs. Proven track record at Amazon and startups building fault-tolerant infrastructure, optimizing latency, and delivering production systems handling millions of transactions daily. Experienced in event-driven architectures, large-scale data processing, and systems optimization for performance-sensitive environments. Passionate about applying systems expertise to quantitative trading and financial engineering challenges, bridging infrastructure with research and execution.",
+  "website": "https://kbibireddy.github.io/personal-website",
   "contact": {
     "email": "karthikbibireddy@hotmail.com",
-    "phone": "+1 (832) 812-3919",
     "location": "Seattle, WA",
+    "phone": "+1 (832) 812-3919",
     "linkedin": "https://linkedin.com/in/kbibireddy",
     "github": "https://github.com/kbibireddy"
   },
   "workExperience": [
     {
-      "title": "Software Development Engineer II",
+      "title": "Sr. Software Development Engineer",
       "company": "Amazon",
       "period": "Jul 2020 – Present",
       "description": [
-        "Engineered distributed pricing computation pipelines, processing signals from millions of data points daily and improving pricing accuracy across 400K+ products.",
-        "Designed and optimized large-scale real-time systems for reference price computation, reducing latency and improving throughput under high transaction volume.",
-        "Integrated external market-like signals into decision frameworks by formalizing SLAs and onboarding higher-quality feeds, boosting internal signal adoption by 320bps.",
-        "Led design and rollout of debugging/analysis tooling for pricing signals, enabling faster model evaluation and reducing operational support effort by 25%.",
-        "Mentored engineers on statistical reasoning in pipeline design, ensuring robust handling of noise, outliers, and biased data inputs."
+        "Built and optimized distributed, low-latency pricing systems processing millions of signals daily; improved global retail pricing accuracy across 400K+ product listings.",
+        "Drove cross-region migration of Amazon’s reference pricing platform (DUB → ZAZ), eliminating single-region risk and reducing infra costs by 40%.",
+        "Designed ingestion and processing workflows for high-frequency external pricing signals with strict SLAs, improving adoption and accuracy across multiple pricing teams.",
+        "Built event-driven, multi-agent investigation assistant leveraging DAG orchestration and reverse-indexed knowledge bases, reducing on-call workload by 50%.",
+        "Launched Alexa Auto’s teachable AI feature for custom commands and delivered production-grade messaging services (Quattro) at automotive scale (Stellantis).",
+        "Directed structured tech debt reduction initiative, decreasing backlog by 20% and aligning engineering execution with long-term performance goals.",
+        "Mentored engineers and interns, guiding them in building debugging and profiling tools for distributed systems, reducing support load 25%."
       ]
     },
     {
@@ -27,19 +30,21 @@
       "company": "Algoface",
       "period": "Mar 2019 – Jun 2020",
       "description": [
-        "Optimized execution of computer vision models with WebAssembly, applying numerical optimization to achieve consistent low-latency performance across heterogeneous devices.",
-        "Worked with research teams to analyze statistical models, propose accuracy/performance trade-offs, and deliver measurable improvements to predictive performance.",
-        "Owned data engineering and infrastructure pipelines to support real-time inference, ensuring reproducibility and reliability of model-driven outputs."
+        "Architected real-time computer vision services with sub-100ms inference latency across devices, leveraging WebAssembly and C++ optimizations.",
+        "Partnered with ML research teams to productionize models, improving accuracy and throughput under constrained environments.",
+        "Owned deployment pipelines and cloud infrastructure, implementing containerized services and CI/CD automation to accelerate releases.",
+        "Collaborated directly with enterprise clients to translate quantitative requirements into scalable, latency-optimized production APIs."
       ]
     },
     {
       "title": "Software Engineer",
-      "company": "Windhover Labs",
+      "company": "Windhoverlabs",
       "period": "Sep 2017 – Feb 2019",
       "description": [
-        "Built real-time avionics systems (geolocation, ADS-B aircraft tracking, Primary Flight Displays) requiring high precision, deterministic performance, and reliability under uncertainty.",
-        "Developed APIs and data tooling to process telemetry data at scale, ensuring efficient statistical handling of high-frequency flight data.",
-        "Designed modular ground station UIs and workflows for real-time multi-signal monitoring and analysis, improving operator decision-making."
+        "Developed aerospace ground control systems with real-time 3D mapping, aircraft tracking, and geospatial visualization pipelines.",
+        "Delivered latency-critical Primary Flight Display (PFD) for in-flight decision-making under safety-critical constraints.",
+        "Contributed to open-source avionics framework by building modular APIs, developer tools, and real-time monitoring dashboards.",
+        "Led QA automation with integration tests and performance validation during flight trials."
       ]
     },
     {
@@ -47,9 +52,9 @@
       "company": "Zdaly",
       "period": "Jun 2017 – Aug 2017",
       "description": [
-        "Developed NLP-driven applications for energy and finance clients, applying topic modeling and keyword extraction to large text corpora.",
-        "Engineered high-throughput data ingestion pipelines processing millions of global news sources daily, ensuring reliable and low-latency data delivery.",
-        "Delivered financial analytics features to enterprise dashboards, enabling structured access to real-time market-moving information."
+        "Built NLP-driven news aggregation widget for financial and energy data streams, deployed for enterprise clients like McDermott.",
+        "Developed large-scale ingestion pipelines processing millions of global feeds daily, enabling high-frequency data availability.",
+        "Applied text mining and keyword extraction techniques to power data-driven decision support tools."
       ]
     }
   ],
@@ -58,57 +63,77 @@
       "title": "Technical Analysis Platform for Financial Markets",
       "status": "WIP",
       "description": [
-        "Built a backtesting and strategy analysis platform leveraging historical market data, with event-driven AWS Lambda workflows and ETL pipelines for sentiment and technical indicators.",
-        "Implemented a React-based dashboard for evaluating trading strategies, measuring performance, and comparing ROI across multiple approaches."
+        "Developing a platform to backtest and evaluate trading strategies using historical market and sentiment data.",
+        "Built event-driven ETL pipelines (AWS Lambda, Redis) for time-series ingestion and technical indicator computation.",
+        "Created React-based dashboard for visualizing performance, drawdowns, and risk-adjusted returns."
       ],
-      "technologies": ["Python", "AWS Lambda", "S3", "React", "TypeScript"],
-      "link": "https://github.com/kbibireddy/tapfm"
+      "technologies": ["Python", "Pandas", "NumPy", "Next.js", "AWS Lambda", "Redis", "AWS Fargate", "AWS S3"]
     },
     {
       "title": "Real Estate Investment Analysis Tool",
       "status": "Active",
       "description": [
-        "Developed quantitative models to compare buy vs rent tradeoffs, incorporating interest rates, taxes, and ownership costs.",
-        "Delivered an interactive tool to compute projected ROI, breakeven points, and long-term investment value, framing problems in a finance-driven decision-making context."
+        "Built a web app to model property investments with dynamic ROI and breakeven calculations.",
+        "Focused on time-series projections, risk scenarios, and cash flow modeling in a user-friendly interface."
       ],
-      "technologies": ["JavaScript", "React", "TypeScript"],
-      "link": "https://kbibireddy.github.io/real-estate-investment-app/"
+      "technologies": ["Next.js", "Node.js", "Github Pages"]
     }
   ],
   "education": [
     {
       "degree": "Master's Degree in Computer Science",
-      "school": "University of Houston - Main Campus",
-      "period": "AUG 2015 - MAY 2017",
-      "gpa": "3.25",
-      "focus": "Algorithms, Data Mining, Statistical Computing"
+      "school": "University of Houston",
+      "period": "Aug 2015 – May 2017",
+      "gpa": "3.25"
     },
     {
       "degree": "Bachelor's Degree in Computer Science",
-      "school": "SRM University - Main Campus",
-      "period": "AUG 2011 - MAY 2015",
-      "gpa": "8.0",
-      "focus": "Probability, Statistics, Optimization"
+      "school": "SRM University",
+      "period": "Aug 2011 – May 2015",
+      "gpa": "8.0"
     }
   ],
   "skills": [
-    { "name": "C++", "proficiency": 5, "category": "Languages" },
     { "name": "Python", "proficiency": 5, "category": "Languages" },
-    { "name": "Java", "proficiency": 4, "category": "Languages" },
+    { "name": "C++", "proficiency": 4, "category": "Languages" },
+    { "name": "Java", "proficiency": 5, "category": "Languages" },
     { "name": "Scala", "proficiency": 4, "category": "Languages" },
-    { "name": "Low-Latency Systems", "proficiency": 5, "category": "Systems" },
-    { "name": "Distributed Systems", "proficiency": 5, "category": "Systems" },
-    { "name": "Apache Spark", "proficiency": 4, "category": "Data" },
-    { "name": "ETL Pipelines", "proficiency": 5, "category": "Data" },
-    { "name": "Probability & Statistics", "proficiency": 5, "category": "Math" },
-    { "name": "Time Series Analysis", "proficiency": 4, "category": "Math" },
-    { "name": "Stochastic Processes", "proficiency": 4, "category": "Math" },
-    { "name": "Optimization", "proficiency": 4, "category": "Math" },
-    { "name": "Backtesting", "proficiency": 4, "category": "Finance" },
-    { "name": "Algorithmic Trading", "proficiency": 3, "category": "Finance" },
-    { "name": "Technical Analysis", "proficiency": 3, "category": "Finance" },
-    { "name": "AWS", "proficiency": 5, "category": "Cloud" },
-    { "name": "Docker", "proficiency": 4, "category": "Tools" },
-    { "name": "Git", "proficiency": 4, "category": "Tools" }
+    { "name": "TypeScript", "proficiency": 4, "category": "Languages" },
+    { "name": "SQL", "proficiency": 5, "category": "Languages" },
+    { "name": "PostgreSQL", "proficiency": 5, "category": "Data" },
+    { "name": "Redis", "proficiency": 5, "category": "Data" },
+    { "name": "DynamoDB", "proficiency": 5, "category": "Data" },
+    { "name": "Apache Cassandra", "proficiency": 3, "category": "Data" },
+    { "name": "Elasticsearch", "proficiency": 4, "category": "Data" },
+    { "name": "Apache Kafka", "proficiency": 4, "category": "Data" },
+    { "name": "Apache Flink", "proficiency": 4, "category": "Data" },
+    { "name": "Apache Spark", "proficiency": 5, "category": "Data" },
+    { "name": "NumPy", "proficiency": 5, "category": "Quant & Math" },
+    { "name": "Pandas", "proficiency": 5, "category": "Quant & Math" },
+    { "name": "Scikit-learn", "proficiency": 4, "category": "Quant & Math" },
+    { "name": "Time-series Analysis", "proficiency": 4, "category": "Quant & Math" },
+    { "name": "Low-Latency Systems", "proficiency": 5, "category": "Architecture" },
+    { "name": "Concurrency", "proficiency": 5, "category": "Architecture" },
+    { "name": "Distributed Systems", "proficiency": 5, "category": "Architecture" },
+    { "name": "Real-time Systems", "proficiency": 5, "category": "Architecture" },
+    { "name": "Event-driven Architecture", "proficiency": 5, "category": "Architecture" },
+    { "name": "System Design", "proficiency": 5, "category": "Architecture" },
+    { "name": "Microservices", "proficiency": 5, "category": "Architecture" },
+    { "name": "Batch & Stream Processing", "proficiency": 5, "category": "Architecture" },
+    { "name": "AWS Lambda", "proficiency": 5, "category": "Cloud" },
+    { "name": "AWS Fargate", "proficiency": 5, "category": "Cloud" },
+    { "name": "AWS Kinesis", "proficiency": 5, "category": "Cloud" },
+    { "name": "AWS SQS/SNS", "proficiency": 5, "category": "Cloud" },
+    { "name": "AWS VPC", "proficiency": 5, "category": "Cloud" },
+    { "name": "AWS CloudFormation", "proficiency": 5, "category": "Cloud" },
+    { "name": "Kubernetes", "proficiency": 4, "category": "DevOps" },
+    { "name": "Docker", "proficiency": 5, "category": "DevOps" },
+    { "name": "GitHub", "proficiency": 5, "category": "DevOps" },
+    { "name": "Jenkins", "proficiency": 5, "category": "DevOps" },
+    { "name": "NGINX", "proficiency": 4, "category": "DevOps" },
+    { "name": "React.js", "proficiency": 5, "category": "Frontend" },
+    { "name": "Next.js", "proficiency": 4, "category": "Frontend" },
+    { "name": "Node.js", "proficiency": 5, "category": "Frontend" },
+    { "name": "WebAssembly", "proficiency": 5, "category": "Frontend" }
   ]
 }

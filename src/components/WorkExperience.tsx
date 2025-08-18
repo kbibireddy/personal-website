@@ -5,14 +5,23 @@ import { Theme } from '@/types/theme';
 import { getCardBgClass } from '@/utils/theme';
 import { PiBuildingOfficeDuotone } from "react-icons/pi";
 import { BsCalendarDate } from "react-icons/bs";
-
-import resumeData from '@/data/resume_swe.json'
+import { useResume } from '@/utils/useResume';
 
 interface WorkExperienceProps {
   theme: Theme;
 }
 
 export default function WorkExperience({ theme }: WorkExperienceProps) {
+  const { resume: resumeData, loading } = useResume();
+
+  if (loading || !resumeData) {
+    return (
+      <div className="flex items-center justify-center py-8">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-white"></div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       {resumeData.workExperience.map((job, index) => (

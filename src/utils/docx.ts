@@ -36,7 +36,7 @@ const DOCX_CONFIG = {
     }
   },
   skills: {
-    maxSkills: 20,
+    maxSkills: 30,
     sortByProficiency: true
   },
   education: {

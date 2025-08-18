@@ -160,7 +160,7 @@ export default function Home() {
             </h1>
             
             <p className="text-xl md:text-2xl mb-6">
-              I am an <span className={`font-bold bg-gradient-to-r ${getAccentClasses(theme)} text-transparent bg-clip-text`}>{resumeData.headline}</span>
+              I am a <span className={`font-bold bg-gradient-to-r ${getAccentClasses(theme)} text-transparent bg-clip-text`}>{resumeData.headline}</span>
             </p>
 
             <p className="text-lg mb-4 text-current/80 flex items-center gap-2">
@@ -291,7 +291,7 @@ export default function Home() {
                     case 'APIs': return <AiTwotoneApi />;
                     case 'DevOps & Tooling': return <PiToolboxDuotone />;
                     case 'Frontend': return <TbApps />;
-                    case 'Statistics & Math': return <TbMathIntegrals />;
+                    case 'Quant & Math': return <TbMathIntegrals />;
                     case 'Trading': return <RiStockFill />;
                     default: return <FaTools />;
                   }

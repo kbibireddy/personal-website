@@ -5,23 +5,29 @@ import Script from 'next/script'
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  display: 'swap',
+  display: 'block',
   variable: '--font-space-grotesk',
   preload: true,
+  weight: ['400', '500', '600', '700'],
+  adjustFontFallback: true,
 })
 
 const robotoMono = Roboto_Mono({
   subsets: ['latin'],
-  display: 'swap',
+  display: 'block',
   variable: '--font-roboto-mono',
   preload: true,
+  weight: ['400', '500', '600', '700'],
+  adjustFontFallback: true,
 })
 
 const inter = Inter({
   subsets: ['latin'],
-  display: 'swap',
+  display: 'block',
   variable: '--font-inter',
   preload: true,
+  weight: ['400', '500', '600', '700'],
+  adjustFontFallback: true,
 })
 
 export const metadata: Metadata = {
@@ -37,6 +43,15 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${robotoMono.variable} ${inter.variable}`} suppressHydrationWarning>
       <head>
+        <link
+          rel="preconnect"
+          href="https://fonts.googleapis.com"
+        />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin=""
+        />
         <script
           type="text/javascript"
           dangerouslySetInnerHTML={{

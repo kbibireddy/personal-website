@@ -37,9 +37,35 @@ module.exports = {
         }
       },
       fontFamily: {
-        'space-grotesk': ['var(--font-space-grotesk)', 'sans-serif'],
-        'roboto-mono': ['var(--font-roboto-mono)', 'monospace'],
-        'inter': ['var(--font-inter)', 'sans-serif'],
+        'space-grotesk': [
+          'var(--font-space-grotesk)',
+          'Helvetica Neue',
+          'Helvetica',
+          'Arial',
+          'Segoe UI',
+          'system-ui',
+          '-apple-system',
+          'sans-serif'
+        ],
+        'roboto-mono': [
+          'var(--font-roboto-mono)',
+          'Menlo',
+          'Monaco',
+          'Consolas',
+          'Liberation Mono',
+          'Courier New',
+          'monospace'
+        ],
+        'inter': [
+          'var(--font-inter)',
+          'Helvetica Neue',
+          'Helvetica',
+          'Arial',
+          'Segoe UI',
+          'system-ui',
+          '-apple-system',
+          'sans-serif'
+        ],
       },
       animation: {
         'gradient': 'gradient 8s linear infinite',

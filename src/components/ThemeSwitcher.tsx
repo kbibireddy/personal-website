@@ -8,7 +8,7 @@ interface ThemeSwitcherProps {
 }
 
 export default function ThemeSwitcher({ onThemeChange }: ThemeSwitcherProps) {
-  const [activeTheme, setActiveTheme] = useState<Theme>('netflix');
+  const [activeTheme, setActiveTheme] = useState<Theme>('meta');
 
   const handleThemeChange = (theme: Theme) => {
     setActiveTheme(theme);

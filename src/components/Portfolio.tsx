@@ -55,7 +55,7 @@ export default function Portfolio({ theme }: PortfolioProps) {
               </span>
             ))}
           </div>
-          {project.link && project.status === 'Active' && (
+          {project.link && (
             <motion.a
               href={project.link}
               target="_blank"
@@ -68,16 +68,11 @@ export default function Portfolio({ theme }: PortfolioProps) {
               <FaExternalLinkAlt />
             </motion.a>
           )}
-          {project.link && project.status !== 'Active' && (
-            <motion.a
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-500/20 text-gray-500 text-sm font-medium cursor-not-allowed"
-            >
+          {!project.link && (
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-500/20 text-gray-500 text-sm font-medium cursor-not-allowed">
               Try it out
               <FaExternalLinkAlt />
-            </motion.a>
+            </div>
           )}
         </motion.div>
       ))}

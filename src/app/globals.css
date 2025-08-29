@@ -42,7 +42,7 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground lining-nums tabular-nums;
     background: linear-gradient(
       to bottom,
       transparent,
@@ -76,6 +76,7 @@
     background: white !important;
     color: black !important;
     font-family: 'Inter', -apple-system, sans-serif !important;
+    font-variant-numeric: lining-nums tabular-nums !important;
   }
 
   /* Format the main content for print */

@@ -68,7 +68,7 @@
           "Building a personal platform to backtest and analyze trading strategies using historical financial data, with event-driven AWS Lambda workflows, ETL pipelines for sentiment and technical analysis, and a React-based dashboard for strategy evaluation and performance tracking."
         ],
         "technologies": ["Next.js", "AWS Fargate", "Redis", "AWS CloudFormation", "AWS Lambda", "AWS S3"],
-        "link": "https://github.com/kbibireddy/tapfm"
+        "link": "https://kbibireddy.github.io/marketview/"
       },
       {
         "title": "Real Estate Investment Analysis Tool",

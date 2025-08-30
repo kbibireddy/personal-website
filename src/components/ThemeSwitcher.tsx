@@ -2,17 +2,25 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { Theme } from '@/types/theme';
 import { themeConfigs } from '@/utils/theme';
+import { playTudumSound } from '@/utils/tudumSound';
 
 interface ThemeSwitcherProps {
   onThemeChange: (theme: Theme) => void;
+  onNetflixTheme?: () => void;
 }
 
-export default function ThemeSwitcher({ onThemeChange }: ThemeSwitcherProps) {
-  const [activeTheme, setActiveTheme] = useState<Theme>('netflix');
+export default function ThemeSwitcher({ onThemeChange, onNetflixTheme }: ThemeSwitcherProps) {
+  const [activeTheme, setActiveTheme] = useState<Theme>('meta');
 
   const handleThemeChange = (theme: Theme) => {
     setActiveTheme(theme);
     onThemeChange(theme);
+    
+    // Play tudum sound when Netflix theme is selected
+    if (theme === 'netflix') {
+      playTudumSound(0.6);
+      onNetflixTheme?.();
+    }
   };
 
   const getThemeColors = (theme: Theme) => {
@@ -65,9 +73,14 @@ export default function ThemeSwitcher({ onThemeChange }: ThemeSwitcherProps) {
   };
 
   return (
-    <div>
+    <div className="fixed top-4 left-4 z-50">
       <div className="flex items-center space-x-4">
         <span className="text-sm font-medium">Themes:</span>
+        <div className="text-xs text-gray-400">
+          <div>Ctrl+1: Meta</div>
+          <div>Ctrl+2: Netflix</div>
+          <div>Ctrl+3: Discord</div>
+        </div>
         <div className="flex space-x-2">
           {Object.keys(themeConfigs).map((theme) => (
             <motion.button
@@ -75,19 +88,13 @@ export default function ThemeSwitcher({ onThemeChange }: ThemeSwitcherProps) {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => handleThemeChange(theme as Theme)}
-              className={`w-6 h-6 rounded-full flex items-center justify-center transition-all duration-200 overflow-hidden relative ${
+              className={`w-6 h-6 rounded-full flex items-center justify-center transition-all duration-200 overflow-hidden ${
                 activeTheme === theme 
                   ? 'ring-2 ring-offset-2 ring-offset-background ring-white/50' 
                   : ''
               }`}
+              title={`${theme} theme${theme === 'netflix' ? ' (plays tudum sound)' : ''}`}
             >
-              {theme === 'netflix' && activeTheme === theme && (
-                <motion.div
-                  className="absolute inset-0 bg-[#E50914]/20 rounded-full"
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                />
-              )}
               {renderSplitCircle(theme as Theme)}
               <span className="sr-only">{theme} theme</span>
             </motion.button>

@@ -14,6 +14,7 @@ import SpaceTimeAnimation from '@/components/SpaceTimeAnimation';
 import ElectronicSpark from '@/components/ElectronicSpark';
 import SkillBadge from '@/components/SkillBadge';
 import PDFResume from '@/components/PDFResume';
+import TudumToast from '@/components/TudumToast';
 
 // Data and types
 import { Theme } from '@/types/theme';
@@ -43,6 +44,7 @@ import { RiStockFill } from 'react-icons/ri';
 // Utils
 import { generatePDF } from '@/utils/pdf';
 import { generateDOCX } from '@/utils/docx';
+import { playTudumSound } from '@/utils/tudumSound';
 
 
 
@@ -50,11 +52,52 @@ export default function Home() {
   const [theme, setTheme] = useState<Theme>('meta');
   const [mounted, setMounted] = useState(false);
   const [showGPA, setShowGPA] = useState<{ [key: number]: boolean }>({});
+  const [showTudumToast, setShowTudumToast] = useState(false);
   const { resume: resumeData, resumeType, loading } = useResume();
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Play tudum sound when Netflix theme is loaded or changes to Netflix
+  useEffect(() => {
+    if (mounted && theme === 'netflix') {
+      // Small delay to ensure the theme is fully applied
+      const timer = setTimeout(() => {
+        playTudumSound(0.5);
+        setShowTudumToast(true);
+      }, 100);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [theme, mounted]);
+
+  // Keyboard shortcuts for theme switching
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.ctrlKey || event.metaKey) {
+        switch (event.key) {
+          case '1':
+            event.preventDefault();
+            setTheme('meta');
+            break;
+          case '2':
+            event.preventDefault();
+            setTheme('netflix');
+            break;
+          case '3':
+            event.preventDefault();
+            setTheme('discord');
+            break;
+        }
+      }
+    };
+
+    if (mounted) {
+      document.addEventListener('keydown', handleKeyDown);
+      return () => document.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [mounted]);
 
   const toggleGPA = (index: number) => {
     setShowGPA(prev => ({
@@ -146,7 +189,11 @@ export default function Home() {
       </div>
       
       <div className="relative z-10">
-        <ThemeSwitcher onThemeChange={setTheme} />
+        <ThemeSwitcher 
+          onThemeChange={setTheme} 
+          onNetflixTheme={() => setShowTudumToast(true)}
+        />
+        <TudumToast show={showTudumToast} onClose={() => setShowTudumToast(false)} />
         <ResumeTypeToggle theme={theme} />
         <TableOfContents theme={theme} />
         

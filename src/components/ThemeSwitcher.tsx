@@ -2,14 +2,13 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { Theme } from '@/types/theme';
 import { themeConfigs } from '@/utils/theme';
-import { FaVolumeUp } from 'react-icons/fa';
 
 interface ThemeSwitcherProps {
   onThemeChange: (theme: Theme) => void;
 }
 
 export default function ThemeSwitcher({ onThemeChange }: ThemeSwitcherProps) {
-  const [activeTheme, setActiveTheme] = useState<Theme>('meta');
+  const [activeTheme, setActiveTheme] = useState<Theme>('netflix');
 
   const handleThemeChange = (theme: Theme) => {
     setActiveTheme(theme);
@@ -69,16 +68,6 @@ export default function ThemeSwitcher({ onThemeChange }: ThemeSwitcherProps) {
     <div>
       <div className="flex items-center space-x-4">
         <span className="text-sm font-medium">Themes:</span>
-        {activeTheme === 'netflix' && (
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            className="flex items-center gap-1 text-[#E50914]"
-          >
-            <FaVolumeUp className="text-xs" />
-            <span className="text-xs font-medium">Sound On</span>
-          </motion.div>
-        )}
         <div className="flex space-x-2">
           {Object.keys(themeConfigs).map((theme) => (
             <motion.button

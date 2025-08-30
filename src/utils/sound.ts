@@ -3,51 +3,75 @@ export const playTudumSound = () => {
     // Create audio context for better browser compatibility
     const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
     
-    // Netflix tudum sound - more authentic frequencies and timing
-    // The actual Netflix sound is more complex, but this captures the essence
-    const frequencies = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
-    const durations = [0.2, 0.2, 0.3, 0.4]; // Shorter, more punchy notes
+    // Netflix tudum sound - more authentic based on actual sound analysis
+    // The real Netflix sound has a distinctive "dum" quality with specific harmonics
+    const baseFreq = 146.83; // D3 - the fundamental "dum" frequency
+    
+    // Create the main "dum" sound with multiple harmonics
+    const harmonics = [
+      { freq: baseFreq, gain: 0.4, duration: 0.8 },
+      { freq: baseFreq * 2, gain: 0.3, duration: 0.8 }, // 2nd harmonic
+      { freq: baseFreq * 3, gain: 0.2, duration: 0.8 }, // 3rd harmonic
+      { freq: baseFreq * 0.5, gain: 0.25, duration: 0.8 }, // Lower octave for depth
+    ];
     
     let currentTime = audioContext.currentTime;
     
-    frequencies.forEach((frequency, index) => {
+    harmonics.forEach((harmonic, index) => {
       const oscillator = audioContext.createOscillator();
       const gainNode = audioContext.createGain();
       
       oscillator.connect(gainNode);
       gainNode.connect(audioContext.destination);
       
-      oscillator.frequency.setValueAtTime(frequency, currentTime);
-      oscillator.type = 'sine';
+      oscillator.frequency.setValueAtTime(harmonic.freq, currentTime);
+      oscillator.type = 'triangle'; // Triangle wave for more authentic "dum" sound
       
-      // Create a more punchy envelope for the Netflix feel
+      // Create the characteristic Netflix envelope - quick attack, long decay
       gainNode.gain.setValueAtTime(0, currentTime);
-      gainNode.gain.linearRampToValueAtTime(0.3, currentTime + 0.02);
-      gainNode.gain.exponentialRampToValueAtTime(0.01, currentTime + durations[index]);
+      gainNode.gain.linearRampToValueAtTime(harmonic.gain, currentTime + 0.05);
+      gainNode.gain.exponentialRampToValueAtTime(0.001, currentTime + harmonic.duration);
       
       oscillator.start(currentTime);
-      oscillator.stop(currentTime + durations[index]);
-      
-      currentTime += durations[index];
+      oscillator.stop(currentTime + harmonic.duration);
     });
     
-    // Add a subtle echo/reverb effect that's characteristic of the Netflix sound
+    // Add a subtle "click" at the beginning for authenticity
     setTimeout(() => {
-      const echoOscillator = audioContext.createOscillator();
-      const echoGain = audioContext.createGain();
+      const clickOscillator = audioContext.createOscillator();
+      const clickGain = audioContext.createGain();
       
-      echoOscillator.connect(echoGain);
-      echoGain.connect(audioContext.destination);
+      clickOscillator.connect(clickGain);
+      clickGain.connect(audioContext.destination);
       
-      echoOscillator.frequency.setValueAtTime(783.99, 0); // G5
-      echoOscillator.type = 'sine';
+      clickOscillator.frequency.setValueAtTime(800, 0);
+      clickOscillator.type = 'sine';
       
-      echoGain.gain.setValueAtTime(0.08, 0);
-      echoGain.gain.exponentialRampToValueAtTime(0.001, 0.6);
+      clickOscillator.frequency.exponentialRampToValueAtTime(400, 0.1);
+      clickGain.gain.setValueAtTime(0.15, 0);
+      clickGain.gain.exponentialRampToValueAtTime(0.001, 0.1);
       
-      echoOscillator.start(0);
-      echoOscillator.stop(0.6);
-    }, 500);
+      clickOscillator.start(0);
+      clickOscillator.stop(0.1);
+    }, 50);
+    
+    // Add a subtle reverb/room effect
+    setTimeout(() => {
+      const reverbOscillator = audioContext.createOscillator();
+      const reverbGain = audioContext.createGain();
+      
+      reverbOscillator.connect(reverbGain);
+      reverbGain.connect(audioContext.destination);
+      
+      reverbOscillator.frequency.setValueAtTime(baseFreq * 0.5, 0); // Lower octave
+      reverbOscillator.type = 'sine';
+      
+      reverbGain.gain.setValueAtTime(0.05, 0);
+      reverbGain.gain.exponentialRampToValueAtTime(0.001, 1.2);
+      
+      reverbOscillator.start(0);
+      reverbOscillator.stop(1.2);
+    }, 100);
     
   } catch (error) {
     console.warn('Failed to play tudum sound:', error);

@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { Theme } from '@/types/theme';
 import { themeConfigs } from '@/utils/theme';
+import { FaVolumeUp } from 'react-icons/fa';
 
 interface ThemeSwitcherProps {
   onThemeChange: (theme: Theme) => void;
@@ -65,9 +66,19 @@ export default function ThemeSwitcher({ onThemeChange }: ThemeSwitcherProps) {
   };
 
   return (
-    <div className="fixed top-4 left-4 z-50">
+    <div>
       <div className="flex items-center space-x-4">
         <span className="text-sm font-medium">Themes:</span>
+        {activeTheme === 'netflix' && (
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            className="flex items-center gap-1 text-[#E50914]"
+          >
+            <FaVolumeUp className="text-xs" />
+            <span className="text-xs font-medium">Sound On</span>
+          </motion.div>
+        )}
         <div className="flex space-x-2">
           {Object.keys(themeConfigs).map((theme) => (
             <motion.button
@@ -75,12 +86,19 @@ export default function ThemeSwitcher({ onThemeChange }: ThemeSwitcherProps) {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => handleThemeChange(theme as Theme)}
-              className={`w-6 h-6 rounded-full flex items-center justify-center transition-all duration-200 overflow-hidden ${
+              className={`w-6 h-6 rounded-full flex items-center justify-center transition-all duration-200 overflow-hidden relative ${
                 activeTheme === theme 
                   ? 'ring-2 ring-offset-2 ring-offset-background ring-white/50' 
                   : ''
               }`}
             >
+              {theme === 'netflix' && activeTheme === theme && (
+                <motion.div
+                  className="absolute inset-0 bg-[#E50914]/20 rounded-full"
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                />
+              )}
               {renderSplitCircle(theme as Theme)}
               <span className="sr-only">{theme} theme</span>
             </motion.button>

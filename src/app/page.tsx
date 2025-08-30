@@ -14,6 +14,7 @@ import SpaceTimeAnimation from '@/components/SpaceTimeAnimation';
 import ElectronicSpark from '@/components/ElectronicSpark';
 import SkillBadge from '@/components/SkillBadge';
 import PDFResume from '@/components/PDFResume';
+import SoundToggle from '@/components/SoundToggle';
 
 // Data and types
 import { Theme } from '@/types/theme';
@@ -29,7 +30,8 @@ import {
   FaGraduationCap,
   FaTools,
   FaFilePdf,
-  FaFileWord
+  FaFileWord,
+  FaVolumeUp
 } from 'react-icons/fa';
 import { MdWorkOutline, MdMoney } from "react-icons/md";
 import { GiSoapExperiment } from "react-icons/gi";
@@ -43,6 +45,7 @@ import { RiStockFill } from 'react-icons/ri';
 // Utils
 import { generatePDF } from '@/utils/pdf';
 import { generateDOCX } from '@/utils/docx';
+import { playTudumSound } from '@/utils/sound';
 
 
 
@@ -50,11 +53,40 @@ export default function Home() {
   const [theme, setTheme] = useState<Theme>('meta');
   const [mounted, setMounted] = useState(false);
   const [showGPA, setShowGPA] = useState<{ [key: number]: boolean }>({});
+  const [soundEnabled, setSoundEnabled] = useState(true);
+  const [showSoundIndicator, setShowSoundIndicator] = useState(false);
   const { resume: resumeData, resumeType, loading } = useResume();
+
+  const handleThemeChange = (newTheme: Theme) => {
+    setTheme(newTheme);
+    
+    // Play tudum sound only when switching to Netflix theme and sound is enabled
+    if (newTheme === 'netflix' && soundEnabled) {
+      playTudumSound();
+      
+      // Show sound indicator
+      setShowSoundIndicator(true);
+      setTimeout(() => setShowSoundIndicator(false), 1000);
+    }
+  };
 
   useEffect(() => {
     setMounted(true);
-  }, []);
+    
+    // Play tudum sound on initial load if Netflix theme is active and sound is enabled
+    if (theme === 'netflix' && soundEnabled) {
+      // Small delay to ensure the app is fully loaded
+      const timer = setTimeout(() => {
+        playTudumSound();
+        
+        // Show sound indicator
+        setShowSoundIndicator(true);
+        setTimeout(() => setShowSoundIndicator(false), 1000);
+      }, 500);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [theme, soundEnabled]);
 
   const toggleGPA = (index: number) => {
     setShowGPA(prev => ({
@@ -140,15 +172,47 @@ export default function Home() {
 
   return (
     <main className={`min-h-screen w-screen overflow-x-hidden p-8 md:p-24 transition-colors duration-300 relative ${getThemeClasses(theme)}`}>
-      <div className="absolute inset-0 z-0">
-        {theme === 'netflix' && <SpaceTimeAnimation />}
-        {theme === 'discord' && <ElectronicSpark />}
-      </div>
+              <div className="absolute inset-0 z-0">
+          {theme === 'netflix' && <SpaceTimeAnimation />}
+          {theme === 'discord' && <ElectronicSpark />}
+        </div>
+        
+        {/* Sound indicator */}
+        {showSoundIndicator && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            className="fixed top-20 left-4 z-50 flex items-center gap-2 px-4 py-2 bg-[#E50914] text-white rounded-lg shadow-lg"
+          >
+            <FaVolumeUp className="text-lg" />
+            <span className="font-medium">Tudum!</span>
+          </motion.div>
+        )}
+        
+        {/* Netflix theme pulse effect when sound plays */}
+        {showSoundIndicator && theme === 'netflix' && (
+          <motion.div
+            initial={{ opacity: 0, scale: 1 }}
+            animate={{ opacity: [0, 0.3, 0], scale: [1, 1.1, 1] }}
+            transition={{ duration: 1 }}
+            className="fixed inset-0 z-10 pointer-events-none"
+            style={{
+              background: 'radial-gradient(circle at center, rgba(229, 9, 20, 0.1) 0%, transparent 70%)'
+            }}
+          />
+        )}
       
-      <div className="relative z-10">
-        <ThemeSwitcher onThemeChange={setTheme} />
-        <ResumeTypeToggle theme={theme} />
-        <TableOfContents theme={theme} />
+              <div className="relative z-10">
+          <div className="flex items-center gap-4 fixed top-4 left-4 z-50">
+            <ThemeSwitcher onThemeChange={handleThemeChange} />
+            <SoundToggle 
+              isNetflixTheme={theme === 'netflix'} 
+              onSoundToggle={setSoundEnabled} 
+            />
+          </div>
+          <ResumeTypeToggle theme={theme} />
+          <TableOfContents theme={theme} />
         
         <motion.div
           initial={{ opacity: 0, y: 20 }}

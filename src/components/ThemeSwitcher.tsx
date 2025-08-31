@@ -10,7 +10,7 @@ interface ThemeSwitcherProps {
 }
 
 export default function ThemeSwitcher({ onThemeChange, onNetflixTheme }: ThemeSwitcherProps) {
-  const [activeTheme, setActiveTheme] = useState<Theme>('netflix');
+  const [activeTheme, setActiveTheme] = useState<Theme>('meta');
 
   const handleThemeChange = (theme: Theme) => {
     setActiveTheme(theme);
@@ -76,6 +76,11 @@ export default function ThemeSwitcher({ onThemeChange, onNetflixTheme }: ThemeSw
     <div className="fixed top-4 left-4 z-50">
       <div className="flex items-center space-x-4">
         <span className="text-sm font-medium">Themes:</span>
+        <div className="text-xs text-gray-400">
+          <div>Ctrl+1: Meta</div>
+          <div>Ctrl+2: Netflix</div>
+          <div>Ctrl+3: Discord</div>
+        </div>
         <div className="flex space-x-2">
           {Object.keys(themeConfigs).map((theme) => (
             <motion.button
@@ -88,7 +93,7 @@ export default function ThemeSwitcher({ onThemeChange, onNetflixTheme }: ThemeSw
                   ? 'ring-2 ring-offset-2 ring-offset-background ring-white/50' 
                   : ''
               }`}
-              title={`${theme} theme`}
+              title={`${theme} theme${theme === 'netflix' ? ' (plays tudum sound)' : ''}`}
             >
               {renderSplitCircle(theme as Theme)}
               <span className="sr-only">{theme} theme</span>

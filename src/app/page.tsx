@@ -49,7 +49,7 @@ import { playTudumSound } from '@/utils/tudumSound';
 
 
 export default function Home() {
-  const [theme, setTheme] = useState<Theme>('netflix');
+  const [theme, setTheme] = useState<Theme>('meta');
   const [mounted, setMounted] = useState(false);
   const [showGPA, setShowGPA] = useState<{ [key: number]: boolean }>({});
   const [showTudumToast, setShowTudumToast] = useState(false);
@@ -72,7 +72,32 @@ export default function Home() {
     }
   }, [theme, mounted]);
 
+  // Keyboard shortcuts for theme switching
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.ctrlKey || event.metaKey) {
+        switch (event.key) {
+          case '1':
+            event.preventDefault();
+            setTheme('meta');
+            break;
+          case '2':
+            event.preventDefault();
+            setTheme('netflix');
+            break;
+          case '3':
+            event.preventDefault();
+            setTheme('discord');
+            break;
+        }
+      }
+    };
 
+    if (mounted) {
+      document.addEventListener('keydown', handleKeyDown);
+      return () => document.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [mounted]);
 
   const toggleGPA = (index: number) => {
     setShowGPA(prev => ({

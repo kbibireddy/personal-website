@@ -1,7 +1,7 @@
 import { Theme } from '@/types/theme';
 
-// Default volume for theme sounds (40%)
-export const DEFAULT_VOLUME = 0.4;
+// Default volume for theme sounds (8%)
+export const DEFAULT_VOLUME = 0.08;
 
 // Map of theme to audio file paths
 const THEME_AUDIO_MAP: Record<Theme, string> = {

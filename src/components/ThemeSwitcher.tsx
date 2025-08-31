@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { Theme } from '@/types/theme';
 import { themeConfigs } from '@/utils/theme';
+import { playThemeAudio } from '@/utils/themeAudio';
 
 interface ThemeSwitcherProps {
   onThemeChange: (theme: Theme) => void;
@@ -13,6 +14,8 @@ export default function ThemeSwitcher({ onThemeChange }: ThemeSwitcherProps) {
   const handleThemeChange = (theme: Theme) => {
     setActiveTheme(theme);
     onThemeChange(theme);
+    // Play theme audio on user interaction
+    playThemeAudio(theme);
   };
 
   const getThemeColors = (theme: Theme) => {

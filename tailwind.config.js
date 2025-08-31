@@ -39,16 +39,25 @@ module.exports = {
       fontFamily: {
         'space-grotesk': [
           'var(--font-space-grotesk)',
-          'Helvetica Neue',
-          'Helvetica',
-          'Arial',
-          'Segoe UI',
+          'ui-sans-serif',
           'system-ui',
           '-apple-system',
-          'sans-serif'
+          'BlinkMacSystemFont',
+          'Segoe UI',
+          'Roboto',
+          'Helvetica Neue',
+          'Arial',
+          'Noto Sans',
+          'sans-serif',
+          'Apple Color Emoji',
+          'Segoe UI Emoji',
+          'Segoe UI Symbol',
+          'Noto Color Emoji'
         ],
         'roboto-mono': [
           'var(--font-roboto-mono)',
+          'ui-monospace',
+          'SFMono-Regular',
           'Menlo',
           'Monaco',
           'Consolas',
@@ -58,13 +67,20 @@ module.exports = {
         ],
         'inter': [
           'var(--font-inter)',
-          'Helvetica Neue',
-          'Helvetica',
-          'Arial',
-          'Segoe UI',
+          'ui-sans-serif',
           'system-ui',
           '-apple-system',
-          'sans-serif'
+          'BlinkMacSystemFont',
+          'Segoe UI',
+          'Roboto',
+          'Helvetica Neue',
+          'Arial',
+          'Noto Sans',
+          'sans-serif',
+          'Apple Color Emoji',
+          'Segoe UI Emoji',
+          'Segoe UI Symbol',
+          'Noto Color Emoji'
         ],
       },
       animation: {

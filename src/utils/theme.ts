@@ -22,7 +22,7 @@ export const themeConfigs: Record<Theme, ThemeConfig> = {
     cardBg: 'bg-white/10',
     muted: '#6D6D6E',
     highlight: '#DC2626',
-    font: 'font-space-grotesk'
+    font: 'font-space-grotesk antialiased'
   },
   meta: {
     primary: '#0866FF',
@@ -33,7 +33,7 @@ export const themeConfigs: Record<Theme, ThemeConfig> = {
     cardBg: 'bg-black/5',
     muted: '#65676B',
     highlight: '#1D9BF0',
-    font: 'font-inter'
+    font: 'font-inter antialiased'
   },
   discord: {
     primary: '#5865F2',
@@ -44,7 +44,7 @@ export const themeConfigs: Record<Theme, ThemeConfig> = {
     cardBg: 'bg-[#5865F2]/10',
     muted: '#949BA4',
     highlight: '#5865F2',
-    font: 'font-roboto-mono'
+    font: 'font-roboto-mono antialiased'
   }
 };
 

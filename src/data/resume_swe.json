@@ -16,14 +16,13 @@
         "company": "Amazon",
         "period": "Jul 2020 – Present",
         "description": [
-          "Drove adoption of generative AI on AWS Bedrock by delivering an event-driven investigation assistant with multi-agent, DAG-orchestrated workflows that query reverse-indexed knowledge bases and auto-update tickets via SOP actions, improving on-call efficiency 50% and enabling org-wide extensibility.",
-          "Led migration of Amazon’s reference pricing platform across AWS regions (DUB → ZAZ), eliminating single-region dependency and achieving 40% of org-wide infrastructure cost reduction goals.",
-          "Increased global pricing accuracy by excluding 600K+ daily targeted promotional orders from computations, improving reference prices for 400K+ product listings across the retail catalog.",
-          "Revamped external pricing signal ingestion by defining SLAs and onboarding higher-quality sources, increasing adoption by 320 bps across multiple pricing teams.",
-          "Mentored and directed an intern to build a self-service debugging tool for reference pricing; adopted org-wide, reducing on-call and support workload by 25%.",
-          "Drove a structured tech debt reduction program that decreased backlog by 20%, introducing new grooming and sprint planning practices aligned across stakeholders.",
-          "Launched Alexa Auto’s teachable AI feature, enabling custom voice commands; drove 25% adoption within four weeks across early-access customers.",
-          "Delivered production-grade messaging and contact management services (Quattro) for Stellantis vehicles, leading middleware optimization and Alexa integration used by millions of drivers."
+          "Drove adoption of generative AI by designing an event-driven investigation assistant built on a multi-agent architecture and reverse-indexed knowledge bases through MCP servers, enabling parallel ticket triage and cutting mean resolution time across on-call workflows.",
+          "Led global data infrastructure diversification, migrating reference pricing data and systems from DUB → ZAZ/FRA regions with zero downtime, contributing to 40% org-wide infrastructure cost reduction goals.",
+          "Evolved distributed pricing pipeline (Spark/EMR/Scala) supporting 30M+ global products, continuously adapting core computation logic to align with changing business needs, regional regulations, and compliance requirements, ensuring sustained accuracy and resilience.",
+          "Engineered high-performance messaging stack for automotive infotainment systems using C++ middleware and React Native UI, integrating Bluetooth and Alexa Cloud for real-time voice and SMS delivery on Amazon’s automotive OS.",
+          "Led development of Alexa’s Teachable AI feature, a Java-based service library connecting automotive Alexa skills to teachable ML models, enabling custom, user-defined voice mappings — launched in Rivian, Lamborghini, and additional OEMs in 2022.",
+          "Built low-latency Automotive Prompting Service in Java/RPC, enriching dialog responses with contextual data and adaptive suggestions, which reduced abandonment by 15% in Alexa Car Control.",
+          "Mentored and guided an intern to deliver a self-service debugging platform for pricing pipelines, adopted organization-wide and reducing on-call and support workload by one-third."
         ]        
       },
       {
@@ -31,11 +30,11 @@
         "company": "Algoface",
         "period": "Mar 2019 – Jun 2020",
         "description": [
-          "Architected and deployed scalable computer vision services for real-time face tracking and AR-based virtual try-on experiences across devices.",
-          "Partnered with ML research teams to analyze CV algorithms, driving improvements in model accuracy, latency, and deployment efficiency.",
-          "Accelerated inference performance using WebAssembly, ensuring stable experience across devices with limited compute and memory.",
-          "Owned cloud infrastructure, CI/CD, and DevOps pipelines, introducing cloud-native practices and improving team deployment velocity.",
-          "Worked directly with enterprise customers to translate requirements into production-ready integrations, strengthening adoption and retention."
+          "Architected and deployed scalable computer vision services enabling real-time face tracking and AR-based virtual try-on across web and mobile platforms.",
+          "Led team-wide WebAssembly performance optimization initiatives, analyzing algorithm and codebase to improve computational efficiency through precision tuning and memory optimizations, resulting in significant latency reductions and smoother real-time performance.",
+          "Worked across TypeScript frontend and C++ inference layers to ensure seamless integration, efficient data flow, and stable real-time rendering performance in browser environments.",
+          "Maintained and scaled company-wide cloud infrastructure, implementing containerized deployments, monitoring, and CI/CD pipelines to ensure high availability and consistent release cycles.",
+          "Collaborated directly with enterprise customers to design and deliver production-grade integrations, enabling reliable inference workloads and increasing platform adoption."
         ]
       },
       {
@@ -43,10 +42,11 @@
         "company": "Windhoverlabs",
         "period": "Sep 2017 – Feb 2019",
         "description": [
-          "Led development of aerospace ground control station software, including geolocation 3D mapping and real-time aircraft tracking with ASDB integration.",
-          "Designed and delivered Primary Flight Display (PFD) systems enabling reliable in-flight monitoring and decision-making under real-time constraints.",
-          "Contributed to scaling of open-source avionics project (Airliner) by building APIs, developer tools, and modularized multi-window ground station UI.",
-          "Established rigorous QA practices through peer reviews, automated testing, and field validation during outdoor flight trials."
+          "Developed aerospace ground control software with 3D geolocation mapping and real-time aircraft tracking via ASDB, ensuring low-latency telemetry visualization.",
+          "Built Primary Flight Display (PFD) using JavaScript/Node.js, broadcasting drone telemetry over UDP for real-time monitoring and decision-making.",
+          "Implemented key Airliner systems including Landing Gear software, Video Controller, and Vehicle State Manager, enhancing reliability and maintainability of the ground station platform.",
+          "Ensured all drone C++ code on NASA's Core Flight Systems framework met NASA standards for fault tolerance, redundancy, and real-time reliability.",
+          "Implemented rigorous QA practices through peer reviews, automated testing, and field validation during outdoor flight trials."
         ]
       },
       {

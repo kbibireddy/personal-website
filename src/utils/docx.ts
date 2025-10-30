@@ -5,11 +5,11 @@ import { getResumeWithOverrides } from './resumeProvider';
 
 const DOCX_CONFIG = {
   fonts: {
-    NAME: 28,
-    TITLE: 24,
-    HEADING: 24,
-    NORMAL: 20,
-    SMALL: 18,
+    NAME: 22,
+    TITLE: 20,
+    HEADING: 20,
+    NORMAL: 18,
+    SMALL: 16,
   },
   layout: {
     bullet: { level: 0 },
@@ -41,12 +41,29 @@ const DOCX_CONFIG = {
   },
   education: {
     showGPA: false,
-    maxEducation: 1
+    maxEducation: 2
   }
 };
 
 export async function generateDOCX(type?: string): Promise<void> {
   const data = await getResumeWithOverrides(type);
+  const formatPeriod = (period: string): string => {
+    const monthMap: Record<string, string> = {
+      jan: 'Jan', feb: 'Feb', mar: 'Mar', apr: 'Apr', may: 'May', jun: 'Jun',
+      jul: 'Jul', aug: 'Aug', sep: 'Sep', oct: 'Oct', nov: 'Nov', dec: 'Dec'
+    };
+    let normalized = period
+      .replace(/\u2013|\u2014|–|—/g, '-')
+      .replace(/\s+-\s+/g, ' - ');
+    Object.entries(monthMap).forEach(([lower, proper]) => {
+      const re = new RegExp(`\\b${lower}\\b`, 'gi');
+      normalized = normalized.replace(re, proper);
+      const upper = lower.toUpperCase();
+      const reUpper = new RegExp(`\\b${upper}\\b`, 'g');
+      normalized = normalized.replace(reUpper, proper);
+    });
+    return normalized;
+  };
   
   const doc = new Document({
     sections: [{
@@ -201,34 +218,41 @@ export async function generateDOCX(type?: string): Promise<void> {
             font: "Arial"
           })]
         }),
-        ...data.education.slice(0, DOCX_CONFIG.education.maxEducation).map((edu, index) => [
+        ...data.education.slice(0, DOCX_CONFIG.education.maxEducation).map((edu) => [
           new Paragraph({
-            spacing: { before: 0, after: 2 },
+            spacing: { before: 0, after: 90 },
             children: [
-              new TextRun({ 
-                text: `${edu.degree}${DOCX_CONFIG.education.showGPA ? ` (GPA: ${edu.gpa})` : ''}`, 
+              new TextRun({
+                text: edu.degree,
                 bold: true,
                 size: DOCX_CONFIG.fonts.NORMAL,
                 font: "Arial"
-              })
-            ]
-          }),
-          new Paragraph({
-            spacing: { before: 0, after: 20 },
-            children: [
-              new TextRun({ 
-                text: edu.school,
+              }),
+              new TextRun({
+                text: " ",
                 size: DOCX_CONFIG.fonts.NORMAL,
                 font: "Arial"
               }),
-              new TextRun({ 
-                text: "  ",
-                size: DOCX_CONFIG.fonts.NORMAL,
-                font: "Arial"
-              }),
-              new TextRun({ 
-                text: edu.period,
+              new TextRun({
+                text: "from",
                 italics: true,
+                size: DOCX_CONFIG.fonts.NORMAL,
+                font: "Arial"
+              }),
+              new TextRun({
+                text: " ",
+                size: DOCX_CONFIG.fonts.NORMAL,
+                font: "Arial"
+              }),
+              new TextRun({
+                text: edu.school,
+                bold: true,
+                size: DOCX_CONFIG.fonts.NORMAL,
+                font: "Arial"
+              }),
+              new TextRun({
+                text: "  (" + formatPeriod(edu.period) + ")",
+                bold: true,
                 size: DOCX_CONFIG.fonts.NORMAL,
                 font: "Arial"
               })

@@ -15,9 +15,9 @@ export default function PDFResume({ resumeType, onDownload }: PDFResumeProps) {
   
   const PDF_CONFIG = {
     fonts: {
-      name: 24,
+      name: 18,
       headline: 14,
-      section: 18,
+      section: 16,
       normal: 13,
       small: 11
     },
@@ -38,6 +38,24 @@ export default function PDFResume({ resumeType, onDownload }: PDFResumeProps) {
       showGPA: false,
       maxEducation: 2
     }
+  };
+  
+  const formatPeriod = (period: string): string => {
+    const monthMap: Record<string, string> = {
+      jan: 'Jan', feb: 'Feb', mar: 'Mar', apr: 'Apr', may: 'May', jun: 'Jun',
+      jul: 'Jul', aug: 'Aug', sep: 'Sep', oct: 'Oct', nov: 'Nov', dec: 'Dec'
+    };
+    let normalized = period
+      .replace(/\u2013|\u2014|–|—/g, '-') // replace en/em dash with hyphen
+      .replace(/\s+-\s+/g, ' - ');
+    Object.entries(monthMap).forEach(([lower, proper]) => {
+      const re = new RegExp(`\\b${lower}\\b`, 'gi');
+      normalized = normalized.replace(re, proper);
+      const upper = lower.toUpperCase();
+      const reUpper = new RegExp(`\\b${upper}\\b`, 'g');
+      normalized = normalized.replace(reUpper, proper);
+    });
+    return normalized;
   };
   
   React.useEffect(() => {
@@ -127,14 +145,13 @@ export default function PDFResume({ resumeType, onDownload }: PDFResumeProps) {
         {/* Education */}
         <div className="print-avoid-break">
           <h2 className="text-lg font-bold mb-1 text-black">Education</h2>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="space-y-1">
             {data.education.slice(0, PDF_CONFIG.education.maxEducation).map((edu, index) => (
-              <div key={index} className="text-sm">
-                <div className="text-black font-bold">
-                  {edu.degree} {PDF_CONFIG.education.showGPA && `(GPA: ${edu.gpa})`}
-                </div>
-                <div className="text-black text-[13px] leading-5">{edu.school}</div>
-                <div className="text-black text-[13px] leading-5">{edu.period}</div>
+              <div key={index} className="text-sm text-black">
+                <span className="font-bold">{edu.degree}</span>
+                <span className="italic"> from </span>
+                <span className="font-bold">{edu.school}</span>
+                <span className="font-bold">  ({formatPeriod(edu.period)})</span>
               </div>
             ))}
           </div>

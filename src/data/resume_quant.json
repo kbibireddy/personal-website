@@ -16,13 +16,13 @@
       "company": "Amazon",
       "period": "Jul 2020 – Present",
       "description": [
-        "Built and optimized distributed, low-latency pricing systems processing millions of signals daily; improved global retail pricing accuracy across 400K+ product listings.",
-        "Drove cross-region migration of Amazon’s reference pricing platform (DUB → ZAZ), eliminating single-region risk and reducing infra costs by 40%.",
-        "Designed ingestion and processing workflows for high-frequency external pricing signals with strict SLAs, improving adoption and accuracy across multiple pricing teams.",
-        "Built event-driven, multi-agent investigation assistant leveraging DAG orchestration and reverse-indexed knowledge bases, reducing on-call workload by 50%.",
-        "Launched Alexa Auto’s teachable AI feature for custom commands and delivered production-grade messaging services (Quattro) at automotive scale (Stellantis).",
-        "Directed structured tech debt reduction initiative, decreasing backlog by 20% and aligning engineering execution with long-term performance goals.",
-        "Mentored engineers and interns, guiding them in building debugging and profiling tools for distributed systems, reducing support load 25%."
+        "Drove adoption of generative AI by designing an event-driven investigation assistant built on a multi-agent architecture and reverse-indexed knowledge bases through MCP servers, enabling parallel ticket triage and cutting mean resolution time across on-call workflows.",
+        "Led global data infrastructure diversification, migrating reference pricing data and systems from DUB → ZAZ/FRA regions with zero downtime, contributing to 40% org-wide infrastructure cost reduction goals.",
+        "Evolved distributed pricing pipeline (Spark/EMR/Scala) supporting 30M+ global products, continuously adapting core computation logic to align with changing business needs, regional regulations, and compliance requirements, ensuring sustained accuracy and resilience.",
+        "Engineered high-performance messaging stack for automotive infotainment systems using C++ middleware and React Native UI, integrating Bluetooth and Alexa Cloud for real-time voice and SMS delivery on Amazon’s automotive OS.",
+        "Led development of Alexa’s Teachable AI feature, a Java-based service library connecting automotive Alexa skills to teachable ML models, enabling custom, user-defined voice mappings — launched in Rivian, Lamborghini, and additional OEMs in 2022.",
+        "Built low-latency Automotive Prompting Service in Java/RPC, enriching dialog responses with contextual data and adaptive suggestions, which reduced abandonment by 15% in Alexa Car Control.",
+        "Mentored and guided an intern to deliver a self-service debugging platform for pricing pipelines, adopted organization-wide and reducing on-call and support workload by one-third."
       ]
     },
     {
@@ -30,10 +30,11 @@
       "company": "Algoface",
       "period": "Mar 2019 – Jun 2020",
       "description": [
-        "Architected real-time computer vision services with sub-100ms inference latency across devices, leveraging WebAssembly and C++ optimizations.",
-        "Partnered with ML research teams to productionize models, improving accuracy and throughput under constrained environments.",
-        "Owned deployment pipelines and cloud infrastructure, implementing containerized services and CI/CD automation to accelerate releases.",
-        "Collaborated directly with enterprise clients to translate quantitative requirements into scalable, latency-optimized production APIs."
+        "Architected and deployed scalable computer vision services enabling real-time face tracking and AR-based virtual try-on across web and mobile platforms.",
+        "Led team-wide WebAssembly performance optimization initiatives, analyzing algorithm and codebase to improve computational efficiency through precision tuning and memory optimizations, resulting in significant latency reductions and smoother real-time performance.",
+        "Worked across TypeScript frontend and C++ inference layers to ensure seamless integration, efficient data flow, and stable real-time rendering performance in browser environments.",
+        "Maintained and scaled company-wide cloud infrastructure, implementing containerized deployments, monitoring, and CI/CD pipelines to ensure high availability and consistent release cycles.",
+        "Collaborated directly with enterprise customers to design and deliver production-grade integrations, enabling reliable inference workloads and increasing platform adoption."
       ]
     },
     {
@@ -41,10 +42,11 @@
       "company": "Windhoverlabs",
       "period": "Sep 2017 – Feb 2019",
       "description": [
-        "Developed aerospace ground control systems with real-time 3D mapping, aircraft tracking, and geospatial visualization pipelines.",
-        "Delivered latency-critical Primary Flight Display (PFD) for in-flight decision-making under safety-critical constraints.",
-        "Contributed to open-source avionics framework by building modular APIs, developer tools, and real-time monitoring dashboards.",
-        "Led QA automation with integration tests and performance validation during flight trials."
+        "Developed aerospace ground control software with 3D geolocation mapping and real-time aircraft tracking via ASDB, ensuring low-latency telemetry visualization.",
+        "Built Primary Flight Display (PFD) using JavaScript/Node.js, broadcasting drone telemetry over UDP for real-time monitoring and decision-making.",
+        "Implemented key Airliner systems including Landing Gear software, Video Controller, and Vehicle State Manager, enhancing reliability and maintainability of the ground station platform.",
+        "Ensured all drone C++ code on NASA's Core Flight Systems framework met NASA standards for fault tolerance, redundancy, and real-time reliability.",
+        "Implemented rigorous QA practices through peer reviews, automated testing, and field validation during outdoor flight trials."
       ]
     },
     {
@@ -52,9 +54,9 @@
       "company": "Zdaly",
       "period": "Jun 2017 – Aug 2017",
       "description": [
-        "Built NLP-driven news aggregation widget for financial and energy data streams, deployed for enterprise clients like McDermott.",
-        "Developed large-scale ingestion pipelines processing millions of global feeds daily, enabling high-frequency data availability.",
-        "Applied text mining and keyword extraction techniques to power data-driven decision support tools."
+        "Developed NLP-powered news aggregation widget using topic modeling and keyword extraction, deployed on McDermott’s corporate homepage.",
+        "Engineered enterprise-facing applications leveraging open-source NLP libraries for finance and energy customers.",
+        "Maintained and supported large-scale ingestion pipelines processing millions of global data sources for Zdaly’s enterprise data platform."
       ]
     }
   ],
@@ -63,20 +65,19 @@
       "title": "Technical Analysis Platform for Financial Markets",
       "status": "WIP",
       "description": [
-        "Developing a platform to backtest and evaluate trading strategies using historical market and sentiment data.",
-        "Built event-driven ETL pipelines (AWS Lambda, Redis) for time-series ingestion and technical indicator computation.",
-        "Created React-based dashboard for visualizing performance, drawdowns, and risk-adjusted returns."
+        "Building a personal platform to backtest and analyze trading strategies using historical financial data, with event-driven AWS Lambda workflows, ETL pipelines for sentiment and technical analysis, and a React-based dashboard for strategy evaluation and performance tracking."
       ],
-      "technologies": ["Python", "Pandas", "NumPy", "Next.js", "AWS Lambda", "Redis", "AWS Fargate", "AWS S3"]
+      "technologies": ["Next.js", "AWS Fargate", "Redis", "AWS CloudFormation", "AWS Lambda", "AWS S3"],
+      "link": "https://kbibireddy.github.io/marketview/"
     },
     {
       "title": "Real Estate Investment Analysis Tool",
       "status": "Active",
       "description": [
-        "Built a web app to model property investments with dynamic ROI and breakeven calculations.",
-        "Focused on time-series projections, risk scenarios, and cash flow modeling in a user-friendly interface."
+        "Developed a web-based tool to evaluate real estate investment opportunities by comparing buying vs renting, incorporating inputs like purchase price, interest rate, taxes, and ownership costs to output projected ROI, breakeven points, and overall investment value in a clean, user-friendly interface."
       ],
-      "technologies": ["Next.js", "Node.js", "Github Pages"]
+      "technologies": ["Next.js", "Github Pages"],
+      "link": "https://kbibireddy.github.io/real-estate-investment-app/"
     }
   ],
   "education": [

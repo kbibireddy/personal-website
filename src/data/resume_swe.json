@@ -78,6 +78,15 @@
         ],
         "technologies": ["Next.js", "Github Pages"],
         "link": "https://kbibireddy.github.io/real-estate-investment-app/"
+      },
+      {
+        "title": "Closed Captioner iOS App",
+        "status": "Released",
+        "description": [
+          "Built an accessibility-focused speech-to-text captioning app delivering real-time captions with emoji sentiment cues and local history management."
+        ],
+        "technologies": ["SwiftUI", "Speech"],
+        "link": "https://apps.apple.com/us/app/closed-captioner/id6754772689"
       }
     ],
     "education": [

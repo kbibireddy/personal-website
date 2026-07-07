@@ -1,7 +1,7 @@
 {
     "name": "KARTHIK BIBIREDDY",
-    "headline": "Sr. Software Engineer | Agentic AI & Distributed Systems | Technical Leader",
-    "professionalSummary": "Experienced software engineer with 8+ years of building and scaling distributed systems, high-throughput APIs, and data-intensive applications across Amazon and multiple startups. Recognized for designing agentic AI workflows and automation infrastructure that accelerate complex migrations and on-call operations, while driving cross-team technical initiatives, influencing org-wide adoption of generative AI tooling, and mentoring engineers to deliver resilient and scalable solutions. Passionate about solving complex systems challenges, leading org-wide improvements, and aligning engineering execution with long-term business strategy.",
+    "headline": "Sr. Software Engineer | Distributed Systems & Data Infrastructure | Technical Leader",
+    "professionalSummary": "Experienced software engineer with 8+ years of building and scaling distributed systems, high-throughput APIs, and data-intensive applications across Amazon and multiple startups. Recognized for driving cross-team technical initiatives, influencing system architectures, and mentoring engineers to deliver resilient and scalable solutions. Passionate about solving complex systems challenges, leading org-wide improvements, and aligning engineering execution with long-term business strategy.",
     "website": "https://kbibireddy.github.io/personal-website",
     "contact": {
       "email": "karthikbibireddy@hotmail.com",
@@ -16,10 +16,9 @@
         "company": "Amazon",
         "period": "Jul 2020 – Present",
         "description": [
-          "Accelerated regional List Price migration (DUB→ZAZ) by designing agentic AI workflows with Kiro and Open-Claw for code transformation and automated validation via Amazon Quick, reducing manual migration effort and production risk while modernizing IaC from CloudFormation to CDK (~17% DUB footprint reduction).",
+          "Led regional migration of List Price infrastructure from DUB to ZAZ with zero downtime and no production impact, replacing manual service-to-service migrations with automated code transformation and validation pipelines (Kiro, Open-Claw, Amazon Quick), modernizing IaC from CloudFormation to CDK (~17% DUB footprint reduction).",
           "Built and scaled distributed pricing pipelines (Spark/EMR/Scala) supporting 300M+ global products, continuously adapting computation logic to evolving business rules, regional regulations, and compliance constraints.",
-          "Architected an event-driven agentic orchestrator for on-call investigation using multi-agent design, MCP-backed knowledge retrieval, and a state-machine execution engine (Lambda, DynamoDB, Step Functions), enabling parallel ticket triage and reducing mean ticket resolution time.",
-          "Influenced team and org direction toward AI-driven development by building automation infrastructure, running Kiro and Open-Claw workshops, and mentoring engineers on agentic workflow patterns—shifting repetitive migration and validation work to automated pipelines.",
+          "Drove adoption of generative AI for on-call workflows by designing an event-driven investigation assistant with multi-agent architecture and MCP-backed reverse-indexed knowledge retrieval, reducing mean ticket resolution time.",
           "Engineered high-performance automotive messaging services (C++ middleware + React Native integration) for real-time Bluetooth/Alexa voice and SMS delivery on Amazon automotive platforms.",
           "Led integration of Alexa Teachable AI for conversational car-control personalization (for example, mapping custom phrases like 'cozy' to climate actions), launching successfully with Lamborghini and Rivian before broader rollout.",
           "Built a low-latency Automotive Prompting Service in Java/RPC to enrich dialog responses with contextual suggestions, reducing Alexa Car Control abandonment by 15%.",
@@ -32,7 +31,7 @@
         "period": "Mar 2019 – Jun 2020",
         "description": [
           "Architected and deployed computer vision services for real-time face tracking and AR virtual try-on across web and mobile experiences.",
-          "Led WebAssembly performance optimization initiatives, setting optimization standards adopted across the frontend team and improving latency and rendering smoothness through precision tuning and memory efficiency work.",
+          "Led WebAssembly performance optimization initiatives, improving latency and rendering smoothness through precision tuning and memory efficiency work.",
           "Worked across TypeScript frontend and C++ inference layers to optimize integration boundaries, data flow, and runtime stability in browser environments.",
           "Maintained and scaled cloud infrastructure with containerized deployments, monitoring, and CI/CD practices to improve reliability and release consistency.",
           "Collaborated directly with enterprise customers to deliver production-grade integrations for reliable inference workloads."
@@ -66,9 +65,9 @@
         "title": "Technical Analysis Platform for Financial Markets",
         "status": "WIP",
         "description": [
-          "Building a personal platform to backtest and analyze trading strategies using historical financial data, with event-driven AWS Lambda workflows, agentic patterns for automated strategy evaluation, ETL pipelines for sentiment and technical analysis, and a React-based dashboard for strategy evaluation and performance tracking."
+          "Building a personal platform to backtest and analyze trading strategies using historical financial data, with event-driven AWS Lambda workflows, ETL pipelines for sentiment and technical analysis, and a React-based dashboard for strategy evaluation and performance tracking."
         ],
-        "technologies": ["Next.js", "AWS Fargate", "Redis", "AWS CloudFormation", "AWS Lambda", "AWS Step Functions", "AWS S3"],
+        "technologies": ["Next.js", "AWS Fargate", "Redis", "AWS CloudFormation", "AWS Lambda", "AWS S3"],
         "link": "https://kbibireddy.github.io/marketview/"
       },
       {
@@ -122,11 +121,7 @@
       { "name": "Stream Processing", "proficiency": 4, "category": "Architecture" },
       { "name": "Batch Processing", "proficiency": 5, "category": "Architecture" },
       { "name": "Data Warehousing", "proficiency": 4, "category": "Architecture" },
-      { "name": "Agentic AI / Multi-Agent Systems", "proficiency": 4, "category": "Architecture" },
-      { "name": "Generative AI / LLM Orchestration", "proficiency": 4, "category": "Architecture" },
-      { "name": "State Machines", "proficiency": 4, "category": "Architecture" },
       { "name": "AWS Lambda", "proficiency": 5, "category": "Cloud" },
-      { "name": "AWS Step Functions", "proficiency": 4, "category": "Cloud" },
       { "name": "AWS CDK", "proficiency": 4, "category": "Cloud" },
       { "name": "AWS SQS", "proficiency": 5, "category": "Cloud" },
       { "name": "AWS SNS", "proficiency": 5, "category": "Cloud" },
@@ -148,11 +143,8 @@
       { "name": "GraphQL", "proficiency": 5, "category": "APIs" },
       { "name": "WebSockets", "proficiency": 5, "category": "APIs" },
       { "name": "WebRTC", "proficiency": 5, "category": "APIs" },
-      { "name": "Kiro", "proficiency": 4, "category": "DevOps & Tooling" },
-      { "name": "Open-Claw", "proficiency": 4, "category": "DevOps & Tooling" },
-      { "name": "Amazon Quick", "proficiency": 4, "category": "DevOps & Tooling" },
       { "name": "MCP (Model Context Protocol)", "proficiency": 3, "category": "DevOps & Tooling" },
-      { "name": "AWS CodePipeline", "proficiency": 4, "category": "DevOps & Tooling" },
+      { "name": "AWS CodePipeline", "proficiency": 3, "category": "DevOps & Tooling" },
       { "name": "Jenkins", "proficiency": 5, "category": "DevOps & Tooling" },
       { "name": "GitLab", "proficiency": 4, "category": "DevOps & Tooling" },
       { "name": "GitHub", "proficiency": 5, "category": "DevOps & Tooling" },

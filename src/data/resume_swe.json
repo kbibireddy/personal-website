@@ -1,7 +1,7 @@
 {
     "name": "KARTHIK BIBIREDDY",
-    "headline": "Sr. Software Engineer | Distributed Systems, Data & AI Infrastructure | Technical Leader",
-    "professionalSummary": "Experienced software engineer with 8+ years of building and scaling distributed systems, high-throughput APIs, and data-intensive applications across Amazon and multiple startups. Recognized for driving cross-team technical initiatives—from zero-downtime regional migrations and Spark pipelines at 300M-product scale to production AI systems for code migration and on-call investigation—and mentoring engineers to deliver resilient, scalable solutions. Passionate about solving complex systems challenges, leading org-wide improvements, and aligning engineering execution with long-term business strategy.",
+    "headline": "Sr. Software Engineer | Distributed Systems & Data Infrastructure | Technical Leader",
+    "professionalSummary": "Experienced software engineer with 8+ years of building and scaling distributed systems, high-throughput APIs, and data-intensive applications across Amazon and multiple startups. Recognized for driving cross-team technical initiatives, influencing system architectures, and mentoring engineers to deliver resilient and scalable solutions. Passionate about solving complex systems challenges, leading org-wide improvements, and aligning engineering execution with long-term business strategy.",
     "website": "https://kbibireddy.github.io/personal-website",
     "contact": {
       "email": "karthikbibireddy@hotmail.com",
@@ -16,15 +16,14 @@
         "company": "Amazon",
         "period": "Jul 2020 – Present",
         "description": [
-          "Led regional migration of List Price infrastructure from DUB to ZAZ with zero downtime and no production impact, replacing manual service-to-service migrations with automated code transformation and validation pipelines (Kiro, Open-Claw, Amazon Quick), modernizing IaC from CloudFormation to CDK (~17% DUB footprint reduction).",
-          "Stood up shared automation infrastructure for AI-assisted migration and validation workflows, and trained the team to run Kiro, Open-Claw, and Amazon Quick pipelines independently—removing manual migrations as the bottleneck for regional infrastructure work.",
+          "Led regional migration of List Price infrastructure from DUB to ZAZ with zero downtime and no production impact, modernizing IaC from CloudFormation to CDK and contributing to roughly 17% DUB footprint reduction for the broader Price Perception org.",
           "Built and scaled distributed pricing pipelines (Spark/EMR/Scala) supporting 300M+ global products, continuously adapting computation logic to evolving business rules, regional regulations, and compliance constraints.",
-          "Built an event-driven on-call investigation assistant with multi-agent orchestration, MCP-backed reverse-indexed knowledge retrieval, and persistent session state across Lambda, DynamoDB, and Step Functions, reducing mean ticket resolution time.",
+          "Drove adoption of generative AI for on-call workflows by designing an event-driven investigation assistant with multi-agent architecture and MCP-backed reverse-indexed knowledge retrieval, reducing mean ticket resolution time.",
           "Engineered high-performance automotive messaging services (C++ middleware + React Native integration) for real-time Bluetooth/Alexa voice and SMS delivery on Amazon automotive platforms.",
           "Led integration of Alexa Teachable AI for conversational car-control personalization (for example, mapping custom phrases like 'cozy' to climate actions), launching successfully with Lamborghini and Rivian before broader rollout.",
           "Built a low-latency Automotive Prompting Service in Java/RPC to enrich dialog responses with contextual suggestions, reducing Alexa Car Control abandonment by 15%.",
           "Mentored an intern to deliver a self-service debugging platform for pricing pipelines, adopted org-wide and reducing support/on-call workload by about one-third."
-        ]
+        ]        
       },
       {
         "title": "Software Engineer",
@@ -123,8 +122,6 @@
       { "name": "Batch Processing", "proficiency": 5, "category": "Architecture" },
       { "name": "Data Warehousing", "proficiency": 4, "category": "Architecture" },
       { "name": "AWS Lambda", "proficiency": 5, "category": "Cloud" },
-      { "name": "AWS Step Functions", "proficiency": 4, "category": "Cloud" },
-      { "name": "AWS CDK", "proficiency": 4, "category": "Cloud" },
       { "name": "AWS SQS", "proficiency": 5, "category": "Cloud" },
       { "name": "AWS SNS", "proficiency": 5, "category": "Cloud" },
       { "name": "AWS Fargate", "proficiency": 5, "category": "Cloud" },
@@ -145,7 +142,6 @@
       { "name": "GraphQL", "proficiency": 5, "category": "APIs" },
       { "name": "WebSockets", "proficiency": 5, "category": "APIs" },
       { "name": "WebRTC", "proficiency": 5, "category": "APIs" },
-      { "name": "MCP (Model Context Protocol)", "proficiency": 3, "category": "DevOps & Tooling" },
       { "name": "AWS CodePipeline", "proficiency": 3, "category": "DevOps & Tooling" },
       { "name": "Jenkins", "proficiency": 5, "category": "DevOps & Tooling" },
       { "name": "GitLab", "proficiency": 4, "category": "DevOps & Tooling" },

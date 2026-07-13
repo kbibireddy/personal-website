@@ -1,7 +1,7 @@
 {
     "name": "KARTHIK BIBIREDDY",
-    "headline": "Sr. Software Engineer | AWS Infrastructure & Zero-Downtime Migrations | Distributed Pricing Platforms",
-    "professionalSummary": "Sr. software engineer with 9+ years building and scaling distributed streaming and batch systems at Amazon and startups. Sole technical owner of ambiguous, customer-facing initiatives—tri-region infrastructure migrations, org-level architecture design, and production incident leadership affecting hundreds of millions of daily pricing events. Recognized for cross-team influence without authority, reusable platform libraries (AWS CDK), quantitative RCA, and mentoring engineers. Operating at Principal-level scope on Kinesis/Lambda/DynamoDB pipelines, production change management, and institutionalizing solutions via playbooks and shared constructs.",
+    "headline": "Sr. Software Engineer | AWS Infrastructure | Distributed Platforms",
+    "professionalSummary": "Sr. software engineer with 9+ years building and scaling distributed streaming and batch systems at Amazon and startups. Recognized for sole ownership of ambiguous, customer-facing initiatives—org-level architecture design, reusable platform libraries (AWS CDK), and production incident leadership at hundreds-of-millions-of-events scale. Combines cross-team influence, quantitative RCA, mentoring engineers, and institutionalizing solutions via playbooks and shared constructs across Kinesis, Lambda, and DynamoDB pipelines.",
     "website": "https://kbibireddy.github.io/personal-website",
     "contact": {
       "email": "karthikbibireddy@hotmail.com",

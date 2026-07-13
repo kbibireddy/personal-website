@@ -6,7 +6,8 @@ const nextConfig = {
   },
   reactStrictMode: true,
   swcMinify: true,
-  basePath: '/personal-website',
+  // GitHub Pages needs the base path in production; local dev serves from /
+  basePath: process.env.NODE_ENV === 'production' ? '/personal-website' : '',
 }
 
 module.exports = nextConfig 

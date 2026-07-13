@@ -1,7 +1,7 @@
 {
     "name": "KARTHIK BIBIREDDY",
-    "headline": "Sr. Software Engineer | Distributed Systems & Data Infrastructure | Technical Leader",
-    "professionalSummary": "Experienced software engineer with 9+ years of building and scaling distributed systems, high-throughput APIs, and data-intensive applications across Amazon and multiple startups. Recognized for driving cross-team technical initiatives, influencing system architectures, and mentoring engineers to deliver resilient and scalable solutions. Passionate about solving complex systems challenges, leading org-wide improvements, and aligning engineering execution with long-term business strategy.",
+    "headline": "Sr. Software Engineer | AWS Infrastructure & Zero-Downtime Migrations | Distributed Pricing Platforms",
+    "professionalSummary": "Sr. software engineer with 9+ years building and scaling distributed streaming and batch systems at Amazon and startups. Sole technical owner of ambiguous, customer-facing initiatives—tri-region infrastructure migrations, org-level architecture design, and production incident leadership affecting hundreds of millions of daily pricing events. Recognized for cross-team influence without authority, reusable platform libraries (AWS CDK), quantitative RCA, and mentoring engineers. Operating at Principal-level scope on Kinesis/Lambda/DynamoDB pipelines, production change management, and institutionalizing solutions via playbooks and shared constructs.",
     "website": "https://kbibireddy.github.io/personal-website",
     "contact": {
       "email": "karthikbibireddy@hotmail.com",
@@ -16,13 +16,16 @@
         "company": "Amazon",
         "period": "Jul 2020 – Present",
         "description": [
-          "Led regional migration of List Price infrastructure from DUB to ZAZ with zero downtime and no production impact, modernizing IaC from CloudFormation to CDK and contributing to roughly 17% DUB footprint reduction for the broader Price Perception org.",
+          "Sole technical owner of zero-downtime migration of validated list-price streaming infrastructure across EU, NA, and APAC (hundreds of millions of daily pricing events). Modernized legacy CloudFormation to AWS CDK, coordinated 8+ dependent teams, achieved 99.9% data parity across 57M+ records, and delivered $9–10K/month net infrastructure savings with zero customer-facing downtime.",
+          "Authored org-level architecture for a unified reference-pricing configuration platform spanning 9 production systems; benchmarked 15 internal solutions against 10 requirements and proposed a hybrid git/AppConfig design (scored 20/20) selected as the team's next-level technical charter.",
+          "Led quantitative impact analysis and RCA for a 7-day customer-facing pricing data outage affecting ~406K SKUs/day (~24M daily page views); authored 9 corrective actions and drove cross-org detection-process changes with the Seller Pricing Audit team.",
+          "Built 8+ reusable AWS CDK L3 constructs in a shared library now consumed by Was Price, Omnibus, and HAMP; published migration playbook, data-parity runbook, and 5-step validation framework adopted as team standards for production infrastructure changes.",
+          "Pioneered GenAI adoption for engineering workflows—built an event-driven, multi-agent on-call investigation assistant with MCP-backed knowledge retrieval; tooling derived from real incidents and adopted into team on-call practices.",
           "Built and scaled distributed pricing pipelines (Spark/EMR/Scala) supporting 300M+ global products, continuously adapting computation logic to evolving business rules, regional regulations, and compliance constraints.",
-          "Drove adoption of generative AI for on-call workflows by designing an event-driven investigation assistant with multi-agent architecture and MCP-backed reverse-indexed knowledge retrieval, reducing mean ticket resolution time.",
+          "Mentored an intern to deliver a self-service debugging platform for pricing pipelines, adopted org-wide and reducing support/on-call workload by about one-third.",
           "Engineered high-performance automotive messaging services (C++ middleware + React Native integration) for real-time Bluetooth/Alexa voice and SMS delivery on Amazon automotive platforms.",
           "Led integration of Alexa Teachable AI for conversational car-control personalization (for example, mapping custom phrases like 'cozy' to climate actions), launching successfully with Lamborghini and Rivian before broader rollout.",
-          "Built a low-latency Automotive Prompting Service in Java/RPC to enrich dialog responses with contextual suggestions, reducing Alexa Car Control abandonment by 15%.",
-          "Mentored an intern to deliver a self-service debugging platform for pricing pipelines, adopted org-wide and reducing support/on-call workload by about one-third."
+          "Built a low-latency Automotive Prompting Service in Java/RPC to enrich dialog responses with contextual suggestions, reducing Alexa Car Control abandonment by 15%."
         ]        
       },
       {
@@ -127,7 +130,12 @@
       { "name": "AWS Fargate", "proficiency": 5, "category": "Cloud" },
       { "name": "AWS Kinesis", "proficiency": 5, "category": "Cloud" },
       { "name": "AWS VPC", "proficiency": 5, "category": "Cloud" },
+      { "name": "AWS CDK", "proficiency": 5, "category": "Cloud" },
       { "name": "AWS CloudFormation", "proficiency": 5, "category": "Cloud" },
+      { "name": "AWS Firehose", "proficiency": 4, "category": "Cloud" },
+      { "name": "Amazon Athena", "proficiency": 4, "category": "Data" },
+      { "name": "AWS Glue", "proficiency": 4, "category": "Data" },
+      { "name": "GenAI / LLM Tooling", "proficiency": 4, "category": "DevOps & Tooling" },
       { "name": "Kubernetes", "proficiency": 4, "category": "Architecture" },
       { "name": "Docker", "proficiency": 5, "category": "Architecture" },
       { "name": "IaC", "proficiency": 5, "category": "Architecture" },

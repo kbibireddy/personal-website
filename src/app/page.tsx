@@ -1,7 +1,7 @@
 "use client";
 
 // React and core imports
-import { useState, useEffect } from 'react';
+import { useState, useEffect, type CSSProperties } from 'react';
 import { motion } from 'framer-motion';
 
 // Components
@@ -43,6 +43,12 @@ import { RiStockFill } from 'react-icons/ri';
 // Utils
 import { generatePDF } from '@/utils/pdf';
 import { generateDOCX } from '@/utils/docx';
+import { formatProfessionalSummary, getTotalCareerYears } from '@/utils/dates';
+import {
+  CONTENT_FONT_SCALE,
+  CONTENT_SECTION_MAX_WIDTH,
+  TENURE_FONT_RATIO,
+} from '@/constants/layout';
 
 
 
@@ -70,6 +76,11 @@ export default function Home() {
       </div>
     );
   }
+
+  const professionalSummary = formatProfessionalSummary(
+    resumeData.professionalSummary,
+    getTotalCareerYears(resumeData.workExperience)
+  );
 
   const getThemeClasses = (theme: Theme) => {
     switch (theme) {
@@ -154,7 +165,12 @@ export default function Home() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="max-w-4xl mx-auto backdrop-blur-sm"
+          className="content-section mx-auto backdrop-blur-sm"
+          style={{
+            '--content-max-width': CONTENT_SECTION_MAX_WIDTH,
+            '--content-font-scale': CONTENT_FONT_SCALE,
+            '--tenure-font-size': `calc(1.25rem * ${TENURE_FONT_RATIO})`,
+          } as CSSProperties}
         >
           <div className="flex flex-col mb-12">
             <h1 className={`text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r ${getAccentClasses(theme)} text-transparent bg-clip-text animate-gradient`}>
@@ -220,7 +236,7 @@ export default function Home() {
           <section id="summary" className="mb-12">
             <h2 className="text-2xl font-bold mb-4">Professional Summary</h2>
             <p className={`text-lg text-current/90 ${getCardBgClass(theme)} p-6 rounded-lg`}>
-              {resumeData.professionalSummary}
+              {professionalSummary}
             </p>
           </section>
 

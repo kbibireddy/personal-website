@@ -2,6 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .content-section {
+    max-width: var(--content-max-width, 67.2rem);
+    font-size: calc(1rem * var(--content-font-scale, 0.9));
+  }
+
+  .content-section .text-xs { font-size: calc(0.75rem * var(--content-font-scale)); line-height: 1rem; }
+  .content-section .text-sm { font-size: calc(0.875rem * var(--content-font-scale)); line-height: 1.25rem; }
+  .content-section .text-lg { font-size: calc(1.125rem * var(--content-font-scale)); line-height: 1.75rem; }
+  .content-section .text-xl { font-size: calc(1.25rem * var(--content-font-scale)); line-height: 1.75rem; }
+  .content-section .text-2xl { font-size: calc(1.5rem * var(--content-font-scale)); line-height: 1.75rem; }
+  .content-section .text-3xl { font-size: calc(1.875rem * var(--content-font-scale)); line-height: 2.25rem; }
+  .content-section .text-4xl { font-size: calc(2.25rem * var(--content-font-scale)); line-height: 2.25rem; }
+  .content-section .text-6xl { font-size: calc(3.75rem * var(--content-font-scale)); line-height: 1; }
+
+  @media (min-width: 768px) {
+    .content-section .md\:text-2xl { font-size: calc(1.5rem * var(--content-font-scale)); line-height: 1.75rem; }
+    .content-section .md\:text-6xl { font-size: calc(3.75rem * var(--content-font-scale)); line-height: 1; }
+  }
+
+  .content-section .tenure-label {
+    font-size: var(--tenure-font-size, 0.75rem);
+    line-height: 1.75rem;
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

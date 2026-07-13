@@ -1,24 +1,47 @@
+"use client";
+
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Theme } from '@/types/theme';
-
-interface Section {
-  id: string;
-  label: string;
-}
-
-const sections: Section[] = [
-  { id: 'summary', label: 'Professional Summary' },
-  { id: 'experience', label: 'Work Experience' },
-  { id: 'education', label: 'Education' },
-  { id: 'skills', label: 'Skills' },
-  { id: 'portfolio', label: 'Portfolio' }
-];
+import {
+  TOC_HIDE_SCROLL_THRESHOLD,
+  TOC_MIN_VIEWPORT_WIDTH,
+} from '@/constants/layout';
+import { EXPERIENCE_SECTION_ID, PAGE_SECTIONS } from '@/constants/sections';
 
 interface Props {
   theme: Theme;
 }
 
 export default function TableOfContents({ theme }: Props) {
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const updateVisibility = () => {
+      if (window.innerWidth < TOC_MIN_VIEWPORT_WIDTH) {
+        setVisible(false);
+        return;
+      }
+
+      const experience = document.getElementById(EXPERIENCE_SECTION_ID);
+      if (!experience) {
+        return;
+      }
+
+      const { top } = experience.getBoundingClientRect();
+      setVisible(top > window.innerHeight * TOC_HIDE_SCROLL_THRESHOLD);
+    };
+
+    updateVisibility();
+    window.addEventListener('scroll', updateVisibility, { passive: true });
+    window.addEventListener('resize', updateVisibility);
+
+    return () => {
+      window.removeEventListener('scroll', updateVisibility);
+      window.removeEventListener('resize', updateVisibility);
+    };
+  }, []);
+
   const getThemeClasses = (theme: Theme) => {
     switch (theme) {
       case 'netflix':
@@ -42,12 +65,16 @@ export default function TableOfContents({ theme }: Props) {
   return (
     <motion.nav
       initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.5 }}
-      className="fixed left-4 top-1/2 transform -translate-y-1/2 z-50 hidden lg:block"
+      animate={{
+        opacity: visible ? 1 : 0,
+        x: visible ? 0 : -20,
+        pointerEvents: visible ? 'auto' : 'none',
+      }}
+      transition={{ duration: 0.3 }}
+      className="fixed left-4 top-1/2 transform -translate-y-1/2 z-50 hidden toc:block"
     >
       <ul className="space-y-2">
-        {sections.map((section) => (
+        {PAGE_SECTIONS.map((section) => (
           <motion.li
             key={section.id}
             whileHover={{ x: 5 }}
@@ -65,4 +92,4 @@ export default function TableOfContents({ theme }: Props) {
       </ul>
     </motion.nav>
   );
-} 
+}

@@ -16,14 +16,14 @@
         "company": "Amazon",
         "period": "Jul 2020 – Present",
         "description": [
-          "Sole technical owner of a zero-downtime, 3-region migration of customer-facing list-price streaming infrastructure (strikethrough and reference prices on product pages). Modernized CloudFormation to CDK, coordinated multiple dependency teams, and proved a shadow pipeline at 99.9% DynamoDB item-level parity (~57.8M items) before cutover. Reduced NAT egress 92% (470GB to 6GB) with VPC endpoints and no customer-facing downtime.",
-          "Designed a unified configuration platform consolidating fragmented business rules spread across code, batch jobs, and config tables. Proposed a hybrid data plane plus control plane architecture so product managers can simulate rule changes, inspect live config with AI-assisted tooling, and ship changes through review and approval workflows; design approved and implementation-ready.",
-          "Led post-incident analysis for a week-long pipeline failure that silently dropped all sales aggregation output, leaving stale and missing prices on customer-facing product pages (~406K products/day). Shipped row-count validation across 26 batch profiles, schema-change guardrails, and cross-org escalation playbooks with the audit team to catch systemic pricing failures earlier.",
-          "Led team AI adoption by building agentic workflows on a shared knowledge base indexed from runbooks, code, and operational docs. Shipped an on-call investigation agent, a customer-facing support chatbot that explains pricing logic with business and code context, and a ticket classifier with 75% adoption in support teams for early detection of rising incident patterns.",
-          "Built and scaled distributed pricing pipelines (Spark/EMR/Scala) supporting 300M+ global products, continuously adapting computation logic to evolving business rules, regional regulations, and compliance constraints.",
-          "Engineered high-performance automotive messaging services (C++ middleware + React Native integration) for real-time Bluetooth/Alexa voice and SMS delivery on Amazon automotive platforms.",
-          "Led integration of Alexa Teachable AI for conversational car-control personalization (for example, mapping custom phrases like 'cozy' to climate actions), launching successfully with Lamborghini and Rivian before broader rollout.",
-          "Built a low-latency Automotive Prompting Service in Java/RPC to enrich dialog responses with contextual suggestions, reducing Alexa Car Control abandonment by 15%."
+          "Sole owner of a zero-downtime multi-region migration for customer-facing list-price streaming (Kinesis, Lambda, DynamoDB). Rebuilt CloudFormation to CDK, validated a shadow pipeline at 99.9% item-level parity (~57.8M records), and cut NAT egress 92% (470GB to 6GB) with VPC endpoints.",
+          "Designed a unified config platform to replace fragmented business rules across code, batch jobs, and config stores. Proposed a data-plane plus control-plane architecture (CLI-first, web later); design approved and ready for implementation.",
+          "Led RCA for a week-long sales-aggregation outage that left stale or missing prices on product pages (~406K products/day). Drove remediation including row-count guards, schema-change checks, and earlier cross-team escalation for systemic failures.",
+          "Drove team AI adoption with agentic workflows for on-call triage, support tooling, and ticket classification. Built inference-backed productivity apps and a shared knowledge base used across engineering and support workflows.",
+          "Built and scaled Spark/EMR/Scala pricing pipelines for 300M+ global products, adapting compute logic for regional rules and compliance.",
+          "Built real-time automotive messaging (C++ middleware, React Native) for Bluetooth and Alexa voice/SMS on Amazon automotive platforms.",
+          "Shipped Alexa Teachable AI for custom car-control phrases (e.g. 'cozy' to climate), launched with Lamborghini and Rivian.",
+          "Built a low-latency Automotive Prompting Service (Java/RPC) that cut Alexa Car Control abandonment by 15%."
         ]        
       },
       {

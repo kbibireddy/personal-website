@@ -107,9 +107,6 @@ module.exports = {
         '40': '40',
         '50': '50',
       },
-      screens: {
-        toc: '1480px',
-      },
       maxWidth: {
         content: '67.2rem',
       },

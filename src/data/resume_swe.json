@@ -1,7 +1,7 @@
 {
     "name": "KARTHIK BIBIREDDY",
-    "headline": "Sr. Software Engineer | Distributed Systems & Data Infrastructure | Technical Leader",
-    "professionalSummary": "Experienced software engineer with 9+ years of building and scaling distributed systems, high-throughput APIs, and data-intensive applications across Amazon and multiple startups. Recognized for driving cross-team technical initiatives, influencing system architectures, and mentoring engineers to deliver resilient and scalable solutions. Passionate about solving complex systems challenges, leading org-wide improvements, and aligning engineering execution with long-term business strategy.",
+    "headline": "Sr. Software Engineer | Distributed Systems & Data Infrastructure | Agentic AI Workflows",
+    "professionalSummary": "Senior software engineer with 9+ years building and scaling distributed streaming and batch processing systems at Amazon and startups. I own customer-facing services that handle hundreds of millions of events per day, including multi-region production migrations, tuning and scaling event-driven pipelines, and leading team-wide adoption of agentic AI workflows.",
     "website": "https://kbibireddy.github.io/personal-website",
     "contact": {
       "email": "karthikbibireddy@hotmail.com",
@@ -14,21 +14,18 @@
       {
         "title": "Sr. Software Development Engineer",
         "company": "Amazon",
-        "period": "Jul 2020 – Present",
+        "period": "Jul 2020 - Present",
         "description": [
-          "Led regional migration of List Price infrastructure from DUB to ZAZ with zero downtime and no production impact, modernizing IaC from CloudFormation to CDK and contributing to roughly 17% DUB footprint reduction for the broader Price Perception org.",
-          "Built and scaled distributed pricing pipelines (Spark/EMR/Scala) supporting 300M+ global products, continuously adapting computation logic to evolving business rules, regional regulations, and compliance constraints.",
-          "Drove adoption of generative AI for on-call workflows by designing an event-driven investigation assistant with multi-agent architecture and MCP-backed reverse-indexed knowledge retrieval, reducing mean ticket resolution time.",
-          "Engineered high-performance automotive messaging services (C++ middleware + React Native integration) for real-time Bluetooth/Alexa voice and SMS delivery on Amazon automotive platforms.",
-          "Led integration of Alexa Teachable AI for conversational car-control personalization (for example, mapping custom phrases like 'cozy' to climate actions), launching successfully with Lamborghini and Rivian before broader rollout.",
-          "Built a low-latency Automotive Prompting Service in Java/RPC to enrich dialog responses with contextual suggestions, reducing Alexa Car Control abandonment by 15%.",
-          "Mentored an intern to deliver a self-service debugging platform for pricing pipelines, adopted org-wide and reducing support/on-call workload by about one-third."
+          "Sole owner of a zero-downtime, multi-region infrastructure migration for a customer-facing list-price validation service built as a hybrid of event-driven and streaming pipelines. Rebuilt the full IaC stack with AWS CDK, reduced NAT egress by roughly 90% (from 470GB to 6GB) using VPC endpoints, and lowered capacity concentration risk while maintaining 99.9% data accuracy and zero downtime on a service that processes about 200M records per day worldwide and serves roughly 8M QPS across Amazon domains.",
+          "Designed a unified configuration platform so pricing teams can manage business rules in one place instead of across code, batch jobs, and separate config stores. I owned the full architecture, including the data model and a novel versioning and cascade mechanism that lets program managers simulate and test configuration changes before production rollout.",
+          "Own Spark, EMR, and Scala batch pipelines and real-time streaming systems that power List Price, Typical Price, Lowest in 30 Days pricing, and Alexa Shopping price history for customers worldwide. Day to day, I evolve computation and validation logic end to end across 300M+ products, including updates for regional rules and compliance.",
+          "On Alexa Automotive, I delivered conversational car control and Teachable AI so customers can personalize voice commands (for example, 'I am hot' or 'set temperature to cozy'). I served as SME for the offline embedded car-control skill, improved prompt quality, and built target-device resolution using a scoring and reranking layer on top of Clucene. With a partner team, I shipped C++ messaging middleware that syncs SMS and WhatsApp messages to the in-car HUD. These features launched with major OEMs including Lamborghini, Stellantis, Lucid, and Rivian."
         ]        
       },
       {
         "title": "Software Engineer",
         "company": "Algoface",
-        "period": "Mar 2019 – Jun 2020",
+        "period": "Mar 2019 - Jun 2020",
         "description": [
           "Architected and deployed computer vision services for real-time face tracking and AR virtual try-on across web and mobile experiences.",
           "Led WebAssembly performance optimization initiatives, improving latency and rendering smoothness through precision tuning and memory efficiency work.",
@@ -40,7 +37,7 @@
       {
         "title": "Software Engineer",
         "company": "Windhoverlabs",
-        "period": "Sep 2017 – Feb 2019",
+        "period": "Sep 2017 - Feb 2019",
         "description": [
           "Developed aerospace ground-control software with 3D geolocation mapping and real-time aircraft tracking, enabling low-latency telemetry visualization.",
           "Built a Primary Flight Display using JavaScript/Node.js, broadcasting drone telemetry over UDP for real-time monitoring and operator decision support.",
@@ -52,7 +49,7 @@
       {
         "title": "Software Developer Intern",
         "company": "Zdaly",
-        "period": "Jun 2017 – Aug 2017",
+        "period": "Jun 2017 - Aug 2017",
         "description": [
           "Built an NLP-powered news aggregation widget using topic modeling and keyword extraction for McDermott's corporate homepage.",
           "Developed enterprise-facing NLP applications for finance and energy customers.",
@@ -127,7 +124,12 @@
       { "name": "AWS Fargate", "proficiency": 5, "category": "Cloud" },
       { "name": "AWS Kinesis", "proficiency": 5, "category": "Cloud" },
       { "name": "AWS VPC", "proficiency": 5, "category": "Cloud" },
+      { "name": "AWS CDK", "proficiency": 5, "category": "Cloud" },
       { "name": "AWS CloudFormation", "proficiency": 5, "category": "Cloud" },
+      { "name": "AWS Firehose", "proficiency": 5, "category": "Cloud" },
+      { "name": "Amazon Athena", "proficiency": 5, "category": "Data" },
+      { "name": "AWS Glue", "proficiency": 5, "category": "Data" },
+      { "name": "GenAI / LLM Tooling", "proficiency": 5, "category": "DevOps & Tooling" },
       { "name": "Kubernetes", "proficiency": 4, "category": "Architecture" },
       { "name": "Docker", "proficiency": 5, "category": "Architecture" },
       { "name": "IaC", "proficiency": 5, "category": "Architecture" },

@@ -36,7 +36,7 @@ export default function PDFResume({ resumeType, onDownload }: PDFResumeProps) {
     },
     education: {
       showGPA: false,
-      maxEducation: 2
+      maxEducation: 1
     }
   };
   
@@ -88,7 +88,7 @@ export default function PDFResume({ resumeType, onDownload }: PDFResumeProps) {
 
   return (
     <div id="pdf-content" className="hidden">
-      <div className="p-5 max-w-[800px] mx-auto bg-white text-black" style={{ fontFamily: 'Arial, sans-serif' }}>
+      <div className="px-5 pb-5 max-w-[800px] mx-auto bg-white text-black" style={{ fontFamily: 'Arial, sans-serif' }}>
         {/* Header */}
         <div className="text-center mb-3 print-avoid-break">
           <h1 className="text-2xl font-bold mb-1 text-black">{data.name}</h1>

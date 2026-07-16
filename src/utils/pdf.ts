@@ -16,6 +16,9 @@ export async function generatePDF(type?: string): Promise<void> {
   content.style.backgroundColor = 'white';
   content.style.color = 'black';
   content.style.zIndex = '-1000';
+  // Reduce any top padding/margins to avoid accidental extra page
+  (content.style as any).margin = '0';
+  (content.style as any).paddingTop = '0px';
 
   try {
     // Wait for content to be properly rendered
@@ -58,25 +61,7 @@ export async function generatePDF(type?: string): Promise<void> {
       contentHeight
     );
 
-    // If content is longer than one page, add additional pages
-    if (contentHeight > 297) { // A4 height in mm
-      let remainingHeight = contentHeight;
-      let position = -297;
-
-      while (remainingHeight > 297) {
-        pdf.addPage();
-        pdf.addImage(
-          canvas.toDataURL('image/jpeg', 1.0),
-          'JPEG',
-          0,
-          position,
-          contentWidth,
-          contentHeight
-        );
-        remainingHeight -= 297;
-        position -= 297;
-      }
-    }
+    // Single-page resume: avoid creating a second page due to rounding errors
 
     pdf.save('Karthik_Bibireddy_Resume.pdf');
   } finally {

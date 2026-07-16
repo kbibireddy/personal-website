@@ -10,5 +10,3 @@ export const PAGE_SECTIONS: PageSection[] = [
   { id: 'skills', label: 'Skills' },
   { id: 'portfolio', label: 'Portfolio' },
 ];
-
-export const EXPERIENCE_SECTION_ID = 'experience';

@@ -17,7 +17,7 @@
         "period": "Jul 2020 - Present",
         "description": [
           "Sole owner of a zero-downtime, multi-region infrastructure migration for a customer-facing list-price validation service built as a hybrid of event-driven and streaming pipelines. Rebuilt the full IaC stack with AWS CDK, reduced NAT egress by roughly 90% (from 470GB to 6GB) using VPC endpoints, and lowered capacity concentration risk while maintaining 99.9% data accuracy and zero downtime on a service that processes about 200M records per day worldwide and serves roughly 8M QPS across Amazon domains.",
-          "Designed a unified configuration platform to consolidate business rules that were split across code, batch jobs, and config stores. Recommended ACS as the data plane with a CLI-first control plane, and defined the hardest implementation details: the CARP data model, tree versioning with cascade (a leaf edit walks up to parent nodes, creates new versions for each affected parent, and applies them as a single atomic change set), and dependency resolution so offline clients can deliver fully resolved configs to batch, online, and datapath consumers. Design was approved and is ready for implementation.",
+          "Designed a unified configuration platform so pricing teams can manage business rules in one place instead of across code, batch jobs, and separate config stores. I owned the full architecture, including the data model and a novel versioning and cascade mechanism that lets program managers simulate and test configuration changes before production rollout. When a rule changes at one level, related parent rules update together in a single atomic change. Design was approved and is ready for implementation.",
           "Own and evolve end-to-end reference-pricing pipelines in Spark, EMR, Scala, and streaming systems that power List Price, Typical Price, the Lowest in 30 Days badge, and Alexa Shopping price-history worldwide. Our team owns batch and event processing, computation, validation, selection, and delivery to the UI for 300M+ products, and I own these systems end to end while adapting compute logic for regional rules and compliance requirements.",
           "On Alexa Automotive, I delivered conversational car control and Teachable AI so customers can personalize voice commands (for example, 'I am hot' or 'set temperature to cozy'). I served as SME for the offline embedded car-control skill, improved prompt quality, and built target-device resolution using a scoring and reranking layer on top of Clucene. With a partner team, I shipped C++ messaging middleware that syncs SMS and WhatsApp messages to the in-car HUD. These features launched with major OEMs including Lamborghini, Stellantis, Lucid, and Rivian."
         ]        
@@ -37,7 +37,7 @@
       {
         "title": "Software Engineer",
         "company": "Windhoverlabs",
-        "period": "Sep 2017 – Feb 2019",
+        "period": "Sep 2017 - Feb 2019",
         "description": [
           "Developed aerospace ground-control software with 3D geolocation mapping and real-time aircraft tracking, enabling low-latency telemetry visualization.",
           "Built a Primary Flight Display using JavaScript/Node.js, broadcasting drone telemetry over UDP for real-time monitoring and operator decision support.",
@@ -49,7 +49,7 @@
       {
         "title": "Software Developer Intern",
         "company": "Zdaly",
-        "period": "Jun 2017 – Aug 2017",
+        "period": "Jun 2017 - Aug 2017",
         "description": [
           "Built an NLP-powered news aggregation widget using topic modeling and keyword extraction for McDermott's corporate homepage.",
           "Developed enterprise-facing NLP applications for finance and energy customers.",

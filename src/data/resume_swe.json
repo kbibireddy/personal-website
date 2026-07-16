@@ -1,7 +1,7 @@
 {
     "name": "KARTHIK BIBIREDDY",
     "headline": "Sr. Software Engineer | Distributed Platforms & Event Pipelines | Agentic Engineering Workflows",
-    "professionalSummary": "Senior software engineer building distributed streaming and batch systems at Amazon and startups. Owns customer-facing platform programs that process hundreds of millions of events per day, including multi-region production migrations, microservices architecture, and team-wide agentic workflow adoption.",
+    "professionalSummary": "Senior software engineer building distributed streaming and batch systems at Amazon and startups. Owns customer-facing platform programs that process hundreds of millions of events per day, including multi-region production migrations, event-driven pipeline architecture, and team-wide agentic workflow adoption.",
     "website": "https://kbibireddy.github.io/personal-website",
     "contact": {
       "email": "karthikbibireddy@hotmail.com",
@@ -16,8 +16,8 @@
         "company": "Amazon",
         "period": "Jul 2020 – Present",
         "description": [
-          "Sole technical owner of a zero-downtime, 3-region migration of customer-facing list-price streaming infrastructure (strikethrough and reference prices on product pages). Modernized CloudFormation to CDK, coordinated 8+ teams, and proved a shadow pipeline at 300M records/day and 99.9% parity before cutover. Reduced NAT egress 92% (470GB to 6GB/mo) with VPC endpoints, cut p99 latency 10 to 30ms, and saved $9-10K/month with no customer-facing downtime.",
-          "Designed a unified configuration platform for 9 production pricing systems, replacing fragmented rules spread across code, batch jobs, and config tables. Proposed a hybrid data plane plus control plane architecture so product managers can simulate rule changes, inspect live config with AI-assisted tooling, and ship changes through review and approval workflows; design approved for org-wide rollout.",
+          "Sole technical owner of a zero-downtime, 3-region migration of customer-facing list-price streaming infrastructure (strikethrough and reference prices on product pages). Modernized CloudFormation to CDK, coordinated multiple dependency teams, and proved a shadow pipeline at 99.9% DynamoDB item-level parity (~57.8M items) before cutover. Reduced NAT egress 92% (470GB to 6GB) with VPC endpoints and no customer-facing downtime.",
+          "Designed a unified configuration platform consolidating fragmented business rules spread across code, batch jobs, and config tables. Proposed a hybrid data plane plus control plane architecture so product managers can simulate rule changes, inspect live config with AI-assisted tooling, and ship changes through review and approval workflows; design approved and implementation-ready.",
           "Led post-incident analysis for a week-long pipeline failure that silently dropped all sales aggregation output, leaving stale and missing prices on customer-facing product pages (~406K products/day). Shipped row-count validation across 26 batch profiles, schema-change guardrails, and cross-org escalation playbooks with the audit team to catch systemic pricing failures earlier.",
           "Led team AI adoption by building agentic workflows on a shared knowledge base indexed from runbooks, code, and operational docs. Shipped an on-call investigation agent, a customer-facing support chatbot that explains pricing logic with business and code context, and a ticket classifier with 75% adoption in support teams for early detection of rising incident patterns.",
           "Built and scaled distributed pricing pipelines (Spark/EMR/Scala) supporting 300M+ global products, continuously adapting computation logic to evolving business rules, regional regulations, and compliance constraints.",

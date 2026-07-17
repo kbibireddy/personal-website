@@ -92,13 +92,12 @@ export default function PDFResume({ resumeType, onDownload }: PDFResumeProps) {
         {/* Header */}
         <div className="text-center mb-3 print-avoid-break">
           <h1 className="text-2xl font-bold mb-1 text-black">{data.name}</h1>
-          <p className="text-sm mb-0.5 text-black">{data.headline}</p>
-                      <div className="text-sm text-black">
-              {data.contact.email} • {data.contact.phone} • {data.contact.location}
-            </div>
-            <div className="text-sm text-black">
-              {data.contact.linkedin} • {data.website || "https://karthikbibireddy.com"}
-            </div>
+          <div className="text-sm text-black">
+            {data.contact.email} • {data.contact.phone} • {data.contact.location}
+          </div>
+          <div className="text-sm text-black">
+            {data.contact.linkedin} • {data.website || "https://karthikbibireddy.com"}
+          </div>
         </div>
 
         {/* Professional Summary */}
@@ -133,7 +132,7 @@ export default function PDFResume({ resumeType, onDownload }: PDFResumeProps) {
         {/* Skills */}
         <div className="mb-3 print-avoid-break">
           <h2 className="text-lg font-bold mb-1 text-black">Technical Skills</h2>
-          <p className="text-sm text-black leading-5">
+          <p className="text-[13px] text-black leading-[1.2]">
             {data.skills
               .sort((a, b) => PDF_CONFIG.skills.sortByProficiency ? b.proficiency - a.proficiency : 0)
               .slice(0, PDF_CONFIG.skills.maxSkills)

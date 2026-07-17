@@ -20,9 +20,9 @@ const DOCX_CONFIG = {
       summary: 400
     },
     margin: {
-      top: 1000,
+      top: 850,
       right: 1000,
-      bottom: 1000,
+      bottom: 850,
       left: 1000,
     }
   },
@@ -80,17 +80,6 @@ export async function generateDOCX(type?: string): Promise<void> {
               text: data.name,
               bold: true,
               size: DOCX_CONFIG.fonts.NAME,
-              font: "Arial"
-            })
-          ]
-        }),
-        new Paragraph({
-          alignment: AlignmentType.CENTER,
-          spacing: { after: DOCX_CONFIG.layout.spacing.header },
-          children: [
-            new TextRun({
-              text: data.headline,
-              size: DOCX_CONFIG.fonts.TITLE,
               font: "Arial"
             })
           ]

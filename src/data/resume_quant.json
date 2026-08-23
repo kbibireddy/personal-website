@@ -78,6 +78,15 @@
       ],
       "technologies": ["Next.js", "Github Pages"],
       "link": "https://kbibireddy.github.io/real-estate-investment-app/"
+    },
+    {
+      "title": "Compensation Planner",
+      "status": "Active",
+      "description": [
+        "Built an in-browser planner for modeling multi-year job offers and negotiation scenarios, with slider-driven base, bonus, equity vesting, and signing-bonus inputs, plus scenario search, timeline charts, and package distribution views. All calculations stay on-device."
+      ],
+      "technologies": ["JavaScript", "Vite", "GitHub Pages"],
+      "link": "https://kbibireddy.github.io/offerlab/"
     }
   ],
   "education": [

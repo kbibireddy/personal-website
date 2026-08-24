@@ -81,9 +81,9 @@
         "title": "Closed Captioner iOS App",
         "status": "Active",
         "description": [
-          "Built an accessibility-focused speech-to-text captioning app delivering real-time captions with emoji sentiment cues and local history management."
+          "iPhone live-captioning app with a peer-to-peer Huddle mesh that streams messages between nearby phones over Bluetooth/Wi-Fi with no server."
         ],
-        "technologies": ["SwiftUI", "Speech"],
+        "technologies": ["SwiftUI", "Speech", "MultipeerConnectivity", "StoreKit 2", "AdMob"],
         "link": "https://apps.apple.com/us/app/closed-captioner/id6754772689"
       },
       {

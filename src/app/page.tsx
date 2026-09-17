@@ -9,7 +9,6 @@ import WorkExperience from '@/components/WorkExperience';
 import Portfolio from '@/components/Portfolio';
 import ThemeSwitcher from '@/components/ThemeSwitcher';
 import TableOfContents from '@/components/TableOfContents';
-import ResumeTypeToggle from '@/components/ResumeTypeToggle';
 import SpaceTimeAnimation from '@/components/SpaceTimeAnimation';
 import ElectronicSpark from '@/components/ElectronicSpark';
 import SkillBadge from '@/components/SkillBadge';
@@ -56,7 +55,7 @@ export default function Home() {
   const [theme, setTheme] = useState<Theme>('netflix');
   const [mounted, setMounted] = useState(false);
   const [showGPA, setShowGPA] = useState<{ [key: number]: boolean }>({});
-  const { resume: resumeData, resumeType, loading } = useResume();
+  const { resume: resumeData, loading } = useResume();
 
   useEffect(() => {
     setMounted(true);
@@ -158,7 +157,6 @@ export default function Home() {
       
       <div className="relative z-10">
         <ThemeSwitcher onThemeChange={setTheme} />
-        <ResumeTypeToggle theme={theme} />
         <TableOfContents theme={theme} />
         
         <motion.div
@@ -214,7 +212,7 @@ export default function Home() {
               </motion.a>
               <div className="flex gap-2">
                 <motion.button
-                  onClick={() => generatePDF(resumeType)}
+                  onClick={() => generatePDF()}
                   whileHover={{ scale: 1.1 }}
                   className={`flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r ${getAccentClasses(theme)} text-white text-sm font-medium transition-transform`}
                 >
@@ -222,7 +220,7 @@ export default function Home() {
                   PDF
                 </motion.button>
                 <motion.button
-                  onClick={() => generateDOCX(resumeType)}
+                  onClick={() => generateDOCX()}
                   whileHover={{ scale: 1.1 }}
                   className={`flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r ${getAccentClasses(theme)} text-white text-sm font-medium transition-transform`}
                 >
@@ -348,7 +346,7 @@ export default function Home() {
           </section>
         </motion.div>
       </div>
-      <PDFResume resumeType={resumeType} />
+      <PDFResume />
     </main>
   )
 } 

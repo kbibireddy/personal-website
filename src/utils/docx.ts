@@ -45,8 +45,8 @@ const DOCX_CONFIG = {
   }
 };
 
-export async function generateDOCX(type?: string): Promise<void> {
-  const data = await getResumeWithOverrides(type);
+export async function generateDOCX(): Promise<void> {
+  const data = await getResumeWithOverrides();
   const formatPeriod = (period: string): string => {
     const monthMap: Record<string, string> = {
       jan: 'Jan', feb: 'Feb', mar: 'Mar', apr: 'Apr', may: 'May', jun: 'Jun',

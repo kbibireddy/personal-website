@@ -1,9 +1,29 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
+  safelist: [
+    'bg-[#0B1220]',
+    'text-[#E8EEF7]',
+    'bg-[#F3F6FA]',
+    'text-[#0F172A]',
+    'bg-[#12151C]',
+    'text-[#E2E8F0]',
+    'text-slate-400',
+    'text-slate-600',
+    'text-teal-300',
+    'text-teal-700',
+    'text-sky-400',
+    'border-teal-300/35',
+    'border-teal-600/40',
+    'border-sky-400/35',
+    'bg-white/[0.03]',
+    'bg-white/[0.04]',
+    'bg-slate-900/[0.03]',
+    'bg-slate-900/[0.04]',
+    'bg-sky-400/[0.05]',
+    'bg-sky-400/[0.06]',
   ],
   darkMode: 'media',
   theme: {

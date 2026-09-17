@@ -59,7 +59,11 @@ export default function WorkExperience({ theme }: WorkExperienceProps) {
                   className="mt-1 shrink-0 opacity-70"
                   style={{ color: accent }}
                 />
-                <h3 className="min-w-0 font-syne text-lg font-semibold sm:text-xl">
+                <h3
+                  className={`min-w-0 font-syne text-lg font-semibold sm:text-xl ${
+                    theme === 'meta' ? 'text-slate-900' : 'text-white'
+                  }`}
+                >
                   {job.title}, {job.company}
                   {tenureLabel && (
                     <span className={`tenure-label ml-1 font-normal italic ${muted}`}>

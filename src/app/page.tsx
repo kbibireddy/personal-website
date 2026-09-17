@@ -120,7 +120,11 @@ export default function Home() {
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               className="flex flex-1 flex-col"
             >
-              <h1 className="font-syne text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-[3.15rem]">
+              <h1
+                className={`font-syne text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-[3.15rem] ${
+                  theme === 'meta' ? 'text-slate-900' : 'text-white'
+                }`}
+              >
                 {resumeData.name}
               </h1>
 
@@ -238,7 +242,11 @@ export default function Home() {
             }
           >
             <motion.section id="summary" className="mb-16 scroll-mt-24" {...fadeUp}>
-              <h2 className="mb-4 font-syne text-2xl font-bold tracking-tight">
+              <h2
+                className={`mb-4 font-syne text-2xl font-bold tracking-tight ${
+                  theme === 'meta' ? 'text-slate-900' : 'text-white'
+                }`}
+              >
                 Professional Summary
               </h2>
               <p className={`text-base leading-relaxed sm:text-lg ${muted} ${theme === 'meta' ? 'text-slate-700' : 'text-slate-300'}`}>
@@ -247,7 +255,11 @@ export default function Home() {
             </motion.section>
 
             <motion.section id="experience" className="mb-16 scroll-mt-24" {...fadeUp}>
-              <h2 className="mb-6 flex items-center gap-2 font-syne text-2xl font-bold tracking-tight">
+              <h2
+                className={`mb-6 flex items-center gap-2 font-syne text-2xl font-bold tracking-tight ${
+                  theme === 'meta' ? 'text-slate-900' : 'text-white'
+                }`}
+              >
                 <MdWorkOutline className={accentText} />
                 Work Experience
               </h2>
@@ -255,7 +267,11 @@ export default function Home() {
             </motion.section>
 
             <motion.section id="education" className="mb-16 scroll-mt-24" {...fadeUp}>
-              <h2 className="mb-6 flex items-center gap-2 font-syne text-2xl font-bold tracking-tight">
+              <h2
+                className={`mb-6 flex items-center gap-2 font-syne text-2xl font-bold tracking-tight ${
+                  theme === 'meta' ? 'text-slate-900' : 'text-white'
+                }`}
+              >
                 <FaGraduationCap className={accentText} />
                 Education
               </h2>
@@ -266,7 +282,13 @@ export default function Home() {
                       className="absolute -left-[1.4rem] top-1.5 h-2.5 w-2.5 rounded-full"
                       style={{ backgroundColor: accent }}
                     />
-                    <h3 className="font-syne text-lg font-semibold">{edu.degree}</h3>
+                    <h3
+                      className={`font-syne text-lg font-semibold ${
+                        theme === 'meta' ? 'text-slate-900' : 'text-white'
+                      }`}
+                    >
+                      {edu.degree}
+                    </h3>
                     <p className={muted}>{edu.school}</p>
                     <p className={`font-mono text-xs uppercase tracking-wider ${muted}`}>
                       {edu.period}
@@ -289,7 +311,11 @@ export default function Home() {
             </motion.section>
 
             <motion.section id="skills" className="mb-16 scroll-mt-24" {...fadeUp}>
-              <h2 className="mb-6 flex items-center gap-2 font-syne text-2xl font-bold tracking-tight">
+              <h2
+                className={`mb-6 flex items-center gap-2 font-syne text-2xl font-bold tracking-tight ${
+                  theme === 'meta' ? 'text-slate-900' : 'text-white'
+                }`}
+              >
                 <FaTools className={accentText} />
                 Skills
               </h2>
@@ -360,7 +386,11 @@ export default function Home() {
             </motion.section>
 
             <motion.section id="portfolio" className="scroll-mt-24" {...fadeUp}>
-              <h2 className="mb-6 flex items-center gap-2 font-syne text-2xl font-bold tracking-tight">
+              <h2
+                className={`mb-6 flex items-center gap-2 font-syne text-2xl font-bold tracking-tight ${
+                  theme === 'meta' ? 'text-slate-900' : 'text-white'
+                }`}
+              >
                 <GiSoapExperiment className={accentText} />
                 Portfolio
               </h2>

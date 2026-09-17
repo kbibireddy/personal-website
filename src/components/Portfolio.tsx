@@ -47,7 +47,13 @@ export default function Portfolio({ theme }: PortfolioProps) {
           className={`rounded-2xl border ${accentBorder} ${surface} px-5 py-5 transition-colors`}
         >
           <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
-            <h3 className="font-syne text-xl font-semibold">{project.title}</h3>
+            <h3
+              className={`font-syne text-xl font-semibold ${
+                theme === 'meta' ? 'text-slate-900' : 'text-white'
+              }`}
+            >
+              {project.title}
+            </h3>
             <span
               className={`font-mono text-[0.65rem] uppercase tracking-[0.16em] ${getStatusColor(project.status)}`}
             >

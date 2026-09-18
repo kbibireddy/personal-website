@@ -33,7 +33,7 @@ import {
   FaFilePdf,
   FaFileWord,
 } from 'react-icons/fa';
-import { MdWorkOutline, MdMoney } from 'react-icons/md';
+import { MdMoney } from 'react-icons/md';
 import { GiSoapExperiment } from 'react-icons/gi';
 import { PiCode, PiBrainThin, PiNetworkXDuotone, PiToolboxDuotone } from 'react-icons/pi';
 import { TbDatabase, TbApps, TbMathIntegrals } from 'react-icons/tb';
@@ -113,15 +113,15 @@ export default function Home() {
 
         <div className="lg:grid lg:grid-cols-[minmax(16rem,22rem)_minmax(0,1fr)] lg:gap-16 xl:gap-20">
           {/* Brand rail — hero-level name signal */}
-          <header className="relative mb-14 flex flex-col lg:sticky lg:top-0 lg:mb-0 lg:h-screen lg:py-20">
+          <header className="relative mb-14 flex min-w-0 flex-col overflow-x-clip lg:sticky lg:top-0 lg:mb-0 lg:h-screen lg:py-20">
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="flex flex-1 flex-col"
+              className="flex min-w-0 flex-1 flex-col"
             >
               <h1
-                className={`font-syne text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-[3.15rem] ${
+                className={`max-w-full break-words font-syne text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-[2.75rem] xl:text-[3.15rem] ${
                   theme === 'meta' ? 'text-slate-900' : 'text-white'
                 }`}
               >
@@ -232,7 +232,7 @@ export default function Home() {
 
           {/* Scroll content — same sections & data */}
           <div
-            className="content-section mx-auto w-full pb-20 lg:py-20"
+            className="content-section mx-auto min-w-0 w-full pb-20 lg:py-20"
             style={
               {
                 '--content-max-width': CONTENT_SECTION_MAX_WIDTH,
@@ -256,11 +256,10 @@ export default function Home() {
 
             <motion.section id="experience" className="mb-16 scroll-mt-24" {...fadeUp}>
               <h2
-                className={`mb-6 flex items-center gap-2 font-syne text-2xl font-bold tracking-tight ${
+                className={`mb-6 font-syne text-2xl font-bold tracking-tight ${
                   theme === 'meta' ? 'text-slate-900' : 'text-white'
                 }`}
               >
-                <MdWorkOutline className={accentText} />
                 Work Experience
               </h2>
               <WorkExperience theme={theme} />

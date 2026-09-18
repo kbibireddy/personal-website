@@ -10,7 +10,8 @@ interface ThemeSwitcherProps {
 }
 
 export default function ThemeSwitcher({ onThemeChange, theme }: ThemeSwitcherProps) {
-  const activeTheme = theme ?? 'netflix';
+  const activeTheme = theme === 'discord' ? 'netflix' : (theme ?? 'netflix');
+  const selectableThemes = (Object.keys(themeConfigs) as Theme[]).filter((t) => t !== 'discord');
 
   const handleThemeChange = (next: Theme) => {
     onThemeChange(next);
@@ -60,19 +61,19 @@ export default function ThemeSwitcher({ onThemeChange, theme }: ThemeSwitcherPro
           Themes
         </span>
         <div className="flex gap-1.5">
-          {Object.keys(themeConfigs).map((t) => (
+          {selectableThemes.map((t) => (
             <motion.button
               key={t}
               whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => handleThemeChange(t as Theme)}
+              onClick={() => handleThemeChange(t)}
               className={`flex h-6 w-6 items-center justify-center overflow-hidden rounded-full transition-all duration-200 ${
                 activeTheme === t ? 'ring-2 ring-offset-2 ring-offset-transparent ring-white/40' : ''
               }`}
               aria-label={`${t} theme`}
               aria-pressed={activeTheme === t}
             >
-              {renderSplitCircle(t as Theme)}
+              {renderSplitCircle(t)}
             </motion.button>
           ))}
         </div>

@@ -69,6 +69,12 @@ export default function Home() {
     setMounted(true);
   }, []);
 
+  useEffect(() => {
+    if (theme === 'discord') {
+      setTheme('netflix');
+    }
+  }, [theme]);
+
   const toggleGPA = (index: number) => {
     setShowGPA((prev) => ({
       ...prev,
@@ -140,6 +146,45 @@ export default function Home() {
                 {resumeData.contact.location}
               </p>
 
+              <nav
+                aria-label="Page sections"
+                className="mt-7 flex gap-2 overflow-x-auto pb-1 lg:flex-col lg:gap-1 lg:overflow-visible lg:pb-0"
+              >
+                {PAGE_SECTIONS.map((section) => {
+                  const isActive = activeSection === section.id;
+                  return (
+                    <button
+                      key={section.id}
+                      type="button"
+                      onClick={() => scrollToSection(section.id)}
+                      className={`group flex shrink-0 items-center gap-3 rounded-lg px-3 py-2 text-left text-sm transition-colors ${
+                        isActive
+                          ? theme === 'meta'
+                            ? 'text-slate-900'
+                            : 'text-white'
+                          : muted
+                      }`}
+                    >
+                      <span
+                        className="hidden h-px w-8 transition-all duration-300 lg:block"
+                        style={{
+                          backgroundColor: isActive ? accent : 'currentColor',
+                          opacity: isActive ? 1 : 0.25,
+                          width: isActive ? '3rem' : '2rem',
+                        }}
+                      />
+                      <span
+                        className={`font-mono text-[0.7rem] uppercase tracking-[0.16em] ${
+                          isActive ? accentText : ''
+                        }`}
+                      >
+                        {section.label}
+                      </span>
+                    </button>
+                  );
+                })}
+              </nav>
+
               <div className="mt-7 flex flex-wrap items-center gap-3">
                 <motion.a
                   href={resumeData.contact.github}
@@ -188,45 +233,6 @@ export default function Home() {
                   DOCX
                 </motion.button>
               </div>
-
-              <nav
-                aria-label="Page sections"
-                className="mt-10 flex gap-2 overflow-x-auto pb-1 lg:mt-auto lg:flex-col lg:gap-1 lg:overflow-visible lg:pb-0"
-              >
-                {PAGE_SECTIONS.map((section) => {
-                  const isActive = activeSection === section.id;
-                  return (
-                    <button
-                      key={section.id}
-                      type="button"
-                      onClick={() => scrollToSection(section.id)}
-                      className={`group flex shrink-0 items-center gap-3 rounded-lg px-3 py-2 text-left text-sm transition-colors ${
-                        isActive
-                          ? theme === 'meta'
-                            ? 'text-slate-900'
-                            : 'text-white'
-                          : muted
-                      }`}
-                    >
-                      <span
-                        className="hidden h-px w-8 transition-all duration-300 lg:block"
-                        style={{
-                          backgroundColor: isActive ? accent : 'currentColor',
-                          opacity: isActive ? 1 : 0.25,
-                          width: isActive ? '3rem' : '2rem',
-                        }}
-                      />
-                      <span
-                        className={`font-mono text-[0.7rem] uppercase tracking-[0.16em] ${
-                          isActive ? accentText : ''
-                        }`}
-                      >
-                        {section.label}
-                      </span>
-                    </button>
-                  );
-                })}
-              </nav>
             </motion.div>
           </header>
 

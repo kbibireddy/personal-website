@@ -108,10 +108,10 @@ export default function Home() {
     >
       <LatticeAtmosphere theme={theme} />
 
-      <div className="relative z-10 mx-auto max-w-6xl px-5 py-8 sm:px-8 lg:px-10 lg:py-0">
+      <div className="relative z-10 mx-auto max-w-[90rem] px-5 py-8 sm:px-8 lg:px-12 lg:py-0">
         <ThemeSwitcher onThemeChange={setTheme} theme={theme} />
 
-        <div className="lg:grid lg:grid-cols-[minmax(16rem,22rem)_minmax(0,1fr)] lg:gap-16 xl:gap-20">
+        <div className="lg:grid lg:grid-cols-[minmax(18rem,26rem)_minmax(0,1fr)] lg:gap-16 xl:gap-24">
           {/* Brand rail — hero-level name signal */}
           <header className="relative mb-14 flex min-w-0 flex-col overflow-x-clip lg:sticky lg:top-0 lg:mb-0 lg:h-screen lg:py-20">
             <motion.div
@@ -121,7 +121,7 @@ export default function Home() {
               className="flex min-w-0 flex-1 flex-col"
             >
               <h1
-                className={`max-w-full break-words font-syne text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-[2.75rem] xl:text-[3.15rem] ${
+                className={`max-w-full break-words font-syne text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-[3.15rem] ${
                   theme === 'meta' ? 'text-slate-900' : 'text-white'
                 }`}
               >

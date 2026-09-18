@@ -1,6 +1,12 @@
 {
     "name": "KARTHIK BIBIREDDY",
     "headline": "Sr. Software Engineer | Distributed Systems & Data Infrastructure | Agentic AI Workflows",
+    "introduction": [
+      "Hi — I'm Karthik. I like building things. I'm a former software engineer and current AI operator who enjoys working across all kinds of systems: embedded, frontend, backend, and distributed.",
+      "I'm a senior software engineer with {{careerTenure}} of experience building reliable, fault-tolerant, high-performing systems at large scale — including ground control stations for drones, landing-detector integration with flight systems, computer vision models wired into web applications, Bluetooth middleware that routes SMS from phone to vehicle head units, and sourcing high-quality data signals to improve list-price display guardrail quality (removing ~8% bad-quality list-price displays from vending). I've also migrated a critical ~8M QPS distributed system between datacenters with no customer downtime while modernizing IaC, supporting 6+ cross-team consumers and dependency integrations, and two parallel business goals on the platform being migrated.",
+      "Currently I'm a Sr. SDE at Amazon on Worldwide Strike-Through Pricing Experience. I lead engineering across our batch processing and event-driven infrastructure, making sure systems operate reliably under highly variable workload and that customers see the freshest possible strike-through pricing signals.",
+      "In my spare time, I like spending time with my family and my dog Odin, hiking in the PNW, playing soccer, and attempting to make electronic music."
+    ],
     "professionalSummary": "Senior software engineer with 9+ years building distributed streaming and batch systems at Amazon and startups. I own high-scale customer-facing services on AWS, lead multi-region migrations and system design, tune event-driven pipelines, and drive team-wide adoption of agentic AI workflows.",
     "website": "https://kbibireddy.github.io/personal-website",
     "contact": {

@@ -44,7 +44,7 @@ import { RiStockFill } from 'react-icons/ri';
 
 import { generatePDF } from '@/utils/pdf';
 import { generateDOCX } from '@/utils/docx';
-import { formatProfessionalSummary, getTotalCareerYears } from '@/utils/dates';
+import { formatIntroduction } from '@/utils/dates';
 import {
   CONTENT_FONT_SCALE,
   CONTENT_SECTION_MAX_WIDTH,
@@ -97,9 +97,9 @@ export default function Home() {
     );
   }
 
-  const professionalSummary = formatProfessionalSummary(
-    resumeData.professionalSummary,
-    getTotalCareerYears(resumeData.workExperience)
+  const introduction = formatIntroduction(
+    resumeData.introduction,
+    resumeData.workExperience
   );
 
   const accent = getAccentHex(theme);
@@ -253,11 +253,13 @@ export default function Home() {
                   theme === 'meta' ? 'text-slate-900' : 'text-white'
                 }`}
               >
-                Professional Summary
+                Introduction
               </h2>
-              <p className={`text-base leading-relaxed sm:text-lg ${muted} ${theme === 'meta' ? 'text-slate-700' : 'text-slate-300'}`}>
-                {professionalSummary}
-              </p>
+              <div className={`space-y-5 text-base leading-relaxed sm:text-lg ${muted} ${theme === 'meta' ? 'text-slate-700' : 'text-slate-300'}`}>
+                {introduction.map((paragraph, index) => (
+                  <p key={index}>{paragraph}</p>
+                ))}
+              </div>
             </motion.section>
 
             <motion.section id="experience" className="mb-16 scroll-mt-24" {...fadeUp}>

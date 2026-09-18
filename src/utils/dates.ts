@@ -61,21 +61,81 @@ export function formatYearsSinceStart(period: string): string {
   return `(${display} ${label})`;
 }
 
-export function getTotalCareerYears(workExperience: WorkExperience[]): number {
+export interface CareerTenure {
+  years: number;
+  months: number;
+  days: number;
+}
+
+function getEarliestCareerStart(workExperience: WorkExperience[]): Date | null {
   const startDates = workExperience
     .map((job) => parseWorkPeriod(job.period)?.start)
     .filter((date): date is Date => date !== undefined);
 
   if (startDates.length === 0) {
-    return 0;
+    return null;
   }
 
-  const earliestStart = startDates.reduce((earliest, current) =>
+  return startDates.reduce((earliest, current) =>
     current < earliest ? current : earliest
   );
+}
 
-  const totalYears = getMonthsBetween(earliestStart, new Date()) / 12;
-  return Math.max(1, Math.floor(totalYears));
+/** Calendar years / months / days from earliest role start through today. */
+export function getCareerTenure(
+  workExperience: WorkExperience[],
+  asOf: Date = new Date()
+): CareerTenure {
+  const start = getEarliestCareerStart(workExperience);
+  if (!start) {
+    return { years: 0, months: 0, days: 0 };
+  }
+
+  let years = asOf.getFullYear() - start.getFullYear();
+  let months = asOf.getMonth() - start.getMonth();
+  let days = asOf.getDate() - start.getDate();
+
+  if (days < 0) {
+    months -= 1;
+    const daysInPrevMonth = new Date(asOf.getFullYear(), asOf.getMonth(), 0).getDate();
+    days += daysInPrevMonth;
+  }
+
+  if (months < 0) {
+    years -= 1;
+    months += 12;
+  }
+
+  return {
+    years: Math.max(0, years),
+    months: Math.max(0, months),
+    days: Math.max(0, days),
+  };
+}
+
+export function getTotalCareerYears(workExperience: WorkExperience[]): number {
+  const tenure = getCareerTenure(workExperience);
+  return Math.max(1, tenure.years);
+}
+
+export function formatCareerTenure(tenure: CareerTenure): string {
+  const yearLabel = tenure.years === 1 ? 'year' : 'years';
+  const monthLabel = tenure.months === 1 ? 'month' : 'months';
+  const dayLabel = tenure.days === 1 ? 'day' : 'days';
+  return `${tenure.years} ${yearLabel}, ${tenure.months} ${monthLabel}, ${tenure.days}+ ${dayLabel}`;
+}
+
+const CAREER_TENURE_TOKEN = /\{\{\s*careerTenure\s*\}\}/g;
+
+export function formatIntroduction(
+  introduction: string[],
+  workExperience: WorkExperience[],
+  asOf: Date = new Date()
+): string[] {
+  const tenureLabel = formatCareerTenure(getCareerTenure(workExperience, asOf));
+  return introduction.map((paragraph) =>
+    paragraph.replace(CAREER_TENURE_TOKEN, tenureLabel)
+  );
 }
 
 const CAREER_YEARS_PATTERN = /\d+\+ years/;

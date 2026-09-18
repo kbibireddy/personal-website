@@ -6,11 +6,10 @@ import { getResumeWithOverrides } from '@/utils/resumeProvider';
 import { Resume } from '@/types/resume';
 
 interface PDFResumeProps {
-  resumeType?: string;
   onDownload?: (format: 'pdf' | 'docx') => void;
 }
 
-export default function PDFResume({ resumeType, onDownload }: PDFResumeProps) {
+export default function PDFResume({ onDownload }: PDFResumeProps) {
   const [data, setData] = React.useState<Resume | null>(null);
   
   const PDF_CONFIG = {
@@ -61,7 +60,7 @@ export default function PDFResume({ resumeType, onDownload }: PDFResumeProps) {
   React.useEffect(() => {
     const loadResume = async () => {
       try {
-        const resumeData = await getResumeWithOverrides(resumeType);
+        const resumeData = await getResumeWithOverrides();
         setData(resumeData);
       } catch (error) {
         console.error('Failed to load resume:', error);
@@ -69,7 +68,7 @@ export default function PDFResume({ resumeType, onDownload }: PDFResumeProps) {
     };
 
     loadResume();
-  }, [resumeType]);
+  }, []);
   
   const getBulletCount = (index: number): number => {
     return PDF_CONFIG.jobs.maxBullets[index as keyof typeof PDF_CONFIG.jobs.maxBullets] || PDF_CONFIG.jobs.maxBullets.default;
@@ -77,7 +76,7 @@ export default function PDFResume({ resumeType, onDownload }: PDFResumeProps) {
 
   const handleDownloadClick = async (format: 'pdf' | 'docx') => {
     if (format === 'docx') {
-      await generateDOCX(resumeType);
+      await generateDOCX();
     }
     onDownload?.(format);
   };

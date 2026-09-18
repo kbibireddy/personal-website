@@ -1,101 +1,113 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
+  safelist: [
+    'bg-[#0B1220]',
+    'text-[#E8EEF7]',
+    'bg-[#F3F6FA]',
+    'text-[#0F172A]',
+    'bg-[#12151C]',
+    'text-[#E2E8F0]',
+    'text-slate-400',
+    'text-slate-600',
+    'text-teal-300',
+    'text-teal-700',
+    'text-sky-400',
+    'border-teal-300/35',
+    'border-teal-600/40',
+    'border-sky-400/35',
+    'bg-white/[0.03]',
+    'bg-white/[0.04]',
+    'bg-slate-900/[0.03]',
+    'bg-slate-900/[0.04]',
+    'bg-sky-400/[0.05]',
+    'bg-sky-400/[0.06]',
   ],
   darkMode: 'media',
   theme: {
     extend: {
       colors: {
-        primary: '#0070f3',
-        secondary: '#00040f',
+        primary: '#0D9488',
+        secondary: '#0B1220',
         border: 'hsl(var(--border))',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
-        // Netflix theme
         netflix: {
-          primary: '#E50914',
-          background: '#141414',
-          text: '#FFFFFF',
-          accent: '#B20710'
+          primary: '#2DD4BF',
+          background: '#0B1220',
+          text: '#E8EEF7',
+          accent: '#14B8A6',
         },
-        // Meta theme
         meta: {
-          primary: '#0668E1',
-          background: '#FFFFFF',
-          text: '#1C2B33',
-          accent: '#5AA7FF'
+          primary: '#0D9488',
+          background: '#F3F6FA',
+          text: '#0F172A',
+          accent: '#0F766E',
         },
-        // Discord theme
         discord: {
-          primary: '#5865F2',
-          background: '#313338',
-          text: '#FFFFFF',
-          accent: '#4752C4'
-        }
+          primary: '#38BDF8',
+          background: '#12151C',
+          text: '#E2E8F0',
+          accent: '#0EA5E9',
+        },
       },
       fontFamily: {
-        'space-grotesk': [
-          'var(--font-space-grotesk)',
+        syne: [
+          'var(--font-syne)',
           'ui-sans-serif',
-          'system-ui',
-          '-apple-system',
-          'BlinkMacSystemFont',
-          'Segoe UI',
-          'Roboto',
-          'Helvetica Neue',
-          'Arial',
-          'Noto Sans',
           'sans-serif',
-          'Apple Color Emoji',
-          'Segoe UI Emoji',
-          'Segoe UI Symbol',
-          'Noto Color Emoji'
         ],
-        'roboto-mono': [
-          'var(--font-roboto-mono)',
+        outfit: [
+          'var(--font-outfit)',
+          'ui-sans-serif',
+          'sans-serif',
+        ],
+        mono: [
+          'var(--font-ibm-plex-mono)',
           'ui-monospace',
           'SFMono-Regular',
           'Menlo',
           'Monaco',
           'Consolas',
-          'Liberation Mono',
-          'Courier New',
-          'monospace'
+          'monospace',
         ],
-        'inter': [
-          'var(--font-inter)',
+        // Keep legacy keys pointed at expressive fonts so old class names still resolve
+        'space-grotesk': [
+          'var(--font-syne)',
           'ui-sans-serif',
-          'system-ui',
-          '-apple-system',
-          'BlinkMacSystemFont',
-          'Segoe UI',
-          'Roboto',
-          'Helvetica Neue',
-          'Arial',
-          'Noto Sans',
           'sans-serif',
-          'Apple Color Emoji',
-          'Segoe UI Emoji',
-          'Segoe UI Symbol',
-          'Noto Color Emoji'
+        ],
+        'roboto-mono': [
+          'var(--font-ibm-plex-mono)',
+          'ui-monospace',
+          'monospace',
+        ],
+        inter: [
+          'var(--font-outfit)',
+          'ui-sans-serif',
+          'sans-serif',
         ],
       },
       animation: {
-        'gradient': 'gradient 8s linear infinite',
+        gradient: 'gradient 8s linear infinite',
+        'fade-up': 'fade-up 0.7s ease-out both',
       },
       keyframes: {
         gradient: {
           '0%, 100%': {
             'background-size': '200% 200%',
-            'background-position': 'left center'
+            'background-position': 'left center',
           },
           '50%': {
             'background-size': '200% 200%',
-            'background-position': 'right center'
+            'background-position': 'right center',
           },
+        },
+        'fade-up': {
+          '0%': { opacity: '0', transform: 'translateY(12px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
         },
       },
       zIndex: {
@@ -111,9 +123,9 @@ module.exports = {
         content: '67.2rem',
       },
       backdropBlur: {
-        'xs': '2px',
-      }
+        xs: '2px',
+      },
     },
   },
   plugins: [],
-} 
+}

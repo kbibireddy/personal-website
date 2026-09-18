@@ -1,38 +1,40 @@
 "use client";
 
-// React and core imports
 import { useState, useEffect, type CSSProperties } from 'react';
 import { motion } from 'framer-motion';
 
-// Components
 import WorkExperience from '@/components/WorkExperience';
 import Portfolio from '@/components/Portfolio';
 import ThemeSwitcher from '@/components/ThemeSwitcher';
-import TableOfContents from '@/components/TableOfContents';
-import ResumeTypeToggle from '@/components/ResumeTypeToggle';
-import SpaceTimeAnimation from '@/components/SpaceTimeAnimation';
-import ElectronicSpark from '@/components/ElectronicSpark';
+import LatticeAtmosphere from '@/components/LatticeAtmosphere';
 import SkillBadge from '@/components/SkillBadge';
 import PDFResume from '@/components/PDFResume';
 
-// Data and types
 import { Theme } from '@/types/theme';
-import { getCardBgClass, getAccentClasses } from '@/utils/theme';
+import {
+  getShellClasses,
+  getAccentTextClass,
+  getAccentBorderClass,
+  getSurfaceClass,
+  getMutedTextClass,
+  getAccentHex,
+} from '@/utils/theme';
 import { useResume } from '@/utils/useResume';
+import { useActiveSection } from '@/hooks/useActiveSection';
+import { PAGE_SECTIONS } from '@/constants/sections';
 
-// Icons
-import { 
-  FaGithub, 
-  FaLinkedin, 
-  FaEnvelope, 
+import {
+  FaGithub,
+  FaLinkedin,
+  FaEnvelope,
   FaMapMarkerAlt,
   FaGraduationCap,
   FaTools,
   FaFilePdf,
-  FaFileWord
+  FaFileWord,
 } from 'react-icons/fa';
-import { MdWorkOutline, MdMoney } from "react-icons/md";
-import { GiSoapExperiment } from "react-icons/gi";
+import { MdMoney } from 'react-icons/md';
+import { GiSoapExperiment } from 'react-icons/gi';
 import { PiCode, PiBrainThin, PiNetworkXDuotone, PiToolboxDuotone } from 'react-icons/pi';
 import { TbDatabase, TbApps, TbMathIntegrals } from 'react-icons/tb';
 import { BsGraphUpArrow } from 'react-icons/bs';
@@ -40,315 +42,371 @@ import { SiDwavesystems } from 'react-icons/si';
 import { AiTwotoneApi } from 'react-icons/ai';
 import { RiStockFill } from 'react-icons/ri';
 
-// Utils
 import { generatePDF } from '@/utils/pdf';
 import { generateDOCX } from '@/utils/docx';
-import { formatProfessionalSummary, getTotalCareerYears } from '@/utils/dates';
+import { formatIntroduction } from '@/utils/dates';
 import {
   CONTENT_FONT_SCALE,
   CONTENT_SECTION_MAX_WIDTH,
   TENURE_FONT_RATIO,
 } from '@/constants/layout';
 
-
+const fadeUp = {
+  initial: { opacity: 0, y: 16 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-10% 0px' },
+  transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+};
 
 export default function Home() {
   const [theme, setTheme] = useState<Theme>('netflix');
   const [mounted, setMounted] = useState(false);
   const [showGPA, setShowGPA] = useState<{ [key: number]: boolean }>({});
-  const { resume: resumeData, resumeType, loading } = useResume();
+  const { resume: resumeData, loading } = useResume();
+  const activeSection = useActiveSection(mounted && !loading && !!resumeData);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  useEffect(() => {
+    if (theme === 'discord') {
+      setTheme('netflix');
+    }
+  }, [theme]);
+
   const toggleGPA = (index: number) => {
-    setShowGPA(prev => ({
+    setShowGPA((prev) => ({
       ...prev,
-      [index]: !prev[index]
+      [index]: !prev[index],
     }));
+  };
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   if (!mounted || loading || !resumeData) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900 dark:border-white"></div>
+      <div className="min-h-screen flex items-center justify-center bg-[#0B1220] text-teal-300">
+        <div className="h-10 w-10 rounded-full border-2 border-teal-300/30 border-t-teal-300 animate-spin" />
       </div>
     );
   }
 
-  const professionalSummary = formatProfessionalSummary(
-    resumeData.professionalSummary,
-    getTotalCareerYears(resumeData.workExperience)
+  const introduction = formatIntroduction(
+    resumeData.introduction,
+    resumeData.workExperience
   );
 
-  const getThemeClasses = (theme: Theme) => {
-    switch (theme) {
-      case 'netflix':
-        return 'bg-[#141414] text-white font-space-grotesk';
-      case 'meta':
-        return 'bg-white text-[#050505] font-inter';
-      case 'discord':
-        return 'bg-[#313338] text-white font-roboto-mono';
-      default:
-        return 'bg-[#141414] text-white font-space-grotesk';
-    }
-  };
-
-  const getAccentClasses = (theme: Theme) => {
-    switch (theme) {
-      case 'netflix':
-        return 'from-[#E50914] to-[#B20710]';
-      case 'meta':
-        return 'from-[#0866FF] to-[#0064E0]';
-      case 'discord':
-        return 'from-[#5865F2] to-[#4752C4]';
-      default:
-        return 'from-[#E50914] to-[#B20710]';
-    }
-  };
-
-  const getCardBgClass = (theme: Theme) => {
-    switch (theme) {
-      case 'netflix':
-        return 'bg-white/10';
-      case 'meta':
-        return 'bg-black/5';
-      case 'discord':
-        return 'bg-[#5865F2]/10';
-      default:
-        return 'bg-white/10';
-    }
-  };
-
-  const getSkillColor = (theme: Theme, category: string) => {
-    switch (theme) {
-      case 'netflix':
-        return {
-          languages: 'bg-[#E50914]/20 hover:bg-[#E50914]/30',
-          frameworks: 'bg-[#B20710]/20 hover:bg-[#B20710]/30',
-          data: 'bg-[#DC2626]/20 hover:bg-[#DC2626]/30',
-          cloud: 'bg-[#6D6D6E]/20 hover:bg-[#6D6D6E]/30'
-        }[category];
-      case 'meta':
-        return {
-          languages: 'bg-[#0866FF]/20 hover:bg-[#0866FF]/30',
-          frameworks: 'bg-[#0064E0]/20 hover:bg-[#0064E0]/30',
-          data: 'bg-[#1D9BF0]/20 hover:bg-[#1D9BF0]/30',
-          cloud: 'bg-[#65676B]/20 hover:bg-[#65676B]/30'
-        }[category];
-      case 'discord':
-        return {
-          languages: 'bg-[#5865F2]/20 hover:bg-[#5865F2]/30',
-          frameworks: 'bg-[#4752C4]/20 hover:bg-[#4752C4]/30',
-          data: 'bg-[#949BA4]/20 hover:bg-[#949BA4]/30',
-          cloud: 'bg-[#5865F2]/20 hover:bg-[#5865F2]/30'
-        }[category];
-      default:
-        return 'bg-white/10 hover:bg-white/20';
-    }
-  };
+  const accent = getAccentHex(theme);
+  const accentText = getAccentTextClass(theme);
+  const accentBorder = getAccentBorderClass(theme);
+  const surface = getSurfaceClass(theme);
+  const muted = getMutedTextClass(theme);
 
   return (
-    <main className={`min-h-screen w-screen overflow-x-hidden p-8 md:p-24 transition-colors duration-300 relative ${getThemeClasses(theme)}`}>
-      <div className="absolute inset-0 z-0">
-        {theme === 'netflix' && <SpaceTimeAnimation />}
-        {theme === 'discord' && <ElectronicSpark />}
-      </div>
-      
-      <div className="relative z-10">
-        <ThemeSwitcher onThemeChange={setTheme} />
-        <ResumeTypeToggle theme={theme} />
-        <TableOfContents theme={theme} />
-        
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="content-section mx-auto backdrop-blur-sm"
-          style={{
-            '--content-max-width': CONTENT_SECTION_MAX_WIDTH,
-            '--content-font-scale': CONTENT_FONT_SCALE,
-            '--tenure-font-size': `calc(1.25rem * ${TENURE_FONT_RATIO})`,
-          } as CSSProperties}
-        >
-          <div className="flex flex-col mb-12">
-            <h1 className={`text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r ${getAccentClasses(theme)} text-transparent bg-clip-text animate-gradient`}>
-              {resumeData.name}
-            </h1>
-            
-            <p className="text-xl md:text-2xl mb-6">
-              I am a <span className={`font-bold bg-gradient-to-r ${getAccentClasses(theme)} text-transparent bg-clip-text`}>{resumeData.headline}</span>
-            </p>
+    <main
+      className={`relative min-h-screen w-full overflow-x-hidden transition-colors duration-500 ${getShellClasses(theme)}`}
+    >
+      <LatticeAtmosphere theme={theme} />
 
-            <p className="text-lg mb-4 text-current/80 flex items-center gap-2">
-              <FaMapMarkerAlt className="text-xl" />
-              {resumeData.contact.location}
-            </p>
+      <div className="relative z-10 mx-auto max-w-[90rem] px-5 py-8 sm:px-8 lg:px-12 lg:py-0">
+        <ThemeSwitcher onThemeChange={setTheme} theme={theme} />
 
-            <div className="flex items-center space-x-6">
-              <motion.a
-                href={resumeData.contact.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.1 }}
-                className="text-3xl text-current hover:text-[#E50914] dark:hover:text-[#E50914] transition-colors duration-200"
+        <div className="lg:grid lg:grid-cols-[minmax(18rem,26rem)_minmax(0,1fr)] lg:gap-16 xl:gap-24">
+          {/* Brand rail — hero-level name signal */}
+          <header className="relative mb-14 flex min-w-0 flex-col overflow-x-clip lg:sticky lg:top-0 lg:mb-0 lg:h-screen lg:py-20">
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="flex min-w-0 flex-1 flex-col"
+            >
+              <h1
+                className={`max-w-full break-words font-syne text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-[3.15rem] ${
+                  theme === 'meta' ? 'text-slate-900' : 'text-white'
+                }`}
               >
-                <FaGithub />
-              </motion.a>
-              <motion.a
-                href={resumeData.contact.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.1 }}
-                className="text-3xl text-current hover:text-[#0866FF] dark:hover:text-[#0866FF] transition-colors duration-200"
+                {resumeData.name}
+              </h1>
+
+              <p className={`mt-5 max-w-md text-base leading-relaxed sm:text-lg ${muted}`}>
+                I am a{' '}
+                <span className={`font-medium ${theme === 'meta' ? 'text-slate-900' : 'text-slate-100'}`}>
+                  {resumeData.headline}
+                </span>
+              </p>
+
+              <p className={`mt-4 flex items-center gap-2 text-sm ${muted}`}>
+                <FaMapMarkerAlt className={`${accentText} shrink-0`} />
+                {resumeData.contact.location}
+              </p>
+
+              <nav
+                aria-label="Page sections"
+                className="mt-7 flex gap-2 overflow-x-auto pb-1 lg:flex-col lg:gap-1 lg:overflow-visible lg:pb-0"
               >
-                <FaLinkedin />
-              </motion.a>
-              <motion.a
-                href={`mailto:${resumeData.contact.email}`}
-                whileHover={{ scale: 1.1 }}
-                className="text-3xl text-current hover:text-[#5865F2] dark:hover:text-[#5865F2] transition-colors duration-200"
-              >
-                <FaEnvelope />
-              </motion.a>
-              <div className="flex gap-2">
+                {PAGE_SECTIONS.map((section) => {
+                  const isActive = activeSection === section.id;
+                  return (
+                    <button
+                      key={section.id}
+                      type="button"
+                      onClick={() => scrollToSection(section.id)}
+                      className={`group flex shrink-0 items-center gap-3 rounded-lg px-3 py-2 text-left text-sm transition-colors ${
+                        isActive
+                          ? theme === 'meta'
+                            ? 'text-slate-900'
+                            : 'text-white'
+                          : muted
+                      }`}
+                    >
+                      <span
+                        className="hidden h-px w-8 transition-all duration-300 lg:block"
+                        style={{
+                          backgroundColor: isActive ? accent : 'currentColor',
+                          opacity: isActive ? 1 : 0.25,
+                          width: isActive ? '3rem' : '2rem',
+                        }}
+                      />
+                      <span
+                        className={`font-mono text-[0.7rem] uppercase tracking-[0.16em] ${
+                          isActive ? accentText : ''
+                        }`}
+                      >
+                        {section.label}
+                      </span>
+                    </button>
+                  );
+                })}
+              </nav>
+
+              <div className="mt-7 flex flex-wrap items-center gap-3">
+                <motion.a
+                  href={resumeData.contact.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ y: -2 }}
+                  className={`inline-flex h-11 w-11 items-center justify-center rounded-xl border ${accentBorder} ${surface} text-xl transition-colors hover:opacity-90`}
+                  aria-label="GitHub"
+                >
+                  <FaGithub />
+                </motion.a>
+                <motion.a
+                  href={resumeData.contact.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ y: -2 }}
+                  className={`inline-flex h-11 w-11 items-center justify-center rounded-xl border ${accentBorder} ${surface} text-xl transition-colors hover:opacity-90`}
+                  aria-label="LinkedIn"
+                >
+                  <FaLinkedin />
+                </motion.a>
+                <motion.a
+                  href={`mailto:${resumeData.contact.email}`}
+                  whileHover={{ y: -2 }}
+                  className={`inline-flex h-11 w-11 items-center justify-center rounded-xl border ${accentBorder} ${surface} text-xl transition-colors hover:opacity-90`}
+                  aria-label="Email"
+                >
+                  <FaEnvelope />
+                </motion.a>
+
                 <motion.button
-                  onClick={() => generatePDF(resumeType)}
-                  whileHover={{ scale: 1.1 }}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r ${getAccentClasses(theme)} text-white text-sm font-medium transition-transform`}
+                  onClick={() => generatePDF()}
+                  whileHover={{ y: -2 }}
+                  className="inline-flex items-center gap-2 rounded-xl px-3.5 py-2.5 text-sm font-medium text-[#0B1220] transition-transform"
+                  style={{ background: `linear-gradient(135deg, ${accent}, ${theme === 'discord' ? '#0EA5E9' : '#14B8A6'})` }}
                 >
                   <FaFilePdf />
                   PDF
                 </motion.button>
                 <motion.button
-                  onClick={() => generateDOCX(resumeType)}
-                  whileHover={{ scale: 1.1 }}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r ${getAccentClasses(theme)} text-white text-sm font-medium transition-transform`}
+                  onClick={() => generateDOCX()}
+                  whileHover={{ y: -2 }}
+                  className={`inline-flex items-center gap-2 rounded-xl border ${accentBorder} ${surface} px-3.5 py-2.5 text-sm font-medium transition-transform`}
                 >
                   <FaFileWord />
                   DOCX
                 </motion.button>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </header>
 
-          <section id="summary" className="mb-12">
-            <h2 className="text-2xl font-bold mb-4">Professional Summary</h2>
-            <p className={`text-lg text-current/90 ${getCardBgClass(theme)} p-6 rounded-lg`}>
-              {professionalSummary}
-            </p>
-          </section>
+          {/* Scroll content — same sections & data */}
+          <div
+            className="content-section mx-auto min-w-0 w-full pb-20 lg:py-20"
+            style={
+              {
+                '--content-max-width': CONTENT_SECTION_MAX_WIDTH,
+                '--content-font-scale': CONTENT_FONT_SCALE,
+                '--tenure-font-size': `calc(1.25rem * ${TENURE_FONT_RATIO})`,
+              } as CSSProperties
+            }
+          >
+            <motion.section id="summary" className="mb-16 scroll-mt-24" {...fadeUp}>
+              <h2
+                className={`mb-4 font-syne text-2xl font-bold tracking-tight ${
+                  theme === 'meta' ? 'text-slate-900' : 'text-white'
+                }`}
+              >
+                Introduction
+              </h2>
+              <div className={`space-y-5 text-base leading-relaxed sm:text-lg ${muted} ${theme === 'meta' ? 'text-slate-700' : 'text-slate-300'}`}>
+                {introduction.map((paragraph, index) => (
+                  <p key={index}>{paragraph}</p>
+                ))}
+              </div>
+            </motion.section>
 
-          <section id="experience" className="mb-12">
-            <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-              <MdWorkOutline className="text-2xl" />
-              Work Experience
-            </h2>
-            <WorkExperience theme={theme} />
-          </section>
+            <motion.section id="experience" className="mb-16 scroll-mt-24" {...fadeUp}>
+              <h2
+                className={`mb-6 font-syne text-2xl font-bold tracking-tight ${
+                  theme === 'meta' ? 'text-slate-900' : 'text-white'
+                }`}
+              >
+                Work Experience
+              </h2>
+              <WorkExperience theme={theme} />
+            </motion.section>
 
-          <section id="education" className="mb-12">
-            <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-              <FaGraduationCap className="text-2xl" />
-              Education
-            </h2>
-            <div className={`${getCardBgClass(theme)} backdrop-blur-sm rounded-lg p-6`}>
-              {resumeData.education.map((edu, index) => (
-                <div key={index} className={index === 0 ? "mb-6" : ""}>
-                  <h3 className="text-xl font-semibold text-current">{edu.degree}</h3>
-                  <p className="text-current/80">{edu.school}</p>
-                  <p className="text-current/80">{edu.period}</p>
-                  <div className="flex items-center gap-2 mt-1">
-                    {showGPA[index] ? (
-                      <p className="text-current/90">GPA: {edu.gpa}</p>
-                    ) : (
-                      <button
-                        onClick={() => toggleGPA(index)}
-                        className={`text-sm text-current/70 hover:text-current transition-colors duration-200 underline underline-offset-2 ${
-                          theme === 'netflix' ? 'hover:text-[#E50914]' :
-                          theme === 'meta' ? 'hover:text-[#0866FF]' :
-                          theme === 'discord' ? 'hover:text-[#5865F2]' :
-                          'hover:text-[#E50914]'
-                        }`}
-                      >
-                        see more
-                      </button>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <section id="skills" className="mb-12">
-            <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-              <FaTools className="text-2xl" />
-              Skills
-            </h2>
-            <div className={`${getCardBgClass(theme)} backdrop-blur-sm rounded-lg p-6`}>
-              {              Object.entries(
-                resumeData.skills.reduce((acc, skill) => {
-                  const category = skill.category || 'Other';
-                  if (!acc[category]) {
-                    acc[category] = [];
-                  }
-                  acc[category].push(skill);
-                  return acc;
-                }, {} as Record<string, typeof resumeData.skills>)
-              ).map(([category, skills]) => {
-                const getCategoryIcon = (cat: string) => {
-                  switch (cat) {
-                    case 'Languages': return <PiCode />;
-                    case 'Data': return <TbDatabase />;
-                    case 'Cloud': return <SiDwavesystems />;
-                    case 'Backend': return <BsGraphUpArrow />;
-                    case 'AI/ML': return <PiBrainThin />;
-                    case 'Finance': return <MdMoney />;
-                    case 'Architecture': return <PiNetworkXDuotone />;
-                    case 'APIs': return <AiTwotoneApi />;
-                    case 'DevOps & Tooling': return <PiToolboxDuotone />;
-                    case 'Frontend': return <TbApps />;
-                    case 'Quant & Math': return <TbMathIntegrals />;
-                    case 'Trading': return <RiStockFill />;
-                    default: return <FaTools />;
-                  }
-                };
-
-                return (
-                  <div key={category} className="mb-6 last:mb-0">
-                    <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
-                      {getCategoryIcon(category)}
-                      {category}
+            <motion.section id="education" className="mb-16 scroll-mt-24" {...fadeUp}>
+              <h2
+                className={`mb-6 flex items-center gap-2 font-syne text-2xl font-bold tracking-tight ${
+                  theme === 'meta' ? 'text-slate-900' : 'text-white'
+                }`}
+              >
+                <FaGraduationCap className={accentText} />
+                Education
+              </h2>
+              <div className="space-y-8 border-l border-current/10 pl-5">
+                {resumeData.education.map((edu, index) => (
+                  <div key={index} className="relative">
+                    <span
+                      className="absolute -left-[1.4rem] top-1.5 h-2.5 w-2.5 rounded-full"
+                      style={{ backgroundColor: accent }}
+                    />
+                    <h3
+                      className={`font-syne text-lg font-semibold ${
+                        theme === 'meta' ? 'text-slate-900' : 'text-white'
+                      }`}
+                    >
+                      {edu.degree}
                     </h3>
-                    <div className="flex flex-wrap gap-3">
-                      {skills
-                        .sort((a, b) => b.proficiency - a.proficiency)
-                        .map((skill) => (
-                          <SkillBadge
-                            key={skill.name}
-                            name={skill.name}
-                            proficiency={skill.proficiency}
-                            theme={theme}
-                          />
-                        ))}
+                    <p className={muted}>{edu.school}</p>
+                    <p className={`font-mono text-xs uppercase tracking-wider ${muted}`}>
+                      {edu.period}
+                    </p>
+                    <div className="mt-1 flex items-center gap-2">
+                      {showGPA[index] ? (
+                        <p className="text-sm">GPA: {edu.gpa}</p>
+                      ) : (
+                        <button
+                          onClick={() => toggleGPA(index)}
+                          className={`text-sm underline underline-offset-2 transition-colors ${accentText}`}
+                        >
+                          see more
+                        </button>
+                      )}
                     </div>
                   </div>
-                )
-              })}
-            </div>
-          </section>
+                ))}
+              </div>
+            </motion.section>
 
-          <section id="portfolio">
-            <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-              <GiSoapExperiment className="text-2xl" />
-              Portfolio
-            </h2>
-            <Portfolio theme={theme} />
-          </section>
-        </motion.div>
+            <motion.section id="skills" className="mb-16 scroll-mt-24" {...fadeUp}>
+              <h2
+                className={`mb-6 flex items-center gap-2 font-syne text-2xl font-bold tracking-tight ${
+                  theme === 'meta' ? 'text-slate-900' : 'text-white'
+                }`}
+              >
+                <FaTools className={accentText} />
+                Skills
+              </h2>
+              <div className="space-y-8">
+                {Object.entries(
+                  resumeData.skills.reduce((acc, skill) => {
+                    const category = skill.category || 'Other';
+                    if (!acc[category]) {
+                      acc[category] = [];
+                    }
+                    acc[category].push(skill);
+                    return acc;
+                  }, {} as Record<string, typeof resumeData.skills>)
+                ).map(([category, skills]) => {
+                  const getCategoryIcon = (cat: string) => {
+                    switch (cat) {
+                      case 'Languages':
+                        return <PiCode />;
+                      case 'Data':
+                        return <TbDatabase />;
+                      case 'Cloud':
+                        return <SiDwavesystems />;
+                      case 'Backend':
+                        return <BsGraphUpArrow />;
+                      case 'AI/ML':
+                        return <PiBrainThin />;
+                      case 'Finance':
+                        return <MdMoney />;
+                      case 'Architecture':
+                        return <PiNetworkXDuotone />;
+                      case 'APIs':
+                        return <AiTwotoneApi />;
+                      case 'DevOps & Tooling':
+                        return <PiToolboxDuotone />;
+                      case 'Frontend':
+                        return <TbApps />;
+                      case 'Quant & Math':
+                        return <TbMathIntegrals />;
+                      case 'Trading':
+                        return <RiStockFill />;
+                      default:
+                        return <FaTools />;
+                    }
+                  };
+
+                  return (
+                    <div key={category}>
+                      <h3 className={`mb-3 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] ${accentText}`}>
+                        {getCategoryIcon(category)}
+                        {category}
+                      </h3>
+                      <div className="flex flex-wrap gap-2.5">
+                        {skills
+                          .sort((a, b) => b.proficiency - a.proficiency)
+                          .map((skill) => (
+                            <SkillBadge
+                              key={skill.name}
+                              name={skill.name}
+                              proficiency={skill.proficiency}
+                              theme={theme}
+                            />
+                          ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </motion.section>
+
+            <motion.section id="portfolio" className="scroll-mt-24" {...fadeUp}>
+              <h2
+                className={`mb-6 flex items-center gap-2 font-syne text-2xl font-bold tracking-tight ${
+                  theme === 'meta' ? 'text-slate-900' : 'text-white'
+                }`}
+              >
+                <GiSoapExperiment className={accentText} />
+                Portfolio
+              </h2>
+              <Portfolio theme={theme} />
+            </motion.section>
+          </div>
+        </div>
       </div>
-      <PDFResume resumeType={resumeType} />
+      <PDFResume />
     </main>
-  )
-} 
+  );
+}

@@ -3,32 +3,33 @@
 import { motion } from 'framer-motion';
 import { Theme } from '@/types/theme';
 import { themeConfigs } from '@/utils/theme';
-import { playThemeAudio } from '@/utils/themeAudio';
 
 interface ThemeSwitcherProps {
   onThemeChange: (theme: Theme) => void;
   theme?: Theme;
 }
 
+/** White/green (meta) first, then dark teal (netflix). Discord kept in configs but hidden. */
+const SELECTABLE_THEMES: Theme[] = ['meta', 'netflix'];
+
 export default function ThemeSwitcher({ onThemeChange, theme }: ThemeSwitcherProps) {
   const activeTheme = theme === 'discord' ? 'meta' : (theme ?? 'meta');
-  const selectableThemes = (Object.keys(themeConfigs) as Theme[]).filter((t) => t !== 'discord');
+  const selectableThemes = SELECTABLE_THEMES.filter((t) => t in themeConfigs);
 
   const handleThemeChange = (next: Theme) => {
     onThemeChange(next);
-    playThemeAudio(next);
   };
 
   const getThemeColors = (t: Theme) => {
     switch (t) {
-      case 'netflix':
-        return { left: '#2DD4BF', right: '#0B1220' };
       case 'meta':
         return { left: '#0D9488', right: '#F3F6FA' };
+      case 'netflix':
+        return { left: '#2DD4BF', right: '#0B1220' };
       case 'discord':
         return { left: '#38BDF8', right: '#12151C' };
       default:
-        return { left: '#2DD4BF', right: '#0B1220' };
+        return { left: '#0D9488', right: '#F3F6FA' };
     }
   };
 

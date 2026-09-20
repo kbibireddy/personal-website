@@ -15,8 +15,6 @@ import { Theme } from '@/types/theme';
 import {
   getShellClasses,
   getAccentTextClass,
-  getAccentBorderClass,
-  getSurfaceClass,
   getMutedTextClass,
   getAccentHex,
 } from '@/utils/theme';
@@ -29,13 +27,11 @@ import {
   FaLinkedin,
   FaEnvelope,
   FaMapMarkerAlt,
-  FaGraduationCap,
   FaTools,
   FaFilePdf,
   FaFileWord,
 } from 'react-icons/fa';
 import { MdMoney } from 'react-icons/md';
-import { GiSoapExperiment } from 'react-icons/gi';
 import { PiCode, PiBrainThin, PiNetworkXDuotone, PiToolboxDuotone } from 'react-icons/pi';
 import { TbDatabase, TbApps, TbMathIntegrals } from 'react-icons/tb';
 import { BsGraphUpArrow } from 'react-icons/bs';
@@ -86,7 +82,7 @@ export default function Home() {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
@@ -103,22 +99,20 @@ export default function Home() {
 
   const accent = getAccentHex(theme);
   const accentText = getAccentTextClass(theme);
-  const accentBorder = getAccentBorderClass(theme);
-  const surface = getSurfaceClass(theme);
   const muted = getMutedTextClass(theme);
 
   return (
     <main
-      className={`relative min-h-screen w-full overflow-x-hidden transition-colors duration-500 ${getShellClasses(theme)}`}
+      className={`relative min-h-screen w-full transition-colors duration-500 ${getShellClasses(theme)}`}
     >
       <LatticeAtmosphere theme={theme} />
 
       <div className="relative z-10 mx-auto max-w-[90rem] px-5 py-8 sm:px-8 lg:px-12 lg:py-0">
         <ThemeSwitcher onThemeChange={setTheme} theme={theme} />
 
-        <div className="lg:grid lg:grid-cols-[minmax(18rem,26rem)_minmax(0,1fr)] lg:gap-16 xl:gap-24">
-          {/* Brand rail — hero-level name signal */}
-          <header className="relative mb-14 flex min-w-0 flex-col overflow-x-clip lg:sticky lg:top-0 lg:mb-0 lg:h-screen lg:py-20">
+        <div className="lg:grid lg:grid-cols-[minmax(18rem,26rem)_minmax(0,1fr)] lg:items-start lg:gap-16 xl:gap-24">
+          {/* Brand rail: sticky in viewport while content scrolls (self-start required for grid sticky) */}
+          <header className="relative mb-14 flex min-w-0 flex-col overflow-x-clip lg:sticky lg:top-0 lg:mb-0 lg:h-screen lg:self-start lg:overflow-x-visible lg:overflow-y-auto lg:py-20">
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
@@ -126,18 +120,34 @@ export default function Home() {
               className="flex min-w-0 flex-1 flex-col"
             >
               <h1
-                className={`max-w-full break-words font-syne text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-[3.15rem] ${
+                className={`max-w-full font-outfit text-4xl font-extrabold leading-[1.05] tracking-tight max-lg:whitespace-nowrap sm:text-5xl lg:text-[3.15rem] ${
                   theme === 'meta' ? 'text-slate-900' : 'text-white'
                 }`}
               >
-                {resumeData.name}
+                {(() => {
+                  const parts = resumeData.name.trim().split(/\s+/);
+                  const first = parts[0] ?? resumeData.name;
+                  const last = parts.slice(1).join(' ');
+                  return (
+                    <>
+                      <span className="lg:block">{first}</span>
+                      {last ? (
+                        <>
+                          <span className="lg:hidden"> </span>
+                          <span className="lg:block">{last}</span>
+                        </>
+                      ) : null}
+                    </>
+                  );
+                })()}
               </h1>
 
-              <p className={`mt-5 max-w-md text-base leading-relaxed sm:text-lg ${muted}`}>
-                I am a{' '}
-                <span className={`font-medium ${theme === 'meta' ? 'text-slate-900' : 'text-slate-100'}`}>
-                  {resumeData.headline}
-                </span>
+              <p
+                className={`mt-5 max-w-md text-base font-medium leading-relaxed sm:text-lg ${
+                  theme === 'meta' ? 'text-slate-900' : 'text-slate-100'
+                }`}
+              >
+                {resumeData.headline}
               </p>
 
               <p className={`mt-4 flex items-center gap-2 text-sm ${muted}`}>
@@ -184,58 +194,83 @@ export default function Home() {
                 })}
               </nav>
 
-              <div className="mt-7 flex flex-wrap items-center gap-3">
-                <motion.a
-                  href={resumeData.contact.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ y: -2 }}
-                  className={`inline-flex h-11 w-11 items-center justify-center rounded-xl border ${accentBorder} ${surface} text-xl transition-colors hover:opacity-90`}
-                  aria-label="GitHub"
-                >
-                  <FaGithub />
-                </motion.a>
-                <motion.a
-                  href={resumeData.contact.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ y: -2 }}
-                  className={`inline-flex h-11 w-11 items-center justify-center rounded-xl border ${accentBorder} ${surface} text-xl transition-colors hover:opacity-90`}
-                  aria-label="LinkedIn"
-                >
-                  <FaLinkedin />
-                </motion.a>
-                <motion.a
-                  href={`mailto:${resumeData.contact.email}`}
-                  whileHover={{ y: -2 }}
-                  className={`inline-flex h-11 w-11 items-center justify-center rounded-xl border ${accentBorder} ${surface} text-xl transition-colors hover:opacity-90`}
-                  aria-label="Email"
-                >
-                  <FaEnvelope />
-                </motion.a>
+              <div className="mt-8 space-y-5">
+                <div>
+                  <p className={`mb-2.5 font-mono text-[0.65rem] uppercase tracking-[0.14em] ${muted}`}>
+                    Get in touch
+                  </p>
+                  <div className="flex items-center gap-4">
+                    <motion.a
+                      href={resumeData.contact.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ y: -2 }}
+                      className={`text-xl transition-opacity hover:opacity-70 ${
+                        theme === 'meta' ? 'text-slate-800' : 'text-slate-100'
+                      }`}
+                      aria-label="GitHub"
+                    >
+                      <FaGithub />
+                    </motion.a>
+                    <motion.a
+                      href={resumeData.contact.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ y: -2 }}
+                      className={`text-xl transition-opacity hover:opacity-70 ${
+                        theme === 'meta' ? 'text-slate-800' : 'text-slate-100'
+                      }`}
+                      aria-label="LinkedIn"
+                    >
+                      <FaLinkedin />
+                    </motion.a>
+                    <motion.a
+                      href={`mailto:${resumeData.contact.email}`}
+                      whileHover={{ y: -2 }}
+                      className={`text-xl transition-opacity hover:opacity-70 ${
+                        theme === 'meta' ? 'text-slate-800' : 'text-slate-100'
+                      }`}
+                      aria-label="Email"
+                    >
+                      <FaEnvelope />
+                    </motion.a>
+                  </div>
+                </div>
 
-                <motion.button
-                  onClick={() => generatePDF()}
-                  whileHover={{ y: -2 }}
-                  className="inline-flex items-center gap-2 rounded-xl px-3.5 py-2.5 text-sm font-medium text-[#0B1220] transition-transform"
-                  style={{ background: `linear-gradient(135deg, ${accent}, ${theme === 'discord' ? '#0EA5E9' : '#14B8A6'})` }}
-                >
-                  <FaFilePdf />
-                  PDF
-                </motion.button>
-                <motion.button
-                  onClick={() => generateDOCX()}
-                  whileHover={{ y: -2 }}
-                  className={`inline-flex items-center gap-2 rounded-xl border ${accentBorder} ${surface} px-3.5 py-2.5 text-sm font-medium transition-transform`}
-                >
-                  <FaFileWord />
-                  DOCX
-                </motion.button>
+                <div>
+                  <p className={`mb-2.5 font-mono text-[0.65rem] uppercase tracking-[0.14em] ${muted}`}>
+                    Download latest resume
+                  </p>
+                  <div className="flex flex-wrap items-center gap-4">
+                    <motion.button
+                      type="button"
+                      onClick={() => generatePDF()}
+                      whileHover={{ y: -2 }}
+                      className={`inline-flex items-center gap-2 bg-transparent p-0 text-sm font-medium transition-opacity hover:opacity-70 ${
+                        theme === 'meta' ? 'text-slate-800' : 'text-slate-100'
+                      }`}
+                    >
+                      <FaFilePdf />
+                      PDF
+                    </motion.button>
+                    <motion.button
+                      type="button"
+                      onClick={() => generateDOCX()}
+                      whileHover={{ y: -2 }}
+                      className={`inline-flex items-center gap-2 bg-transparent p-0 text-sm font-medium transition-opacity hover:opacity-70 ${
+                        theme === 'meta' ? 'text-slate-800' : 'text-slate-100'
+                      }`}
+                    >
+                      <FaFileWord />
+                      DOCX
+                    </motion.button>
+                  </div>
+                </div>
               </div>
             </motion.div>
           </header>
 
-          {/* Scroll content — same sections & data */}
+          {/* Scroll content: same sections and data */}
           <div
             className="content-section mx-auto min-w-0 w-full pb-20 lg:py-20"
             style={
@@ -248,7 +283,7 @@ export default function Home() {
           >
             <motion.section id="summary" className="mb-16 scroll-mt-24" {...fadeUp}>
               <h2
-                className={`mb-4 font-syne text-2xl font-bold tracking-tight ${
+                className={`mb-4 font-outfit text-2xl font-bold tracking-tight ${
                   theme === 'meta' ? 'text-slate-900' : 'text-white'
                 }`}
               >
@@ -264,7 +299,7 @@ export default function Home() {
 
             <motion.section id="experience" className="mb-16 scroll-mt-24" {...fadeUp}>
               <h2
-                className={`mb-6 font-syne text-2xl font-bold tracking-tight ${
+                className={`mb-6 font-outfit text-2xl font-bold tracking-tight ${
                   theme === 'meta' ? 'text-slate-900' : 'text-white'
                 }`}
               >
@@ -275,11 +310,10 @@ export default function Home() {
 
             <motion.section id="education" className="mb-16 scroll-mt-24" {...fadeUp}>
               <h2
-                className={`mb-6 flex items-center gap-2 font-syne text-2xl font-bold tracking-tight ${
+                className={`mb-6 font-outfit text-2xl font-bold tracking-tight ${
                   theme === 'meta' ? 'text-slate-900' : 'text-white'
                 }`}
               >
-                <FaGraduationCap className={accentText} />
                 Education
               </h2>
               <div className="space-y-8 border-l border-current/10 pl-5">
@@ -290,7 +324,7 @@ export default function Home() {
                       style={{ backgroundColor: accent }}
                     />
                     <h3
-                      className={`font-syne text-lg font-semibold ${
+                      className={`font-outfit text-lg font-semibold ${
                         theme === 'meta' ? 'text-slate-900' : 'text-white'
                       }`}
                     >
@@ -319,11 +353,10 @@ export default function Home() {
 
             <motion.section id="skills" className="mb-16 scroll-mt-24" {...fadeUp}>
               <h2
-                className={`mb-6 flex items-center gap-2 font-syne text-2xl font-bold tracking-tight ${
+                className={`mb-6 font-outfit text-2xl font-bold tracking-tight ${
                   theme === 'meta' ? 'text-slate-900' : 'text-white'
                 }`}
               >
-                <FaTools className={accentText} />
                 Skills
               </h2>
               <div className="space-y-8">
@@ -394,11 +427,10 @@ export default function Home() {
 
             <motion.section id="portfolio" className="scroll-mt-24" {...fadeUp}>
               <h2
-                className={`mb-6 flex items-center gap-2 font-syne text-2xl font-bold tracking-tight ${
+                className={`mb-6 font-outfit text-2xl font-bold tracking-tight ${
                   theme === 'meta' ? 'text-slate-900' : 'text-white'
                 }`}
               >
-                <GiSoapExperiment className={accentText} />
                 Portfolio
               </h2>
               <Portfolio theme={theme} />

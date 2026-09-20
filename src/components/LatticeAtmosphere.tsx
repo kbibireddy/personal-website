@@ -9,7 +9,7 @@ interface Props {
 
 /**
  * Full-bleed atmosphere: faint lattice grid + mouse-tracking signal spotlight.
- * Presentation only — no content or link changes.
+ * Presentation only: no content or link changes.
  */
 export default function LatticeAtmosphere({ theme }: Props) {
   const rootRef = useRef<HTMLDivElement>(null);

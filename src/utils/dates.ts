@@ -84,19 +84,43 @@ export function getEarliestCareerStart(workExperience: WorkExperience[]): Date |
   );
 }
 
-/** Calendar years / months / days plus live h/m/s from earliest role start. */
-export function getCareerTenure(
-  workExperience: WorkExperience[],
-  asOf: Date = new Date()
-): CareerTenure {
-  const start = getEarliestCareerStart(workExperience);
-  if (!start) {
-    return { years: 0, months: 0, days: 0, hours: 0, minutes: 0, seconds: 0 };
+/**
+ * Calendar years + months from `start` through `asOf`.
+ * Any partial month rounds up to a full month. Used for job tenure labels.
+ */
+function getCalendarTenureYearsMonths(
+  start: Date,
+  asOf: Date
+): { years: number; months: number } {
+  let totalMonths =
+    (asOf.getFullYear() - start.getFullYear()) * 12 +
+    (asOf.getMonth() - start.getMonth());
+
+  const startDay = start.getDate();
+  const asOfDay = asOf.getDate();
+
+  if (asOfDay < startDay) {
+    totalMonths -= 1;
   }
 
-  return getCareerTenureFromStart(start, asOf);
+  if (asOfDay !== startDay) {
+    totalMonths += 1;
+  }
+
+  totalMonths = Math.max(0, totalMonths);
+
+  return {
+    years: Math.floor(totalMonths / 12),
+    months: totalMonths % 12,
+  };
 }
 
+export function isOngoingPeriod(period: string): boolean {
+  const parts = period.split(PERIOD_SEPARATOR).map((part) => part.trim());
+  return /^present$/i.test(parts[1] ?? '');
+}
+
+/** Full live tenure (y/m/d/h/m/s) from a career start timestamp. */
 export function getCareerTenureFromStart(
   start: Date,
   asOf: Date = new Date()
@@ -138,6 +162,19 @@ export function getCareerTenureFromStart(
   };
 }
 
+/** Live tenure from earliest role start (intro timer). */
+export function getCareerTenure(
+  workExperience: WorkExperience[],
+  asOf: Date = new Date()
+): CareerTenure {
+  const start = getEarliestCareerStart(workExperience);
+  if (!start) {
+    return { years: 0, months: 0, days: 0, hours: 0, minutes: 0, seconds: 0 };
+  }
+
+  return getCareerTenureFromStart(start, asOf);
+}
+
 export function getTotalCareerYears(workExperience: WorkExperience[]): number {
   const tenure = getCareerTenure(workExperience);
   return Math.max(1, tenure.years);
@@ -147,7 +184,7 @@ function pluralize(count: number, singular: string, plural: string): string {
   return `${count} ${count === 1 ? singular : plural}`;
 }
 
-/** e.g. "9 years, 3 months, 19 days, 14h, 32m, 05s" */
+/** Intro timer label: "9 years, 3 months, 19 days, 14h, 32m, 05s" */
 export function formatCareerTenure(tenure: CareerTenure): string {
   const pad = (n: number) => n.toString().padStart(2, '0');
   return [
@@ -158,6 +195,31 @@ export function formatCareerTenure(tenure: CareerTenure): string {
     `${tenure.minutes}m`,
     `${pad(tenure.seconds)}s`,
   ].join(', ');
+}
+
+/** Compact years+months for job title tenure badges. */
+export function formatCareerTenureYearsMonths(tenure: {
+  years: number;
+  months: number;
+}): string {
+  return `${pluralize(tenure.years, 'year', 'years')}, ${pluralize(tenure.months, 'month', 'months')}`;
+}
+
+/**
+ * Tenure label beside a job title.
+ * Ongoing (`Present`) roles use live years+months; completed roles keep rounded years.
+ */
+export function formatJobTenureLabel(period: string, asOf: Date = new Date()): string {
+  const parsed = parseWorkPeriod(period);
+  if (!parsed) {
+    return '';
+  }
+
+  if (isOngoingPeriod(period)) {
+    return `(${formatCareerTenureYearsMonths(getCalendarTenureYearsMonths(parsed.start, asOf))})`;
+  }
+
+  return formatYearsSinceStart(period);
 }
 
 export const CAREER_TENURE_TOKEN = /\{\{\s*careerTenure\s*\}\}/g;

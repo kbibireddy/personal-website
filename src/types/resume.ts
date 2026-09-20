@@ -37,8 +37,7 @@ export interface Project {
 export interface Resume {
   name: string;
   headline: string;
-  /** Site About / intro copy. Use {{careerTenure}} for a live years/months/days/h/m/s timer. */
-  introduction: string[];
+  /** Site About / intro copy. Use {{careerTenure}} for a live years/months/days/h/m/s timer. */  introduction: string[];
   /** Concise summary for PDF/DOCX resume export only. */
   professionalSummary: string;
   website: string;

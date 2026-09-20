@@ -21,6 +21,13 @@
         "title": "Sr. Software Development Engineer",
         "company": "Amazon",
         "period": "Jul 2020 - Present",
+        "summary": [
+          "Owned zero-downtime multi-region migration for list-price validation (~8M QPS, 200M+ records/day); cut NAT egress ~90% with VPC endpoints.",
+          "Shipped AI-first internal apps (Text Forge, Chart Forge, ticket labeling) and on-call triage that cut initial triage time by 30%.",
+          "Designed a unified pricing configuration platform with versioning and safe previews so program managers can test changes before rollout.",
+          "Own Spark/EMR/Scala batch and streaming pipelines powering List Price and Alexa Shopping price history across 300M+ products.",
+          "Delivered Alexa Automotive conversational car control and Teachable AI, plus C++ messaging middleware launched with major OEMs."
+        ],
         "description": [
           "Sole owner of a zero-downtime, multi-region infrastructure migration for a customer-facing list-price validation service built as a hybrid of event-driven and streaming pipelines. Rebuilt the full IaC stack with AWS CDK, reduced NAT egress by roughly 90% (from 470GB to 6GB) using VPC endpoints, and lowered capacity concentration risk while maintaining 99.9% data accuracy and zero downtime on a service that processes 200M+ records per day worldwide and serves approximately 8M QPS across Amazon domains.",
           "Built various AI-first apps used across Amazon, including Text Forge (~100 DAU, ~550 LLM-backed transforms/day) for one-click text cleanup and transformations, Chart Forge for converting plain-text and tabular data into time-series charts, and an AI ticket-labeling tool for semantic classification with trend analytics, adopted by Pricing Support teams as an early-warning signal for systemic issues. Also architected multi-stage on-call triage that has processed ~5,000 tickets in 10 months and cut initial triage time by 30%.",
@@ -33,6 +40,11 @@
         "title": "Software Engineer",
         "company": "Algoface",
         "period": "Mar 2019 - Jun 2020",
+        "summary": [
+          "Built real-time computer vision services for face tracking and AR virtual try-on on web and mobile.",
+          "Led WebAssembly performance work to cut latency and smooth rendering across TypeScript and C++ inference layers.",
+          "Scaled containerized cloud infra with monitoring and CI/CD, partnering with enterprise customers on production integrations."
+        ],
         "description": [
           "Architected and deployed computer vision services for real-time face tracking and AR virtual try-on across web and mobile experiences.",
           "Led WebAssembly performance optimization initiatives, improving latency and rendering smoothness through precision tuning and memory efficiency work.",
@@ -45,6 +57,11 @@
         "title": "Software Engineer",
         "company": "Windhoverlabs",
         "period": "Sep 2017 - Feb 2019",
+        "summary": [
+          "Built aerospace ground-control software with 3D mapping and real-time aircraft tracking for low-latency telemetry.",
+          "Shipped a Primary Flight Display broadcasting drone telemetry over UDP for operator decision support.",
+          "Delivered fault-tolerant C++ flight software on NASA Core Flight Systems with peer review and flight-trial validation."
+        ],
         "description": [
           "Developed aerospace ground-control software with 3D geolocation mapping and real-time aircraft tracking, enabling low-latency telemetry visualization.",
           "Built a Primary Flight Display using JavaScript/Node.js, broadcasting drone telemetry over UDP for real-time monitoring and operator decision support.",
@@ -57,6 +74,10 @@
         "title": "Software Developer Intern",
         "company": "Zdaly",
         "period": "Jun 2017 - Aug 2017",
+        "summary": [
+          "Built an NLP news aggregation widget with topic modeling for McDermott's corporate homepage.",
+          "Shipped enterprise NLP apps and ingestion pipelines handling millions of global data sources."
+        ],
         "description": [
           "Built an NLP-powered news aggregation widget using topic modeling and keyword extraction for McDermott's corporate homepage.",
           "Developed enterprise-facing NLP applications for finance and energy customers.",

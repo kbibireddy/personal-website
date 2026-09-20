@@ -1,10 +1,14 @@
 "use client";
 
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Theme } from '@/types/theme';
-import { getMutedTextClass } from '@/utils/theme';
+import { getAccentTextClass, getMutedTextClass } from '@/utils/theme';
 import { useResume } from '@/utils/useResume';
 import { formatJobTenureLabel } from '@/utils/dates';
+
+/** Ideal scannable length per summary bullet (~8s attention / one breath). */
+export const WORK_SUMMARY_MAX_WORDS = 25;
 
 interface WorkExperienceProps {
   theme: Theme;
@@ -13,6 +17,8 @@ interface WorkExperienceProps {
 export default function WorkExperience({ theme }: WorkExperienceProps) {
   const { resume: resumeData, loading } = useResume();
   const muted = getMutedTextClass(theme);
+  const accentText = getAccentTextClass(theme);
+  const [expanded, setExpanded] = useState<Record<number, boolean>>({});
 
   if (loading || !resumeData) {
     return (
@@ -22,10 +28,16 @@ export default function WorkExperience({ theme }: WorkExperienceProps) {
     );
   }
 
+  const toggle = (index: number) => {
+    setExpanded((prev) => ({ ...prev, [index]: !prev[index] }));
+  };
+
   return (
     <div className="space-y-10">
       {resumeData.workExperience.map((job, index) => {
         const tenureLabel = formatJobTenureLabel(job.period);
+        const isOpen = !!expanded[index];
+        const bullets = isOpen ? job.description : job.summary;
 
         return (
           <motion.article
@@ -53,15 +65,32 @@ export default function WorkExperience({ theme }: WorkExperienceProps) {
                 {job.period}
               </span>
             </div>
-            <ul
-              className={`list-disc space-y-2.5 pl-5 text-[0.95rem] leading-relaxed ${
-                theme === 'meta' ? 'text-slate-700' : 'text-slate-300'
-              }`}
+
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.ul
+                key={isOpen ? 'details' : 'summary'}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                transition={{ duration: 0.2 }}
+                className={`list-disc space-y-2.5 pl-5 text-[0.95rem] leading-relaxed ${
+                  theme === 'meta' ? 'text-slate-700' : 'text-slate-300'
+                }`}
+              >
+                {bullets.map((desc, i) => (
+                  <li key={i}>{desc}</li>
+                ))}
+              </motion.ul>
+            </AnimatePresence>
+
+            <button
+              type="button"
+              onClick={() => toggle(index)}
+              aria-expanded={isOpen}
+              className={`mt-3 text-sm font-medium underline underline-offset-2 transition-colors ${accentText}`}
             >
-              {job.description.map((desc, i) => (
-                <li key={i}>{desc}</li>
-              ))}
-            </ul>
+              {isOpen ? 'Show summary' : 'Show full details'}
+            </button>
           </motion.article>
         );
       })}

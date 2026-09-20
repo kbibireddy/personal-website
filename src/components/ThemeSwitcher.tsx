@@ -10,7 +10,7 @@ interface ThemeSwitcherProps {
 }
 
 export default function ThemeSwitcher({ onThemeChange, theme }: ThemeSwitcherProps) {
-  const activeTheme = theme === 'discord' ? 'netflix' : (theme ?? 'netflix');
+  const activeTheme = theme === 'discord' ? 'meta' : (theme ?? 'meta');
   const selectableThemes = (Object.keys(themeConfigs) as Theme[]).filter((t) => t !== 'discord');
 
   const handleThemeChange = (next: Theme) => {

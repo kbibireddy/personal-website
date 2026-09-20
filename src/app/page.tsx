@@ -59,7 +59,7 @@ const fadeUp = {
 };
 
 export default function Home() {
-  const [theme, setTheme] = useState<Theme>('netflix');
+  const [theme, setTheme] = useState<Theme>('meta');
   const [mounted, setMounted] = useState(false);
   const [showGPA, setShowGPA] = useState<{ [key: number]: boolean }>({});
   const { resume: resumeData, loading } = useResume();

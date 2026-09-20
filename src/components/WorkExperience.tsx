@@ -37,7 +37,7 @@ export default function WorkExperience({ theme }: WorkExperienceProps) {
       {resumeData.workExperience.map((job, index) => {
         const tenureLabel = formatJobTenureLabel(job.period);
         const isOpen = !!expanded[index];
-        const bullets = isOpen ? job.description : job.summary;
+        const bullets = isOpen ? job.description : (job.summary ?? job.description);
 
         return (
           <motion.article
@@ -83,14 +83,16 @@ export default function WorkExperience({ theme }: WorkExperienceProps) {
               </motion.ul>
             </AnimatePresence>
 
-            <button
-              type="button"
-              onClick={() => toggle(index)}
-              aria-expanded={isOpen}
-              className={`mt-3 text-sm font-medium underline underline-offset-2 transition-colors ${accentText}`}
-            >
-              {isOpen ? 'Show summary' : 'Show full details'}
-            </button>
+            {(job.summary?.length ?? 0) > 0 && (
+              <button
+                type="button"
+                onClick={() => toggle(index)}
+                aria-expanded={isOpen}
+                className={`mt-3 text-sm font-medium underline underline-offset-2 transition-colors ${accentText}`}
+              >
+                {isOpen ? 'Show summary' : 'Show full details'}
+              </button>
+            )}
           </motion.article>
         );
       })}

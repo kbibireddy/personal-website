@@ -18,7 +18,7 @@ export interface WorkExperience {
   title: string;
   period: string;
   /** Short site-facing bullets (≤25 words each); expanded details use `description`. */
-  summary: string[];
+  summary?: string[];
   description: string[];
 }
 

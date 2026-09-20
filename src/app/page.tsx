@@ -118,7 +118,7 @@ export default function Home() {
         <ThemeSwitcher onThemeChange={setTheme} theme={theme} />
 
         <div className="lg:grid lg:grid-cols-[minmax(18rem,26rem)_minmax(0,1fr)] lg:gap-16 xl:gap-24">
-          {/* Brand rail — hero-level name signal */}
+          {/* Brand rail: hero-level name signal */}
           <header className="relative mb-14 flex min-w-0 flex-col overflow-x-clip lg:sticky lg:top-0 lg:mb-0 lg:h-screen lg:py-20">
             <motion.div
               initial={{ opacity: 0, y: 12 }}
@@ -236,7 +236,7 @@ export default function Home() {
             </motion.div>
           </header>
 
-          {/* Scroll content — same sections & data */}
+          {/* Scroll content: same sections and data */}
           <div
             className="content-section mx-auto min-w-0 w-full pb-20 lg:py-20"
             style={

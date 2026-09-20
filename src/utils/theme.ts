@@ -12,19 +12,8 @@ interface ThemeConfig {
   font: string;
 }
 
-/** Restyled accent systems — same theme IDs, new visual language. */
+/** Restyled accent systems: same theme IDs, new visual language. White/green (meta) is primary. */
 export const themeConfigs: Record<Theme, ThemeConfig> = {
-  netflix: {
-    primary: '#2DD4BF',
-    secondary: '#14B8A6',
-    background: '#0B1220',
-    text: '#E8EEF7',
-    accent: '#2DD4BF',
-    cardBg: 'bg-white/[0.04]',
-    muted: '#94A3B8',
-    highlight: '#5EEAD4',
-    font: 'font-outfit antialiased',
-  },
   meta: {
     primary: '#0D9488',
     secondary: '#0F766E',
@@ -34,6 +23,17 @@ export const themeConfigs: Record<Theme, ThemeConfig> = {
     cardBg: 'bg-slate-900/[0.04]',
     muted: '#64748B',
     highlight: '#14B8A6',
+    font: 'font-outfit antialiased',
+  },
+  netflix: {
+    primary: '#2DD4BF',
+    secondary: '#14B8A6',
+    background: '#0B1220',
+    text: '#E8EEF7',
+    accent: '#2DD4BF',
+    cardBg: 'bg-white/[0.04]',
+    muted: '#94A3B8',
+    highlight: '#5EEAD4',
     font: 'font-outfit antialiased',
   },
   discord: {

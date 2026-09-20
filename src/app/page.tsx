@@ -85,7 +85,7 @@ export default function Home() {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
@@ -110,16 +110,16 @@ export default function Home() {
 
   return (
     <main
-      className={`relative min-h-screen w-full overflow-x-hidden transition-colors duration-500 ${getShellClasses(theme)}`}
+      className={`relative min-h-screen w-full transition-colors duration-500 ${getShellClasses(theme)}`}
     >
       <LatticeAtmosphere theme={theme} />
 
       <div className="relative z-10 mx-auto max-w-[90rem] px-5 py-8 sm:px-8 lg:px-12 lg:py-0">
         <ThemeSwitcher onThemeChange={setTheme} theme={theme} />
 
-        <div className="lg:grid lg:grid-cols-[minmax(18rem,26rem)_minmax(0,1fr)] lg:gap-16 xl:gap-24">
-          {/* Brand rail: hero-level name signal */}
-          <header className="relative mb-14 flex min-w-0 flex-col overflow-x-clip lg:sticky lg:top-0 lg:mb-0 lg:h-screen lg:py-20">
+        <div className="lg:grid lg:grid-cols-[minmax(18rem,26rem)_minmax(0,1fr)] lg:items-start lg:gap-16 xl:gap-24">
+          {/* Brand rail: sticky in viewport while content scrolls (self-start required for grid sticky) */}
+          <header className="relative mb-14 flex min-w-0 flex-col overflow-x-clip lg:sticky lg:top-0 lg:mb-0 lg:h-screen lg:self-start lg:overflow-x-visible lg:overflow-y-auto lg:py-20">
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}

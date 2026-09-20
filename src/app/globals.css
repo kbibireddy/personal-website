@@ -53,8 +53,8 @@
     scroll-behavior: smooth;
   }
 
+  /* Do not set overflow-x:hidden on html/body: it breaks position:sticky for the left rail. */
   html, body {
-    @apply overflow-x-hidden;
     height: 100%;
     margin: 0;
     padding: 0;

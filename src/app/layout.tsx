@@ -1,19 +1,12 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import { Syne, Outfit, IBM_Plex_Mono } from 'next/font/google'
-
-const syne = Syne({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-syne',
-  weight: ['500', '600', '700', '800'],
-})
+import { Outfit, IBM_Plex_Mono } from 'next/font/google'
 
 const outfit = Outfit({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-outfit',
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['300', '400', '500', '600', '700', '800'],
 })
 
 const ibmPlexMono = IBM_Plex_Mono({
@@ -36,7 +29,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${syne.variable} ${outfit.variable} ${ibmPlexMono.variable}`}
+      className={`${outfit.variable} ${ibmPlexMono.variable}`}
       suppressHydrationWarning
     >
       <head>

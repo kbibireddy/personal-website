@@ -127,18 +127,34 @@ export default function Home() {
               className="flex min-w-0 flex-1 flex-col"
             >
               <h1
-                className={`max-w-full break-words font-syne text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-[3.15rem] ${
+                className={`max-w-full font-outfit text-4xl font-extrabold leading-[1.05] tracking-tight max-lg:whitespace-nowrap sm:text-5xl lg:text-[3.15rem] ${
                   theme === 'meta' ? 'text-slate-900' : 'text-white'
                 }`}
               >
-                {resumeData.name}
+                {(() => {
+                  const parts = resumeData.name.trim().split(/\s+/);
+                  const first = parts[0] ?? resumeData.name;
+                  const last = parts.slice(1).join(' ');
+                  return (
+                    <>
+                      <span className="lg:block">{first}</span>
+                      {last ? (
+                        <>
+                          <span className="lg:hidden"> </span>
+                          <span className="lg:block">{last}</span>
+                        </>
+                      ) : null}
+                    </>
+                  );
+                })()}
               </h1>
 
-              <p className={`mt-5 max-w-md text-base leading-relaxed sm:text-lg ${muted}`}>
-                I am a{' '}
-                <span className={`font-medium ${theme === 'meta' ? 'text-slate-900' : 'text-slate-100'}`}>
-                  {resumeData.headline}
-                </span>
+              <p
+                className={`mt-5 max-w-md text-base font-medium leading-relaxed sm:text-lg ${
+                  theme === 'meta' ? 'text-slate-900' : 'text-slate-100'
+                }`}
+              >
+                {resumeData.headline}
               </p>
 
               <p className={`mt-4 flex items-center gap-2 text-sm ${muted}`}>
@@ -185,53 +201,77 @@ export default function Home() {
                 })}
               </nav>
 
-              <div className="mt-7 flex flex-wrap items-center gap-3">
-                <motion.a
-                  href={resumeData.contact.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ y: -2 }}
-                  className={`inline-flex h-11 w-11 items-center justify-center rounded-xl border ${accentBorder} ${surface} text-xl transition-colors hover:opacity-90`}
-                  aria-label="GitHub"
-                >
-                  <FaGithub />
-                </motion.a>
-                <motion.a
-                  href={resumeData.contact.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ y: -2 }}
-                  className={`inline-flex h-11 w-11 items-center justify-center rounded-xl border ${accentBorder} ${surface} text-xl transition-colors hover:opacity-90`}
-                  aria-label="LinkedIn"
-                >
-                  <FaLinkedin />
-                </motion.a>
-                <motion.a
-                  href={`mailto:${resumeData.contact.email}`}
-                  whileHover={{ y: -2 }}
-                  className={`inline-flex h-11 w-11 items-center justify-center rounded-xl border ${accentBorder} ${surface} text-xl transition-colors hover:opacity-90`}
-                  aria-label="Email"
-                >
-                  <FaEnvelope />
-                </motion.a>
+              <div className="mt-8 space-y-5">
+                <div>
+                  <p className={`mb-2.5 font-mono text-[0.65rem] uppercase tracking-[0.14em] ${muted}`}>
+                    Get in touch
+                  </p>
+                  <div className="flex items-center gap-4">
+                    <motion.a
+                      href={resumeData.contact.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ y: -2 }}
+                      className={`text-xl transition-opacity hover:opacity-70 ${
+                        theme === 'meta' ? 'text-slate-800' : 'text-slate-100'
+                      }`}
+                      aria-label="GitHub"
+                    >
+                      <FaGithub />
+                    </motion.a>
+                    <motion.a
+                      href={resumeData.contact.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ y: -2 }}
+                      className={`text-xl transition-opacity hover:opacity-70 ${
+                        theme === 'meta' ? 'text-slate-800' : 'text-slate-100'
+                      }`}
+                      aria-label="LinkedIn"
+                    >
+                      <FaLinkedin />
+                    </motion.a>
+                    <motion.a
+                      href={`mailto:${resumeData.contact.email}`}
+                      whileHover={{ y: -2 }}
+                      className={`text-xl transition-opacity hover:opacity-70 ${
+                        theme === 'meta' ? 'text-slate-800' : 'text-slate-100'
+                      }`}
+                      aria-label="Email"
+                    >
+                      <FaEnvelope />
+                    </motion.a>
+                  </div>
+                </div>
 
-                <motion.button
-                  onClick={() => generatePDF()}
-                  whileHover={{ y: -2 }}
-                  className="inline-flex items-center gap-2 rounded-xl px-3.5 py-2.5 text-sm font-medium text-[#0B1220] transition-transform"
-                  style={{ background: `linear-gradient(135deg, ${accent}, ${theme === 'discord' ? '#0EA5E9' : '#14B8A6'})` }}
-                >
-                  <FaFilePdf />
-                  PDF
-                </motion.button>
-                <motion.button
-                  onClick={() => generateDOCX()}
-                  whileHover={{ y: -2 }}
-                  className={`inline-flex items-center gap-2 rounded-xl border ${accentBorder} ${surface} px-3.5 py-2.5 text-sm font-medium transition-transform`}
-                >
-                  <FaFileWord />
-                  DOCX
-                </motion.button>
+                <div>
+                  <p className={`mb-2.5 font-mono text-[0.65rem] uppercase tracking-[0.14em] ${muted}`}>
+                    Download latest resume
+                  </p>
+                  <div className="flex flex-wrap items-center gap-2.5">
+                    <motion.button
+                      onClick={() => generatePDF()}
+                      whileHover={{ y: -2 }}
+                      className="inline-flex items-center gap-2 rounded-xl px-3.5 py-2.5 text-sm font-medium text-[#0B1220] transition-transform"
+                      style={{
+                        background: `linear-gradient(135deg, ${accent}, ${
+                          theme === 'discord' ? '#0EA5E9' : '#14B8A6'
+                        })`,
+                      }}
+                    >
+                      <FaFilePdf />
+                      PDF
+                    </motion.button>
+                    <motion.button
+                      onClick={() => generateDOCX()}
+                      whileHover={{ y: -2 }}
+                      className={`inline-flex items-center gap-2 rounded-xl border ${accentBorder} ${surface} px-3.5 py-2.5 text-sm font-medium transition-transform`}
+                    >
+                      <FaFileWord />
+                      DOCX
+                    </motion.button>
+                  </div>
+                </div>
               </div>
             </motion.div>
           </header>
@@ -249,7 +289,7 @@ export default function Home() {
           >
             <motion.section id="summary" className="mb-16 scroll-mt-24" {...fadeUp}>
               <h2
-                className={`mb-4 font-syne text-2xl font-bold tracking-tight ${
+                className={`mb-4 font-outfit text-2xl font-bold tracking-tight ${
                   theme === 'meta' ? 'text-slate-900' : 'text-white'
                 }`}
               >
@@ -264,7 +304,7 @@ export default function Home() {
 
             <motion.section id="experience" className="mb-16 scroll-mt-24" {...fadeUp}>
               <h2
-                className={`mb-6 font-syne text-2xl font-bold tracking-tight ${
+                className={`mb-6 font-outfit text-2xl font-bold tracking-tight ${
                   theme === 'meta' ? 'text-slate-900' : 'text-white'
                 }`}
               >
@@ -275,7 +315,7 @@ export default function Home() {
 
             <motion.section id="education" className="mb-16 scroll-mt-24" {...fadeUp}>
               <h2
-                className={`mb-6 flex items-center gap-2 font-syne text-2xl font-bold tracking-tight ${
+                className={`mb-6 flex items-center gap-2 font-outfit text-2xl font-bold tracking-tight ${
                   theme === 'meta' ? 'text-slate-900' : 'text-white'
                 }`}
               >
@@ -290,7 +330,7 @@ export default function Home() {
                       style={{ backgroundColor: accent }}
                     />
                     <h3
-                      className={`font-syne text-lg font-semibold ${
+                      className={`font-outfit text-lg font-semibold ${
                         theme === 'meta' ? 'text-slate-900' : 'text-white'
                       }`}
                     >
@@ -319,7 +359,7 @@ export default function Home() {
 
             <motion.section id="skills" className="mb-16 scroll-mt-24" {...fadeUp}>
               <h2
-                className={`mb-6 flex items-center gap-2 font-syne text-2xl font-bold tracking-tight ${
+                className={`mb-6 flex items-center gap-2 font-outfit text-2xl font-bold tracking-tight ${
                   theme === 'meta' ? 'text-slate-900' : 'text-white'
                 }`}
               >
@@ -394,7 +434,7 @@ export default function Home() {
 
             <motion.section id="portfolio" className="scroll-mt-24" {...fadeUp}>
               <h2
-                className={`mb-6 flex items-center gap-2 font-syne text-2xl font-bold tracking-tight ${
+                className={`mb-6 flex items-center gap-2 font-outfit text-2xl font-bold tracking-tight ${
                   theme === 'meta' ? 'text-slate-900' : 'text-white'
                 }`}
               >

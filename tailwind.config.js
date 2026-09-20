@@ -54,13 +54,14 @@ module.exports = {
         },
       },
       fontFamily: {
-        syne: [
-          'var(--font-syne)',
+        outfit: [
+          'var(--font-outfit)',
           'ui-sans-serif',
           'system-ui',
           'sans-serif',
         ],
-        outfit: [
+        // Alias legacy display key to Outfit so any leftover classes stay consistent
+        syne: [
           'var(--font-outfit)',
           'ui-sans-serif',
           'system-ui',
@@ -75,9 +76,8 @@ module.exports = {
           'Consolas',
           'monospace',
         ],
-        // Legacy keys → expressive fonts, with system fallbacks from theme-audio branch
         'space-grotesk': [
-          'var(--font-syne)',
+          'var(--font-outfit)',
           'ui-sans-serif',
           'system-ui',
           'sans-serif',

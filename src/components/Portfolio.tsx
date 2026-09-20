@@ -48,7 +48,7 @@ export default function Portfolio({ theme }: PortfolioProps) {
         >
           <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
             <h3
-              className={`font-syne text-xl font-semibold ${
+              className={`font-outfit text-xl font-semibold ${
                 theme === 'meta' ? 'text-slate-900' : 'text-white'
               }`}
             >

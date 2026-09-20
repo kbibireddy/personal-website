@@ -64,7 +64,6 @@ export function formatYearsSinceStart(period: string): string {
 export interface CareerTenure {
   years: number;
   months: number;
-  days: number;
 }
 
 function getEarliestCareerStart(workExperience: WorkExperience[]): Date | null {
@@ -81,27 +80,33 @@ function getEarliestCareerStart(workExperience: WorkExperience[]): Date | null {
   );
 }
 
-/** Calendar years / months / days from `start` through `asOf`. */
+/**
+ * Calendar years + months from `start` through `asOf`.
+ * Any partial month rounds up to a full month.
+ */
 function getCalendarTenure(start: Date, asOf: Date): CareerTenure {
-  let years = asOf.getFullYear() - start.getFullYear();
-  let months = asOf.getMonth() - start.getMonth();
-  let days = asOf.getDate() - start.getDate();
+  let totalMonths =
+    (asOf.getFullYear() - start.getFullYear()) * 12 +
+    (asOf.getMonth() - start.getMonth());
 
-  if (days < 0) {
-    months -= 1;
-    const daysInPrevMonth = new Date(asOf.getFullYear(), asOf.getMonth(), 0).getDate();
-    days += daysInPrevMonth;
+  const startDay = start.getDate();
+  const asOfDay = asOf.getDate();
+
+  // Not yet reached the start day-of-month → drop the incomplete month first
+  if (asOfDay < startDay) {
+    totalMonths -= 1;
   }
 
-  if (months < 0) {
-    years -= 1;
-    months += 12;
+  // Any leftover days (not an exact anniversary) round up one month
+  if (asOfDay !== startDay) {
+    totalMonths += 1;
   }
+
+  totalMonths = Math.max(0, totalMonths);
 
   return {
-    years: Math.max(0, years),
-    months: Math.max(0, months),
-    days: Math.max(0, days),
+    years: Math.floor(totalMonths / 12),
+    months: totalMonths % 12,
   };
 }
 
@@ -110,14 +115,14 @@ export function isOngoingPeriod(period: string): boolean {
   return /^present$/i.test(parts[1] ?? '');
 }
 
-/** Calendar years / months / days from earliest role start through today. */
+/** Calendar years + months from earliest role start through today (partial month rounds up). */
 export function getCareerTenure(
   workExperience: WorkExperience[],
   asOf: Date = new Date()
 ): CareerTenure {
   const start = getEarliestCareerStart(workExperience);
   if (!start) {
-    return { years: 0, months: 0, days: 0 };
+    return { years: 0, months: 0 };
   }
 
   return getCalendarTenure(start, asOf);
@@ -131,13 +136,12 @@ export function getTotalCareerYears(workExperience: WorkExperience[]): number {
 export function formatCareerTenure(tenure: CareerTenure): string {
   const yearLabel = tenure.years === 1 ? 'year' : 'years';
   const monthLabel = tenure.months === 1 ? 'month' : 'months';
-  const dayLabel = tenure.days === 1 ? 'day' : 'days';
-  return `${tenure.years} ${yearLabel}, ${tenure.months} ${monthLabel}, ${tenure.days}+ ${dayLabel}`;
+  return `${tenure.years} ${yearLabel}, ${tenure.months} ${monthLabel}`;
 }
 
 /**
  * Tenure label beside a job title.
- * Ongoing (`Present`) roles use the same live Y/M/D+ pattern as the intro;
+ * Ongoing (`Present`) roles use the same live years+months pattern as the intro;
  * completed roles keep the compact rounded-years label.
  */
 export function formatJobTenureLabel(period: string, asOf: Date = new Date()): string {

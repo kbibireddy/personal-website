@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { Theme } from '@/types/theme';
 import {
   getAccentHex,
-  getAccentBorderClass,
   getMutedTextClass,
 } from '@/utils/theme';
 import { FaExternalLinkAlt } from 'react-icons/fa';
@@ -17,7 +16,6 @@ interface PortfolioProps {
 export default function Portfolio({ theme }: PortfolioProps) {
   const accent = getAccentHex(theme);
   const muted = getMutedTextClass(theme);
-  const accentBorder = getAccentBorderClass(theme);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -33,7 +31,7 @@ export default function Portfolio({ theme }: PortfolioProps) {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="grid grid-cols-1 gap-x-10 gap-y-12 sm:grid-cols-2 sm:items-start">
       {resumeData.projects?.map((project, index) => (
         <motion.article
           key={index}
@@ -41,8 +39,7 @@ export default function Portfolio({ theme }: PortfolioProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-8% 0px' }}
           transition={{ duration: 0.45, delay: index * 0.05 }}
-          whileHover={{ x: 4 }}
-          className="py-1"
+          className="min-w-0"
         >
           <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
             <h3

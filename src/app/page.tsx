@@ -316,13 +316,9 @@ export default function Home() {
               >
                 Education
               </h2>
-              <div className="space-y-8 border-l border-current/10 pl-5">
+              <div className="grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2 sm:items-start">
                 {resumeData.education.map((edu, index) => (
-                  <div key={index} className="relative">
-                    <span
-                      className="absolute -left-[1.4rem] top-1.5 h-2.5 w-2.5 rounded-full"
-                      style={{ backgroundColor: accent }}
-                    />
+                  <div key={index} className="min-w-0">
                     <h3
                       className={`font-outfit text-lg font-semibold ${
                         theme === 'meta' ? 'text-slate-900' : 'text-white'

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Theme } from '@/types/theme';
 import { getMutedTextClass } from '@/utils/theme';
 import { useResume } from '@/utils/useResume';
-import { formatYearsSinceStart } from '@/utils/dates';
+import { formatJobTenureLabel } from '@/utils/dates';
 
 interface WorkExperienceProps {
   theme: Theme;
@@ -25,7 +25,7 @@ export default function WorkExperience({ theme }: WorkExperienceProps) {
   return (
     <div className="space-y-10">
       {resumeData.workExperience.map((job, index) => {
-        const tenureLabel = formatYearsSinceStart(job.period);
+        const tenureLabel = formatJobTenureLabel(job.period);
 
         return (
           <motion.article

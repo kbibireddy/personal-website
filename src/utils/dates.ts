@@ -81,16 +81,8 @@ function getEarliestCareerStart(workExperience: WorkExperience[]): Date | null {
   );
 }
 
-/** Calendar years / months / days from earliest role start through today. */
-export function getCareerTenure(
-  workExperience: WorkExperience[],
-  asOf: Date = new Date()
-): CareerTenure {
-  const start = getEarliestCareerStart(workExperience);
-  if (!start) {
-    return { years: 0, months: 0, days: 0 };
-  }
-
+/** Calendar years / months / days from `start` through `asOf`. */
+function getCalendarTenure(start: Date, asOf: Date): CareerTenure {
   let years = asOf.getFullYear() - start.getFullYear();
   let months = asOf.getMonth() - start.getMonth();
   let days = asOf.getDate() - start.getDate();
@@ -113,6 +105,24 @@ export function getCareerTenure(
   };
 }
 
+export function isOngoingPeriod(period: string): boolean {
+  const parts = period.split(PERIOD_SEPARATOR).map((part) => part.trim());
+  return /^present$/i.test(parts[1] ?? '');
+}
+
+/** Calendar years / months / days from earliest role start through today. */
+export function getCareerTenure(
+  workExperience: WorkExperience[],
+  asOf: Date = new Date()
+): CareerTenure {
+  const start = getEarliestCareerStart(workExperience);
+  if (!start) {
+    return { years: 0, months: 0, days: 0 };
+  }
+
+  return getCalendarTenure(start, asOf);
+}
+
 export function getTotalCareerYears(workExperience: WorkExperience[]): number {
   const tenure = getCareerTenure(workExperience);
   return Math.max(1, tenure.years);
@@ -123,6 +133,24 @@ export function formatCareerTenure(tenure: CareerTenure): string {
   const monthLabel = tenure.months === 1 ? 'month' : 'months';
   const dayLabel = tenure.days === 1 ? 'day' : 'days';
   return `${tenure.years} ${yearLabel}, ${tenure.months} ${monthLabel}, ${tenure.days}+ ${dayLabel}`;
+}
+
+/**
+ * Tenure label beside a job title.
+ * Ongoing (`Present`) roles use the same live Y/M/D+ pattern as the intro;
+ * completed roles keep the compact rounded-years label.
+ */
+export function formatJobTenureLabel(period: string, asOf: Date = new Date()): string {
+  const parsed = parseWorkPeriod(period);
+  if (!parsed) {
+    return '';
+  }
+
+  if (isOngoingPeriod(period)) {
+    return `(${formatCareerTenure(getCalendarTenure(parsed.start, asOf))})`;
+  }
+
+  return formatYearsSinceStart(period);
 }
 
 const CAREER_TENURE_TOKEN = /\{\{\s*careerTenure\s*\}\}/g;

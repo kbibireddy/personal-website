@@ -26,13 +26,11 @@ import {
   FaLinkedin,
   FaEnvelope,
   FaMapMarkerAlt,
-  FaGraduationCap,
   FaTools,
   FaFilePdf,
   FaFileWord,
 } from 'react-icons/fa';
 import { MdMoney } from 'react-icons/md';
-import { GiSoapExperiment } from 'react-icons/gi';
 import { PiCode, PiBrainThin, PiNetworkXDuotone, PiToolboxDuotone } from 'react-icons/pi';
 import { TbDatabase, TbApps, TbMathIntegrals } from 'react-icons/tb';
 import { BsGraphUpArrow } from 'react-icons/bs';
@@ -312,11 +310,10 @@ export default function Home() {
 
             <motion.section id="education" className="mb-16 scroll-mt-24" {...fadeUp}>
               <h2
-                className={`mb-6 flex items-center gap-2 font-outfit text-2xl font-bold tracking-tight ${
+                className={`mb-6 font-outfit text-2xl font-bold tracking-tight ${
                   theme === 'meta' ? 'text-slate-900' : 'text-white'
                 }`}
               >
-                <FaGraduationCap className={accentText} />
                 Education
               </h2>
               <div className="space-y-8 border-l border-current/10 pl-5">
@@ -356,11 +353,10 @@ export default function Home() {
 
             <motion.section id="skills" className="mb-16 scroll-mt-24" {...fadeUp}>
               <h2
-                className={`mb-6 flex items-center gap-2 font-outfit text-2xl font-bold tracking-tight ${
+                className={`mb-6 font-outfit text-2xl font-bold tracking-tight ${
                   theme === 'meta' ? 'text-slate-900' : 'text-white'
                 }`}
               >
-                <FaTools className={accentText} />
                 Skills
               </h2>
               <div className="space-y-8">
@@ -431,11 +427,10 @@ export default function Home() {
 
             <motion.section id="portfolio" className="scroll-mt-24" {...fadeUp}>
               <h2
-                className={`mb-6 flex items-center gap-2 font-outfit text-2xl font-bold tracking-tight ${
+                className={`mb-6 font-outfit text-2xl font-bold tracking-tight ${
                   theme === 'meta' ? 'text-slate-900' : 'text-white'
                 }`}
               >
-                <GiSoapExperiment className={accentText} />
                 Portfolio
               </h2>
               <Portfolio theme={theme} />

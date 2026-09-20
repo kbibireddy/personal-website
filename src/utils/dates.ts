@@ -65,9 +65,12 @@ export interface CareerTenure {
   years: number;
   months: number;
   days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
 }
 
-function getEarliestCareerStart(workExperience: WorkExperience[]): Date | null {
+export function getEarliestCareerStart(workExperience: WorkExperience[]): Date | null {
   const startDates = workExperience
     .map((job) => parseWorkPeriod(job.period)?.start)
     .filter((date): date is Date => date !== undefined);
@@ -81,16 +84,23 @@ function getEarliestCareerStart(workExperience: WorkExperience[]): Date | null {
   );
 }
 
-/** Calendar years / months / days from earliest role start through today. */
+/** Calendar years / months / days plus live h/m/s from earliest role start. */
 export function getCareerTenure(
   workExperience: WorkExperience[],
   asOf: Date = new Date()
 ): CareerTenure {
   const start = getEarliestCareerStart(workExperience);
   if (!start) {
-    return { years: 0, months: 0, days: 0 };
+    return { years: 0, months: 0, days: 0, hours: 0, minutes: 0, seconds: 0 };
   }
 
+  return getCareerTenureFromStart(start, asOf);
+}
+
+export function getCareerTenureFromStart(
+  start: Date,
+  asOf: Date = new Date()
+): CareerTenure {
   let years = asOf.getFullYear() - start.getFullYear();
   let months = asOf.getMonth() - start.getMonth();
   let days = asOf.getDate() - start.getDate();
@@ -106,10 +116,25 @@ export function getCareerTenure(
     months += 12;
   }
 
+  const anchor = new Date(start);
+  anchor.setFullYear(anchor.getFullYear() + Math.max(0, years));
+  anchor.setMonth(anchor.getMonth() + Math.max(0, months));
+  anchor.setDate(anchor.getDate() + Math.max(0, days));
+
+  let remainingMs = Math.max(0, asOf.getTime() - anchor.getTime());
+  const hours = Math.floor(remainingMs / 3_600_000);
+  remainingMs -= hours * 3_600_000;
+  const minutes = Math.floor(remainingMs / 60_000);
+  remainingMs -= minutes * 60_000;
+  const seconds = Math.floor(remainingMs / 1000);
+
   return {
     years: Math.max(0, years),
     months: Math.max(0, months),
     days: Math.max(0, days),
+    hours,
+    minutes,
+    seconds,
   };
 }
 
@@ -118,14 +143,24 @@ export function getTotalCareerYears(workExperience: WorkExperience[]): number {
   return Math.max(1, tenure.years);
 }
 
-export function formatCareerTenure(tenure: CareerTenure): string {
-  const yearLabel = tenure.years === 1 ? 'year' : 'years';
-  const monthLabel = tenure.months === 1 ? 'month' : 'months';
-  const dayLabel = tenure.days === 1 ? 'day' : 'days';
-  return `${tenure.years} ${yearLabel}, ${tenure.months} ${monthLabel}, ${tenure.days}+ ${dayLabel}`;
+function pluralize(count: number, singular: string, plural: string): string {
+  return `${count} ${count === 1 ? singular : plural}`;
 }
 
-const CAREER_TENURE_TOKEN = /\{\{\s*careerTenure\s*\}\}/g;
+/** e.g. "9 years, 3 months, 19 days, 14h, 32m, 05s" */
+export function formatCareerTenure(tenure: CareerTenure): string {
+  const pad = (n: number) => n.toString().padStart(2, '0');
+  return [
+    pluralize(tenure.years, 'year', 'years'),
+    pluralize(tenure.months, 'month', 'months'),
+    pluralize(tenure.days, 'day', 'days'),
+    `${tenure.hours}h`,
+    `${tenure.minutes}m`,
+    `${pad(tenure.seconds)}s`,
+  ].join(', ');
+}
+
+export const CAREER_TENURE_TOKEN = /\{\{\s*careerTenure\s*\}\}/g;
 
 export function formatIntroduction(
   introduction: string[],

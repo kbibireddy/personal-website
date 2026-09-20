@@ -9,6 +9,7 @@ import ThemeSwitcher from '@/components/ThemeSwitcher';
 import LatticeAtmosphere from '@/components/LatticeAtmosphere';
 import SkillBadge from '@/components/SkillBadge';
 import PDFResume from '@/components/PDFResume';
+import IntroductionWithTenure from '@/components/IntroductionWithTenure';
 
 import { Theme } from '@/types/theme';
 import {
@@ -44,7 +45,7 @@ import { RiStockFill } from 'react-icons/ri';
 
 import { generatePDF } from '@/utils/pdf';
 import { generateDOCX } from '@/utils/docx';
-import { formatIntroduction } from '@/utils/dates';
+import { getEarliestCareerStart } from '@/utils/dates';
 import {
   CONTENT_FONT_SCALE,
   CONTENT_SECTION_MAX_WIDTH,
@@ -97,10 +98,8 @@ export default function Home() {
     );
   }
 
-  const introduction = formatIntroduction(
-    resumeData.introduction,
-    resumeData.workExperience
-  );
+  const careerStart = getEarliestCareerStart(resumeData.workExperience);
+  const careerStartIso = careerStart ? careerStart.toISOString() : null;
 
   const accent = getAccentHex(theme);
   const accentText = getAccentTextClass(theme);
@@ -255,11 +254,12 @@ export default function Home() {
               >
                 Introduction
               </h2>
-              <div className={`space-y-5 text-base leading-relaxed sm:text-lg ${muted} ${theme === 'meta' ? 'text-slate-700' : 'text-slate-300'}`}>
-                {introduction.map((paragraph, index) => (
-                  <p key={index}>{paragraph}</p>
-                ))}
-              </div>
+              <IntroductionWithTenure
+                paragraphs={resumeData.introduction}
+                startIso={careerStartIso}
+                className={`space-y-5 text-base leading-relaxed sm:text-lg ${muted} ${theme === 'meta' ? 'text-slate-700' : 'text-slate-300'}`}
+                timerClassName={`font-mono text-[0.95em] tabular-nums ${accentText}`}
+              />
             </motion.section>
 
             <motion.section id="experience" className="mb-16 scroll-mt-24" {...fadeUp}>

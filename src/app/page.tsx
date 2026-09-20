@@ -248,24 +248,25 @@ export default function Home() {
                   <p className={`mb-2.5 font-mono text-[0.65rem] uppercase tracking-[0.14em] ${muted}`}>
                     Download latest resume
                   </p>
-                  <div className="flex flex-wrap items-center gap-2.5">
+                  <div className="flex flex-wrap items-center gap-4">
                     <motion.button
+                      type="button"
                       onClick={() => generatePDF()}
                       whileHover={{ y: -2 }}
-                      className="inline-flex items-center gap-2 rounded-xl px-3.5 py-2.5 text-sm font-medium text-[#0B1220] transition-transform"
-                      style={{
-                        background: `linear-gradient(135deg, ${accent}, ${
-                          theme === 'discord' ? '#0EA5E9' : '#14B8A6'
-                        })`,
-                      }}
+                      className={`inline-flex items-center gap-2 bg-transparent p-0 text-sm font-medium transition-opacity hover:opacity-70 ${
+                        theme === 'meta' ? 'text-slate-800' : 'text-slate-100'
+                      }`}
                     >
                       <FaFilePdf />
                       PDF
                     </motion.button>
                     <motion.button
+                      type="button"
                       onClick={() => generateDOCX()}
                       whileHover={{ y: -2 }}
-                      className={`inline-flex items-center gap-2 rounded-xl border ${accentBorder} ${surface} px-3.5 py-2.5 text-sm font-medium transition-transform`}
+                      className={`inline-flex items-center gap-2 bg-transparent p-0 text-sm font-medium transition-opacity hover:opacity-70 ${
+                        theme === 'meta' ? 'text-slate-800' : 'text-slate-100'
+                      }`}
                     >
                       <FaFileWord />
                       DOCX

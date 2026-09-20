@@ -14,8 +14,6 @@ import { Theme } from '@/types/theme';
 import {
   getShellClasses,
   getAccentTextClass,
-  getAccentBorderClass,
-  getSurfaceClass,
   getMutedTextClass,
   getAccentHex,
 } from '@/utils/theme';
@@ -104,8 +102,6 @@ export default function Home() {
 
   const accent = getAccentHex(theme);
   const accentText = getAccentTextClass(theme);
-  const accentBorder = getAccentBorderClass(theme);
-  const surface = getSurfaceClass(theme);
   const muted = getMutedTextClass(theme);
 
   return (

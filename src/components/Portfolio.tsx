@@ -6,7 +6,6 @@ import {
   getAccentHex,
   getAccentBorderClass,
   getMutedTextClass,
-  getSurfaceClass,
 } from '@/utils/theme';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import resumeData from '@/data/resume_swe.json';
@@ -18,7 +17,6 @@ interface PortfolioProps {
 export default function Portfolio({ theme }: PortfolioProps) {
   const accent = getAccentHex(theme);
   const muted = getMutedTextClass(theme);
-  const surface = getSurfaceClass(theme);
   const accentBorder = getAccentBorderClass(theme);
 
   const getStatusColor = (status: string) => {
@@ -44,7 +42,7 @@ export default function Portfolio({ theme }: PortfolioProps) {
           viewport={{ once: true, margin: '-8% 0px' }}
           transition={{ duration: 0.45, delay: index * 0.05 }}
           whileHover={{ x: 4 }}
-          className={`rounded-2xl border ${accentBorder} ${surface} px-5 py-5 transition-colors`}
+          className={`rounded-2xl border bg-transparent ${accentBorder} px-5 py-5 transition-colors`}
         >
           <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
             <h3

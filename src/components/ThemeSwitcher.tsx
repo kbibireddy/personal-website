@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { Theme } from '@/types/theme';
 import { themeConfigs } from '@/utils/theme';
+import { playThemeAudio } from '@/utils/themeAudio';
 
 interface ThemeSwitcherProps {
   onThemeChange: (theme: Theme) => void;
@@ -15,6 +16,7 @@ export default function ThemeSwitcher({ onThemeChange, theme }: ThemeSwitcherPro
 
   const handleThemeChange = (next: Theme) => {
     onThemeChange(next);
+    playThemeAudio(next);
   };
 
   const getThemeColors = (t: Theme) => {

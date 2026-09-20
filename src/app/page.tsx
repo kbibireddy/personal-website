@@ -71,7 +71,7 @@ export default function Home() {
 
   useEffect(() => {
     if (theme === 'discord') {
-      setTheme('netflix');
+      setTheme('meta');
     }
   }, [theme]);
 

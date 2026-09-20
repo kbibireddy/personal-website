@@ -57,11 +57,13 @@ module.exports = {
         syne: [
           'var(--font-syne)',
           'ui-sans-serif',
+          'system-ui',
           'sans-serif',
         ],
         outfit: [
           'var(--font-outfit)',
           'ui-sans-serif',
+          'system-ui',
           'sans-serif',
         ],
         mono: [
@@ -73,20 +75,26 @@ module.exports = {
           'Consolas',
           'monospace',
         ],
-        // Keep legacy keys pointed at expressive fonts so old class names still resolve
+        // Legacy keys → expressive fonts, with system fallbacks from theme-audio branch
         'space-grotesk': [
           'var(--font-syne)',
           'ui-sans-serif',
+          'system-ui',
           'sans-serif',
         ],
         'roboto-mono': [
           'var(--font-ibm-plex-mono)',
           'ui-monospace',
+          'SFMono-Regular',
+          'Menlo',
+          'Monaco',
+          'Consolas',
           'monospace',
         ],
         inter: [
           'var(--font-outfit)',
           'ui-sans-serif',
+          'system-ui',
           'sans-serif',
         ],
       },

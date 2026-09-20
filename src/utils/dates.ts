@@ -206,8 +206,8 @@ export function formatCareerTenureYearsMonths(tenure: {
 }
 
 /**
- * Tenure label beside a job title.
- * Ongoing (`Present`) roles use live years+months; completed roles keep rounded years.
+ * Tenure label beside a job title — always `(X years, Y months)`.
+ * Ongoing roles use "now"; completed roles use the period end month.
  */
 export function formatJobTenureLabel(period: string, asOf: Date = new Date()): string {
   const parsed = parseWorkPeriod(period);
@@ -215,11 +215,8 @@ export function formatJobTenureLabel(period: string, asOf: Date = new Date()): s
     return '';
   }
 
-  if (isOngoingPeriod(period)) {
-    return `(${formatCareerTenureYearsMonths(getCalendarTenureYearsMonths(parsed.start, asOf))})`;
-  }
-
-  return formatYearsSinceStart(period);
+  const end = isOngoingPeriod(period) ? asOf : parsed.end;
+  return `(${formatCareerTenureYearsMonths(getCalendarTenureYearsMonths(parsed.start, end))})`;
 }
 
 export const CAREER_TENURE_TOKEN = /\{\{\s*careerTenure\s*\}\}/g;

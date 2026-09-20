@@ -2,10 +2,9 @@
     "name": "KARTHIK BIBIREDDY",
     "headline": "Sr. Software Engineer | Distributed Systems & Data Infrastructure | Agentic AI Workflows",
     "introduction": [
-      "Hi, I'm Karthik. I'm a senior software engineer and AI operator who builds systems across the stack: embedded, frontend, backend, and distributed.",
-      "I have {{careerTenure}} of experience building reliable, fault-tolerant, high-performing systems at large scale, including ground control stations for drones, landing-detector integration with flight systems, computer vision models wired into web applications, Bluetooth middleware that routes SMS from phone to vehicle head units, and high-quality data signals that improved list-price display guardrail quality (removing ~8% bad-quality list-price displays from vending). I also migrated a critical ~8M QPS distributed system between datacenters with no customer downtime while modernizing IaC, supporting 6+ cross-team consumers and dependency integrations, and two parallel business goals on the platform being migrated.",
-      "I am currently a Sr. SDE at Amazon on Worldwide Strike-Through Pricing Experience. I lead engineering across batch processing and event-driven infrastructure, ensuring systems operate reliably under highly variable workload and that customers see the freshest possible pricing signals.",
-      "Outside of work, I spend time with my family, hike in the Pacific Northwest, play soccer, and produce electronic music."
+      "Hi, I'm Karthik. I am a senior software engineer and AI operator. I have {{careerTenure}} of experience building reliable systems across embedded software, frontend applications, backend services, and distributed infrastructure.",
+      "At Amazon, I lead engineering for batch and event-driven pricing systems that span more than 300 million products. I migrated an approximately 8 million QPS service across regions with no customer downtime, reduced network egress by approximately 90%, and built AI workflows that reduced initial on-call triage time by 30%. Earlier in my career, I built real-time computer vision products and fault-tolerant aerospace software on NASA Core Flight Systems.",
+      "Outside of work, I spend time with my family and my dog, Odin. I hike in the Pacific Northwest, play soccer, and experiment with electronic music."
     ],
     "professionalSummary": "Senior software engineer with 9+ years building distributed streaming and batch systems at Amazon and startups. I own high-scale customer-facing services on AWS, lead multi-region migrations and system design, tune event-driven pipelines, and drive team-wide adoption of agentic AI workflows.",
     "website": "https://kbibireddy.github.io/personal-website",

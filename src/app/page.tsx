@@ -437,6 +437,16 @@ export default function Home() {
             </motion.section>
           </div>
         </div>
+
+        <footer className={`no-print mt-4 border-t border-current/10 py-8 lg:mt-0 lg:pb-12 lg:pt-8 ${muted}`}>
+          <p className="font-mono text-[0.65rem] uppercase tracking-[0.14em]">
+            © {new Date().getFullYear()} {resumeData.name}
+            <span className="mx-2 opacity-40" aria-hidden>
+              ·
+            </span>
+            Built with Next.js
+          </p>
+        </footer>
       </div>
       <PDFResume />
     </main>

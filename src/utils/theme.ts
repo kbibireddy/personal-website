@@ -12,7 +12,7 @@ interface ThemeConfig {
   font: string;
 }
 
-/** Restyled accent systems: same theme IDs, new visual language. White/green (meta) is primary. */
+/** Restyled accent systems: same theme IDs, new visual language. Dark teal (netflix) is primary. */
 export const themeConfigs: Record<Theme, ThemeConfig> = {
   meta: {
     primary: '#0D9488',

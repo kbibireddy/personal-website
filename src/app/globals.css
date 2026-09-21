@@ -50,7 +50,18 @@
   }
 
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
+    overflow-anchor: none;
+  }
+
+  body {
+    overflow-anchor: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
   }
 
   /* Do not set overflow-x:hidden on html/body: it breaks position:sticky for the left rail. */

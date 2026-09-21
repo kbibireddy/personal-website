@@ -84,42 +84,6 @@ export function getEarliestCareerStart(workExperience: WorkExperience[]): Date |
   );
 }
 
-/**
- * Calendar years + months from `start` through `asOf`.
- * Any partial month rounds up to a full month. Used for job tenure labels.
- */
-function getCalendarTenureYearsMonths(
-  start: Date,
-  asOf: Date
-): { years: number; months: number } {
-  let totalMonths =
-    (asOf.getFullYear() - start.getFullYear()) * 12 +
-    (asOf.getMonth() - start.getMonth());
-
-  const startDay = start.getDate();
-  const asOfDay = asOf.getDate();
-
-  if (asOfDay < startDay) {
-    totalMonths -= 1;
-  }
-
-  if (asOfDay !== startDay) {
-    totalMonths += 1;
-  }
-
-  totalMonths = Math.max(0, totalMonths);
-
-  return {
-    years: Math.floor(totalMonths / 12),
-    months: totalMonths % 12,
-  };
-}
-
-export function isOngoingPeriod(period: string): boolean {
-  const parts = period.split(PERIOD_SEPARATOR).map((part) => part.trim());
-  return /^present$/i.test(parts[1] ?? '');
-}
-
 /** Full live tenure (y/m/d/h/m/s) from a career start timestamp. */
 export function getCareerTenureFromStart(
   start: Date,
@@ -180,43 +144,13 @@ export function getTotalCareerYears(workExperience: WorkExperience[]): number {
   return Math.max(1, tenure.years);
 }
 
-function pluralize(count: number, singular: string, plural: string): string {
-  return `${count} ${count === 1 ? singular : plural}`;
-}
-
-/** Intro timer label: "9 years, 3 months, 19 days, 14h, 32m, 05s" */
+/** Intro tenure: "9.5 years" if months ≥ 6, otherwise "9+ years". */
 export function formatCareerTenure(tenure: CareerTenure): string {
-  const pad = (n: number) => n.toString().padStart(2, '0');
-  return [
-    pluralize(tenure.years, 'year', 'years'),
-    pluralize(tenure.months, 'month', 'months'),
-    pluralize(tenure.days, 'day', 'days'),
-    `${tenure.hours}h`,
-    `${tenure.minutes}m`,
-    `${pad(tenure.seconds)}s`,
-  ].join(', ');
-}
-
-/** Compact years+months for job title tenure badges. */
-export function formatCareerTenureYearsMonths(tenure: {
-  years: number;
-  months: number;
-}): string {
-  return `${pluralize(tenure.years, 'year', 'years')}, ${pluralize(tenure.months, 'month', 'months')}`;
-}
-
-/**
- * Tenure label beside a job title — always `(X years, Y months)`.
- * Ongoing roles use "now"; completed roles use the period end month.
- */
-export function formatJobTenureLabel(period: string, asOf: Date = new Date()): string {
-  const parsed = parseWorkPeriod(period);
-  if (!parsed) {
-    return '';
+  const years = Math.max(0, tenure.years);
+  if (tenure.months >= 6) {
+    return `${years}.5 years`;
   }
-
-  const end = isOngoingPeriod(period) ? asOf : parsed.end;
-  return `(${formatCareerTenureYearsMonths(getCalendarTenureYearsMonths(parsed.start, end))})`;
+  return `${years}+ years`;
 }
 
 export const CAREER_TENURE_TOKEN = /\{\{\s*careerTenure\s*\}\}/g;

@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from 'react';
 import {
   formatCareerTenure,
   getCareerTenureFromStart,
@@ -15,24 +14,9 @@ interface CareerTenureTimerProps {
 }
 
 export function CareerTenureTimer({ startIso, className }: CareerTenureTimerProps) {
-  const [label, setLabel] = useState(() =>
-    formatCareerTenure(getCareerTenureFromStart(new Date(startIso)))
-  );
+  const label = formatCareerTenure(getCareerTenureFromStart(new Date(startIso)));
 
-  useEffect(() => {
-    const tick = () => {
-      setLabel(formatCareerTenure(getCareerTenureFromStart(new Date(startIso))));
-    };
-    tick();
-    const id = window.setInterval(tick, 1000);
-    return () => window.clearInterval(id);
-  }, [startIso]);
-
-  return (
-    <span className={className} aria-live="polite" aria-atomic="true">
-      {label}
-    </span>
-  );
+  return <span className={className}>{label}</span>;
 }
 
 interface IntroductionWithTenureProps {
@@ -42,7 +26,7 @@ interface IntroductionWithTenureProps {
   timerClassName?: string;
 }
 
-/** Renders intro paragraphs, swapping {{careerTenure}} for a live ticking timer. */
+/** Renders intro paragraphs, swapping {{careerTenure}} for rounded years (9+ / 9.5). */
 export default function IntroductionWithTenure({
   paragraphs,
   startIso,

@@ -4,9 +4,9 @@ export interface PageSection {
 }
 
 export const PAGE_SECTIONS: PageSection[] = [
-  { id: 'summary', label: 'Introduction' },
-  { id: 'experience', label: 'Work Experience' },
+  { id: 'summary', label: 'About Me' },
+  { id: 'experience', label: 'Experience' },
   { id: 'education', label: 'Education' },
   { id: 'skills', label: 'Skills' },
-  { id: 'portfolio', label: 'Portfolio' },
+  { id: 'portfolio', label: 'Projects' },
 ];

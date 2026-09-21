@@ -9,11 +9,11 @@ interface ThemeSwitcherProps {
   theme?: Theme;
 }
 
-/** White/green (meta) first, then dark teal (netflix). Discord kept in configs but hidden. */
-const SELECTABLE_THEMES: Theme[] = ['meta', 'netflix'];
+/** Dark teal (netflix) first, then white/green (meta). Discord kept in configs but hidden. */
+const SELECTABLE_THEMES: Theme[] = ['netflix', 'meta'];
 
 export default function ThemeSwitcher({ onThemeChange, theme }: ThemeSwitcherProps) {
-  const activeTheme = theme === 'discord' ? 'meta' : (theme ?? 'meta');
+  const activeTheme = theme === 'discord' ? 'netflix' : (theme ?? 'netflix');
   const selectableThemes = SELECTABLE_THEMES.filter((t) => t in themeConfigs);
 
   const handleThemeChange = (next: Theme) => {

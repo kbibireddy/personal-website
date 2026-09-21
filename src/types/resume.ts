@@ -17,8 +17,10 @@ export interface WorkExperience {
   company: string;
   title: string;
   period: string;
-  /** Short site-facing bullets (≤25 words each); expanded details use `description`. */
-  summary?: string[];
+  /** One site-facing paragraph for recruiters; expanded details use `description`. */
+  summary?: string;
+  /** Compact skill chips under the role summary (names from `Resume.skills`). */
+  skills?: string[];
   description: string[];
 }
 
@@ -39,7 +41,7 @@ export interface Project {
 export interface Resume {
   name: string;
   headline: string;
-  /** Site About / intro copy. Use {{careerTenure}} for a live years/months/days/h/m/s timer. */
+  /** Site About / intro copy. Use {{careerTenure}} for years: "9+ years" or "9.5 years". */
   introduction: string[];
   /** Concise summary for PDF/DOCX resume export only. */
   professionalSummary: string;

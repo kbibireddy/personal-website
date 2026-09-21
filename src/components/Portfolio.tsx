@@ -3,8 +3,9 @@
 import { motion } from 'framer-motion';
 import { Theme } from '@/types/theme';
 import {
-  getAccentHex,
   getMutedTextClass,
+  getSurfaceClass,
+  getAccentBorderClass,
 } from '@/utils/theme';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import resumeData from '@/data/resume_swe.json';
@@ -14,19 +15,35 @@ interface PortfolioProps {
 }
 
 export default function Portfolio({ theme }: PortfolioProps) {
-  const accent = getAccentHex(theme);
   const muted = getMutedTextClass(theme);
+  const surface = getSurfaceClass(theme);
+  const border = getAccentBorderClass(theme);
+  const isLight = theme === 'meta';
+  const chipClass = `
+        inline-flex items-center gap-2 rounded-xl border px-3 py-1.5
+        text-sm font-medium transition-all duration-200
+        ${surface} ${border}
+        hover:-translate-y-0.5
+      `;
 
-  const getStatusColor = (status: string) => {
+  const getStatusClass = (status: string) => {
     switch (status) {
       case 'Active':
-        return 'text-emerald-400';
+        return isLight
+          ? 'bg-emerald-100 text-emerald-700'
+          : 'bg-emerald-400/20 text-emerald-300';
       case 'WIP':
-        return 'text-amber-400';
+        return isLight
+          ? 'bg-amber-100 text-amber-800'
+          : 'bg-amber-400/20 text-amber-300';
       case 'Discontinued':
-        return 'text-rose-400';
+        return isLight
+          ? 'bg-rose-100 text-rose-700'
+          : 'bg-rose-400/20 text-rose-300';
       default:
-        return muted;
+        return isLight
+          ? 'bg-slate-100 text-slate-600'
+          : 'bg-white/10 text-slate-400';
     }
   };
 
@@ -41,16 +58,16 @@ export default function Portfolio({ theme }: PortfolioProps) {
           transition={{ duration: 0.45, delay: index * 0.05 }}
           className="min-w-0"
         >
-          <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
+          <div className="mb-2 flex flex-wrap items-start justify-between gap-2">
             <h3
               className={`font-outfit text-xl font-semibold ${
-                theme === 'meta' ? 'text-slate-900' : 'text-white'
+                isLight ? 'text-slate-900' : 'text-white'
               }`}
             >
               {project.title}
             </h3>
             <span
-              className={`font-mono text-[0.65rem] uppercase tracking-[0.16em] ${getStatusColor(project.status)}`}
+              className={`inline-flex shrink-0 items-center rounded-md px-1.5 py-0.5 font-mono text-[0.65rem] uppercase tracking-[0.16em] ${getStatusClass(project.status)}`}
             >
               {project.status}
             </span>
@@ -59,7 +76,7 @@ export default function Portfolio({ theme }: PortfolioProps) {
             {project.description.map((desc, i) => (
               <p
                 key={i}
-                className={`mb-2 text-[0.95rem] leading-relaxed ${theme === 'meta' ? 'text-slate-700' : 'text-slate-300'}`}
+                className={`mb-2 text-[0.95rem] leading-relaxed ${isLight ? 'text-slate-700' : 'text-slate-300'}`}
               >
                 {desc}
               </p>
@@ -81,18 +98,13 @@ export default function Portfolio({ theme }: PortfolioProps) {
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium text-[#0B1220]"
-              style={{
-                background: `linear-gradient(135deg, ${accent}, ${theme === 'discord' ? '#0EA5E9' : '#14B8A6'})`,
-              }}
+              className={chipClass}
             >
               Try it out
               <FaExternalLinkAlt className="text-xs" />
             </motion.a>
           ) : (
-            <div className="inline-flex cursor-not-allowed items-center gap-2 rounded-xl bg-current/10 px-4 py-2 text-sm font-medium opacity-50">
+            <div className={`${chipClass} cursor-not-allowed opacity-50 hover:translate-y-0`}>
               Try it out
               <FaExternalLinkAlt className="text-xs" />
             </div>

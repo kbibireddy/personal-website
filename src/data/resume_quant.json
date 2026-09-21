@@ -24,7 +24,7 @@
       "description": [
         "Drove adoption of generative AI by designing an event-driven investigation assistant built on a multi-agent architecture and reverse-indexed knowledge bases through MCP servers, enabling parallel ticket triage and cutting mean resolution time across on-call workflows.",
         "Led global data infrastructure diversification, migrating reference pricing data and systems from DUB → ZAZ/FRA regions with zero downtime, contributing to 40% org-wide infrastructure cost reduction goals.",
-        "Evolved distributed pricing pipeline (Spark/EMR/Scala) supporting 30M+ global products, continuously adapting core computation logic to align with changing business needs, regional regulations, and compliance requirements, ensuring sustained accuracy and resilience.",
+        "Evolved distributed pricing pipeline (Spark/EMR/Scala) supporting 600M+ products worldwide, continuously adapting core computation logic to align with changing business needs, regional regulations, and compliance requirements, ensuring sustained accuracy and resilience.",
         "Engineered high-performance messaging stack for automotive infotainment systems using C++ middleware and React Native UI, integrating Bluetooth and Alexa Cloud for real-time voice and SMS delivery on Amazon’s automotive OS.",
         "Led development of Alexa’s Teachable AI feature, a Java-based service library connecting automotive Alexa skills to teachable ML models, enabling custom, user-defined voice mappings, launched in Rivian, Lamborghini, and additional OEMs in 2022.",
         "Built low-latency Automotive Prompting Service in Java/RPC, enriching dialog responses with contextual data and adaptive suggestions, which reduced abandonment by 15% in Alexa Car Control.",

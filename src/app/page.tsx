@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, type CSSProperties } from 'react';
+import { useState, useEffect, useRef, type CSSProperties } from 'react';
 import { motion } from 'framer-motion';
 
 import WorkExperience from '@/components/WorkExperience';
@@ -41,6 +41,7 @@ import { RiStockFill } from 'react-icons/ri';
 
 import { generatePDF } from '@/utils/pdf';
 import { generateDOCX } from '@/utils/docx';
+import { animateScrollToId } from '@/utils/scroll';
 import { getEarliestCareerStart } from '@/utils/dates';
 import {
   CONTENT_FONT_SCALE,
@@ -56,11 +57,14 @@ const fadeUp = {
 };
 
 export default function Home() {
-  const [theme, setTheme] = useState<Theme>('meta');
+  const [theme, setTheme] = useState<Theme>('netflix');
   const [mounted, setMounted] = useState(false);
   const [showGPA, setShowGPA] = useState<{ [key: number]: boolean }>({});
   const { resume: resumeData, loading } = useResume();
-  const activeSection = useActiveSection(mounted && !loading && !!resumeData);
+  const { activeId: activeSection, lock, unlock } = useActiveSection(
+    mounted && !loading && !!resumeData
+  );
+  const navToken = useRef(0);
 
   useEffect(() => {
     setMounted(true);
@@ -68,7 +72,7 @@ export default function Home() {
 
   useEffect(() => {
     if (theme === 'discord') {
-      setTheme('meta');
+      setTheme('netflix');
     }
   }, [theme]);
 
@@ -79,11 +83,11 @@ export default function Home() {
     }));
   };
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+  const scrollToSection = async (id: string) => {
+    const token = ++navToken.current;
+    lock(id);
+    await animateScrollToId(id);
+    if (token === navToken.current) unlock();
   };
 
   if (!mounted || loading || !resumeData) {
@@ -143,7 +147,7 @@ export default function Home() {
               </h1>
 
               <p
-                className={`mt-5 max-w-md text-base font-medium leading-relaxed sm:text-lg ${
+                className={`mt-5 max-w-md text-[0.8rem] font-medium leading-relaxed sm:text-[0.9rem] ${
                   theme === 'meta' ? 'text-slate-900' : 'text-slate-100'
                 }`}
               >
@@ -281,34 +285,34 @@ export default function Home() {
               } as CSSProperties
             }
           >
-            <motion.section id="summary" className="mb-16 scroll-mt-24" {...fadeUp}>
+            <motion.section id="summary" className="mb-16" {...fadeUp}>
               <h2
                 className={`mb-4 font-outfit text-2xl font-bold tracking-tight ${
                   theme === 'meta' ? 'text-slate-900' : 'text-white'
                 }`}
               >
-                Introduction
+                About Me
               </h2>
               <IntroductionWithTenure
                 paragraphs={resumeData.introduction}
                 startIso={careerStartIso}
                 className={`space-y-5 text-base leading-relaxed sm:text-lg ${muted} ${theme === 'meta' ? 'text-slate-700' : 'text-slate-300'}`}
-                timerClassName={`font-mono text-[0.95em] tabular-nums ${accentText}`}
+                timerClassName={`font-mono text-[0.95em] font-bold tabular-nums ${accentText}`}
               />
             </motion.section>
 
-            <motion.section id="experience" className="mb-16 scroll-mt-24" {...fadeUp}>
+            <motion.section id="experience" className="mb-16" {...fadeUp}>
               <h2
                 className={`mb-6 font-outfit text-2xl font-bold tracking-tight ${
                   theme === 'meta' ? 'text-slate-900' : 'text-white'
                 }`}
               >
-                Work Experience
+                Experience
               </h2>
               <WorkExperience theme={theme} />
             </motion.section>
 
-            <motion.section id="education" className="mb-16 scroll-mt-24" {...fadeUp}>
+            <motion.section id="education" className="mb-16" {...fadeUp}>
               <h2
                 className={`mb-6 font-outfit text-2xl font-bold tracking-tight ${
                   theme === 'meta' ? 'text-slate-900' : 'text-white'
@@ -347,7 +351,7 @@ export default function Home() {
               </div>
             </motion.section>
 
-            <motion.section id="skills" className="mb-16 scroll-mt-24" {...fadeUp}>
+            <motion.section id="skills" className="mb-16" {...fadeUp}>
               <h2
                 className={`mb-6 font-outfit text-2xl font-bold tracking-tight ${
                   theme === 'meta' ? 'text-slate-900' : 'text-white'
@@ -421,13 +425,13 @@ export default function Home() {
               </div>
             </motion.section>
 
-            <motion.section id="portfolio" className="scroll-mt-24" {...fadeUp}>
+            <motion.section id="portfolio" {...fadeUp}>
               <h2
                 className={`mb-6 font-outfit text-2xl font-bold tracking-tight ${
                   theme === 'meta' ? 'text-slate-900' : 'text-white'
                 }`}
               >
-                Portfolio
+                Projects
               </h2>
               <Portfolio theme={theme} />
             </motion.section>

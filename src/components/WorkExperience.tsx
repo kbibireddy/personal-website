@@ -5,10 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Theme } from '@/types/theme';
 import { getAccentTextClass, getMutedTextClass } from '@/utils/theme';
 import { useResume } from '@/utils/useResume';
-import { formatJobTenureLabel } from '@/utils/dates';
-
-/** Ideal scannable length per summary bullet (~8s attention / one breath). */
-export const WORK_SUMMARY_MAX_WORDS = 25;
 
 interface WorkExperienceProps {
   theme: Theme;
@@ -35,9 +31,10 @@ export default function WorkExperience({ theme }: WorkExperienceProps) {
   return (
     <div className="space-y-10">
       {resumeData.workExperience.map((job, index) => {
-        const tenureLabel = formatJobTenureLabel(job.period);
         const isOpen = !!expanded[index];
-        const bullets = isOpen ? job.description : (job.summary ?? job.description);
+        const bodyClass = `text-[0.95rem] leading-relaxed ${
+          theme === 'meta' ? 'text-slate-700' : 'text-slate-300'
+        }`;
 
         return (
           <motion.article
@@ -55,11 +52,6 @@ export default function WorkExperience({ theme }: WorkExperienceProps) {
                 }`}
               >
                 {job.title}, {job.company}
-                {tenureLabel && (
-                  <span className={`tenure-label ml-1 font-normal italic ${muted}`}>
-                    {tenureLabel}
-                  </span>
-                )}
               </h3>
               <span className={`shrink-0 whitespace-nowrap font-mono text-xs tracking-wide sm:pt-1 ${muted}`}>
                 {job.period}
@@ -67,23 +59,48 @@ export default function WorkExperience({ theme }: WorkExperienceProps) {
             </div>
 
             <AnimatePresence mode="wait" initial={false}>
-              <motion.ul
-                key={isOpen ? 'details' : 'summary'}
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -4 }}
-                transition={{ duration: 0.2 }}
-                className={`list-disc space-y-2.5 pl-5 text-[0.95rem] leading-relaxed ${
-                  theme === 'meta' ? 'text-slate-700' : 'text-slate-300'
-                }`}
-              >
-                {bullets.map((desc, i) => (
-                  <li key={i}>{desc}</li>
-                ))}
-              </motion.ul>
+              {isOpen || !job.summary ? (
+                <motion.ul
+                  key="details"
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  transition={{ duration: 0.2 }}
+                  className={`list-disc space-y-2.5 pl-5 ${bodyClass}`}
+                >
+                  {job.description.map((desc, i) => (
+                    <li key={i}>{desc}</li>
+                  ))}
+                </motion.ul>
+              ) : (
+                <motion.p
+                  key="summary"
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  transition={{ duration: 0.2 }}
+                  className={bodyClass}
+                >
+                  {job.summary}
+                </motion.p>
+              )}
             </AnimatePresence>
 
-            {(job.summary?.length ?? 0) > 0 && (
+            {job.skills && job.skills.length > 0 && (
+              <div className="mt-3 flex flex-wrap gap-2">
+                {job.skills.map((name, i) => (
+                  <span
+                    key={name}
+                    className={`font-mono text-[0.7rem] tracking-wide ${muted}`}
+                  >
+                    {name}
+                    {i < job.skills!.length - 1 ? ' ·' : ''}
+                  </span>
+                ))}
+              </div>
+            )}
+
+            {!!job.summary && (
               <button
                 type="button"
                 onClick={() => toggle(index)}

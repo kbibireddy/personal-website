@@ -58,7 +58,7 @@ export default function ThemeSwitcher({ onThemeChange, theme }: ThemeSwitcherPro
   };
 
   return (
-    <div className="theme-switcher fixed right-4 top-4 z-50 sm:right-6 sm:top-6">
+    <div className="theme-switcher fixed right-4 top-4 z-50 origin-top-right scale-[0.8] sm:right-6 sm:top-6 sm:scale-100">
       <div className="flex items-center gap-2 rounded-full border border-current/10 bg-black/20 px-3 py-2 backdrop-blur-md dark:bg-white/5">
         <span className="hidden font-mono text-[0.65rem] uppercase tracking-[0.14em] opacity-60 sm:inline">
           Themes

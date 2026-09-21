@@ -21,7 +21,7 @@
         "company": "Amazon",
         "period": "Jul 2020 - Present",
         "summary": "At Amazon I grew from Alexa Automotive into owning customer-facing pricing infrastructure at global scale. I shipped conversational car control, Teachable AI, and C++ in-car messaging with OEMs including Lamborghini, Rivian, and Lucid, then took ownership of Spark, EMR, and Scala pipelines that power strikethrough prices and price history across 600M+ products worldwide. I led a zero-downtime multi-region migration for an ~8M QPS list-price service processing 200M+ records/day, secured network egress by diverting traffic from NAT gateways to private VPC endpoints, cutting NAT usage ~90%, designed a unified pricing config platform with safe previews, and built AI-first internal tools that cut initial on-call triage time by 30%.",
-        "skills": ["Apache Spark", "Scala", "Python", "Java", "AWS CDK", "AWS VPC", "Event-driven Architecture", "GenAI / LLM Tooling"],
+        "skills": ["Apache Spark", "Scala", "Java", "TypeScript", "SQL", "DynamoDB", "Amazon Athena", "AWS CDK", "AWS VPC", "AWS Lambda", "AWS SQS", "AWS SNS", "AWS Kinesis", "Event-driven Architecture", "GenAI / LLM Tooling", "C++", "Microservices"],
         "description": [
           "Sole owner of a zero-downtime, multi-region infrastructure migration for a customer-facing list-price validation service built as a hybrid of event-driven and streaming pipelines. Rebuilt the full IaC stack with AWS CDK, secured network egress by diverting traffic from NAT gateways to private VPC endpoints, reducing NAT usage by roughly 90% (from 470GB to 6GB), and lowered capacity concentration risk while maintaining 99.9% data accuracy and zero downtime on a service that processes 200M+ records per day worldwide and serves approximately 8M QPS across Amazon domains.",
           "Built various AI-first apps used across Amazon, including Text Forge (~100 DAU, ~550 LLM-backed transforms/day) for one-click text cleanup and transformations, Chart Forge for converting plain-text and tabular data into time-series charts, and an AI ticket-labeling tool for semantic classification with trend analytics, adopted by Pricing Support teams as an early-warning signal for systemic issues. Also architected multi-stage on-call triage that has processed ~5,000 tickets in 10 months and cut initial triage time by 30%.",
@@ -35,7 +35,7 @@
         "company": "Algoface",
         "period": "Mar 2019 - Jun 2020",
         "summary": "At Algoface I owned real-time computer vision for face tracking and AR virtual try-on on web and mobile. I led WebAssembly performance work across TypeScript and C++ inference layers to cut latency and smooth rendering, scaled containerized cloud infrastructure with monitoring and CI/CD, and partnered with enterprise customers to ship production integrations.",
-        "skills": ["TypeScript", "C++", "WebAssembly", "React.js", "Docker", "Node.js", "Kubernetes", "REST APIs"],
+        "skills": ["TypeScript", "C++", "WebAssembly", "React.js", "Docker", "Node.js", "REST APIs"],
         "description": [
           "Architected and deployed computer vision services for real-time face tracking and AR virtual try-on across web and mobile experiences.",
           "Led WebAssembly performance optimization initiatives, improving latency and rendering smoothness through precision tuning and memory efficiency work.",
@@ -78,17 +78,8 @@
         "description": [
           "Building a personal platform to backtest and analyze trading strategies using historical financial data, with event-driven AWS Lambda workflows, ETL pipelines for sentiment and technical analysis, and a React-based dashboard for strategy evaluation and performance tracking."
         ],
-        "technologies": ["Next.js", "AWS Fargate", "Redis", "AWS CloudFormation", "AWS Lambda", "AWS S3"],
+        "technologies": ["Next.js", "AWS Fargate", "Redis", "AWS CloudFormation", "AWS Lambda", "AWS S3", "DynamoDB", "Real-time Systems", "Go"],
         "link": "https://kbibireddy.github.io/marketview/"
-      },
-      {
-        "title": "Real Estate Investment Analysis Tool",
-        "status": "Active",
-        "description": [
-          "Developed a web-based tool to evaluate real estate investment opportunities by comparing buying vs renting, incorporating inputs like purchase price, interest rate, taxes, and ownership costs to output projected ROI, breakeven points, and overall investment value in a clean, user-friendly interface."
-        ],
-        "technologies": ["Next.js", "Github Pages"],
-        "link": "https://kbibireddy.github.io/real-estate-investment-app/"
       },
       {
         "title": "Closed Captioner iOS App",
@@ -98,6 +89,24 @@
         ],
         "technologies": ["SwiftUI", "Speech", "MultipeerConnectivity", "StoreKit 2", "AdMob"],
         "link": "https://apps.apple.com/us/app/closed-captioner/id6754772689"
+      },
+      {
+        "title": "Back of the Envelope Math",
+        "status": "Active",
+        "description": [
+          "In-browser system-design calculators for storage sizing and capacity planning. Paste a sample payload to estimate UTF-8 footprint, scale from 1 to 1B records with YoY growth, convert DAU or RPS into peak throughput and bandwidth, and use ByteByteGo-aligned cheat sheets. All math stays on-device."
+        ],
+        "technologies": ["JavaScript", "Vite", "Vitest", "GitHub Pages"],
+        "link": "https://kbibireddy.github.io/envelope-math/"
+      },
+      {
+        "title": "Real Estate Investment Analysis Tool",
+        "status": "Active",
+        "description": [
+          "Developed a web-based tool to evaluate real estate investment opportunities by comparing buying vs renting, incorporating inputs like purchase price, interest rate, taxes, and ownership costs to output projected ROI, breakeven points, and overall investment value in a clean, user-friendly interface."
+        ],
+        "technologies": ["Next.js", "Github Pages"],
+        "link": "https://kbibireddy.github.io/real-estate-investment-app/"
       },
       {
         "title": "Compensation Planner",

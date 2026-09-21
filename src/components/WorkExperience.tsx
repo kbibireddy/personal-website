@@ -28,6 +28,10 @@ export default function WorkExperience({ theme }: WorkExperienceProps) {
     setExpanded((prev) => ({ ...prev, [index]: !prev[index] }));
   };
 
+  const proficiencyByName = new Map(
+    resumeData.skills.map((skill) => [skill.name, skill.proficiency])
+  );
+
   return (
     <div className="space-y-10">
       {resumeData.workExperience.map((job, index) => {
@@ -35,6 +39,11 @@ export default function WorkExperience({ theme }: WorkExperienceProps) {
         const bodyClass = `text-[0.95rem] leading-relaxed ${
           theme === 'meta' ? 'text-slate-700' : 'text-slate-300'
         }`;
+        const jobSkills = [...(job.skills ?? [])].sort((a, b) => {
+          const byProf =
+            (proficiencyByName.get(b) ?? 0) - (proficiencyByName.get(a) ?? 0);
+          return byProf !== 0 ? byProf : a.localeCompare(b);
+        });
 
         return (
           <motion.article
@@ -86,15 +95,15 @@ export default function WorkExperience({ theme }: WorkExperienceProps) {
               )}
             </AnimatePresence>
 
-            {job.skills && job.skills.length > 0 && (
+            {jobSkills.length > 0 && (
               <div className="mt-3 flex flex-wrap gap-2">
-                {job.skills.map((name, i) => (
+                {jobSkills.map((name, i) => (
                   <span
                     key={name}
                     className={`font-mono text-[0.7rem] tracking-wide ${muted}`}
                   >
                     {name}
-                    {i < job.skills!.length - 1 ? ' ·' : ''}
+                    {i < jobSkills.length - 1 ? ' ·' : ''}
                   </span>
                 ))}
               </div>

@@ -15,8 +15,14 @@ interface CareerTenureTimerProps {
 
 export function CareerTenureTimer({ startIso, className }: CareerTenureTimerProps) {
   const label = formatCareerTenure(getCareerTenureFromStart(new Date(startIso)));
+  const [amount, unit = 'years'] = label.split(/\s+/);
 
-  return <span className={className}>{label}</span>;
+  return (
+    <span className={className}>
+      {amount}
+      <span className="ml-[0.25em]">{unit}</span>
+    </span>
+  );
 }
 
 interface IntroductionWithTenureProps {

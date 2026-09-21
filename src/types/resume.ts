@@ -17,6 +17,8 @@ export interface WorkExperience {
   company: string;
   title: string;
   period: string;
+  /** Short site-facing bullets (≤25 words each); expanded details use `description`. */
+  summary?: string[];
   description: string[];
 }
 
@@ -37,6 +39,9 @@ export interface Project {
 export interface Resume {
   name: string;
   headline: string;
+  /** Site About / intro copy. Use {{careerTenure}} for a live years/months/days/h/m/s timer. */
+  introduction: string[];
+  /** Concise summary for PDF/DOCX resume export only. */
   professionalSummary: string;
   website: string;
   contact: Contact;

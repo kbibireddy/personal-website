@@ -1,8 +1,11 @@
 "use client";
 
-import { motion } from 'framer-motion'
+import { motion } from 'framer-motion';
 import { Theme } from '@/types/theme';
-import { getCardBgClass, getAccentClasses } from '@/utils/theme';
+import {
+  getAccentHex,
+  getMutedTextClass,
+} from '@/utils/theme';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import resumeData from '@/data/resume_swe.json';
 
@@ -11,71 +14,91 @@ interface PortfolioProps {
 }
 
 export default function Portfolio({ theme }: PortfolioProps) {
+  const accent = getAccentHex(theme);
+  const muted = getMutedTextClass(theme);
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'Active':
-        return 'bg-green-500/20 text-green-500';
+        return 'text-emerald-400';
       case 'WIP':
-        return 'bg-yellow-500/20 text-yellow-500';
+        return 'text-amber-400';
       case 'Discontinued':
-        return 'bg-red-500/20 text-red-500';
+        return 'text-rose-400';
       default:
-        return 'bg-gray-500/20 text-gray-500';
+        return muted;
     }
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 gap-x-10 gap-y-12 sm:grid-cols-2 sm:items-start">
       {resumeData.projects?.map((project, index) => (
-        <motion.div
+        <motion.article
           key={index}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: index * 0.1 }}
-          className={`${getCardBgClass(theme)} backdrop-blur-sm rounded-lg p-6`}
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-8% 0px' }}
+          transition={{ duration: 0.45, delay: index * 0.05 }}
+          className="min-w-0"
         >
-          <div className="flex justify-between items-start mb-2">
-            <h3 className="text-xl font-semibold">{project.title}</h3>
-            <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(project.status)}`}>
+          <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
+            <h3
+              className={`font-outfit text-xl font-semibold ${
+                theme === 'meta' ? 'text-slate-900' : 'text-white'
+              }`}
+            >
+              {project.title}
+            </h3>
+            <span
+              className={`font-mono text-[0.65rem] uppercase tracking-[0.16em] ${getStatusColor(project.status)}`}
+            >
               {project.status}
             </span>
           </div>
           <div className="mb-4">
             {project.description.map((desc, i) => (
-              <p key={i} className="text-current/90 mb-2">{desc}</p>
+              <p
+                key={i}
+                className={`mb-2 text-[0.95rem] leading-relaxed ${theme === 'meta' ? 'text-slate-700' : 'text-slate-300'}`}
+              >
+                {desc}
+              </p>
             ))}
           </div>
-          <div className="flex flex-wrap gap-2 mb-4">
+          <div className="mb-4 flex flex-wrap gap-2">
             {project.technologies.map((tech, i) => (
               <span
                 key={i}
-                className={`${getCardBgClass(theme)} px-3 py-1 rounded-full text-sm text-current/80`}
+                className={`font-mono text-[0.7rem] tracking-wide ${muted}`}
               >
                 {tech}
+                {i < project.technologies.length - 1 ? ' ·' : ''}
               </span>
             ))}
           </div>
-          {project.link && (
+          {project.link ? (
             <motion.a
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r ${getAccentClasses(theme)} text-white text-sm font-medium transition-transform`}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium text-[#0B1220]"
+              style={{
+                background: `linear-gradient(135deg, ${accent}, ${theme === 'discord' ? '#0EA5E9' : '#14B8A6'})`,
+              }}
             >
               Try it out
-              <FaExternalLinkAlt />
+              <FaExternalLinkAlt className="text-xs" />
             </motion.a>
-          )}
-          {!project.link && (
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-500/20 text-gray-500 text-sm font-medium cursor-not-allowed">
+          ) : (
+            <div className="inline-flex cursor-not-allowed items-center gap-2 rounded-xl bg-current/10 px-4 py-2 text-sm font-medium opacity-50">
               Try it out
-              <FaExternalLinkAlt />
+              <FaExternalLinkAlt className="text-xs" />
             </div>
           )}
-        </motion.div>
+        </motion.article>
       ))}
     </div>
   );
-} 
+}

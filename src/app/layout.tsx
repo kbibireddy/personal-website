@@ -1,33 +1,19 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import { Space_Grotesk, Roboto_Mono, Inter } from 'next/font/google'
-import Script from 'next/script'
+import { Outfit, IBM_Plex_Mono } from 'next/font/google'
 
-const spaceGrotesk = Space_Grotesk({
+const outfit = Outfit({
   subsets: ['latin'],
-  display: 'block',
-  variable: '--font-space-grotesk',
-  preload: true,
-  weight: ['400', '500', '600', '700'],
-  adjustFontFallback: true,
+  display: 'swap',
+  variable: '--font-outfit',
+  weight: ['300', '400', '500', '600', '700', '800'],
 })
 
-const robotoMono = Roboto_Mono({
+const ibmPlexMono = IBM_Plex_Mono({
   subsets: ['latin'],
-  display: 'block',
-  variable: '--font-roboto-mono',
-  preload: true,
-  weight: ['400', '500', '600', '700'],
-  adjustFontFallback: true,
-})
-
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'block',
-  variable: '--font-inter',
-  preload: true,
-  weight: ['400', '500', '600', '700'],
-  adjustFontFallback: true,
+  display: 'swap',
+  variable: '--font-ibm-plex-mono',
+  weight: ['400', '500', '600'],
 })
 
 export const metadata: Metadata = {
@@ -41,12 +27,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} ${robotoMono.variable} ${inter.variable}`} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${outfit.variable} ${ibmPlexMono.variable}`}
+      suppressHydrationWarning
+    >
       <head>
-        <link
-          rel="preconnect"
-          href="https://fonts.googleapis.com"
-        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
           href="https://fonts.gstatic.com"
@@ -68,4 +55,4 @@ export default function RootLayout({
       <body suppressHydrationWarning>{children}</body>
     </html>
   )
-} 
+}
